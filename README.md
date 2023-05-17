@@ -23,8 +23,8 @@ _ Quản lý và ghi lại số ngày làm việc + số ngày nghỉ + thời g
 _ Quản lý danh sách CV của nhân viên + lương nhân viên (bao gồm GOSS + NET)<br>
 _ Trang web được thiết kế đẹp mắt và dễ sử dụng.<br>
 
-+ Các công nghệ sử dụng
-_ Vue3
-_ vue-sweetalert2
-_ tailwindcss
-_ pinia
++ Các công nghệ sử dụng<br>
+_ Vue3<br>
+_ vue-sweetalert2<br>
+_ tailwindcss<br>
+_ pinia<br>
