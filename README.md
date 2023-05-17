@@ -1,29 +1,30 @@
-# log-ot-fe
+### Giới thiệu Website LOG OT
+Đây là website quản lý nhân sự và cho thuê nhân sự + ghi lại thời gian làm việc cũng như tính lương nhân viên
+Trang web được xây dựng bằng Vitejs + Vue3
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+Cài đặt
+1. Clone repo này bằng cách sử dụng lệnh sau:
+```bash
+git clone https://github.com/dunghq21102001/LOG_OT_FE.git
+````
+2. Cài đặt các dependencies bằng lệnh sau:
+```
 npm install
 ```
-
-### Compile and Hot-Reload for Development
-
-```sh
+3. Chạy ứng dụng bằng lệnh sau:
+```sql
 npm run dev
 ```
 
-### Compile and Minify for Production
++ Các tính năng
+Trang web này có các tính năng sau:<br>
+_ Quản lý hệ thống nhân sự với các cấp bậc khác nhau<br>
+_ Quản lý và ghi lại số ngày làm việc + số ngày nghỉ + thời gian OT<br>
+_ Quản lý danh sách CV của nhân viên + lương nhân viên (bao gồm GOSS + NET)<br>
+_ Trang web được thiết kế đẹp mắt và dễ sử dụng.<br>
 
-```sh
-npm run build
-```
++ Các công nghệ sử dụng
+_ Vue3
+_ vue-sweetalert2
+_ tailwindcss
+_ pinia
