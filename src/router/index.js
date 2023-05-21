@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import LoginView from '../views/LoginView.vue'
+import EmployeeInformationView from '../views/EmpInfoView.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,6 +18,16 @@ const router = createRouter({
       meta: {
         // middleware:
       }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/infoEmp/:id',
+      name: 'empinfo',
+      component: EmployeeInformationView
     }
   ]
 })
