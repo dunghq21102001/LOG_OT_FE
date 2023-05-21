@@ -1,6 +1,6 @@
 <template>
-  <div>
-
+  <div class="bg-white">
+    xin chào các bạn
   </div>
 </template>
 
