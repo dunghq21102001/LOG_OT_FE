@@ -65,11 +65,11 @@ export default class menu {
     static profileMenu() {
         return [
             {
-                name: 'Profile',
+                name: 'profile',
                 routeName: '',
             },
             {
-                name: 'Payroll',
+                name: 'payroll',
                 routeName: '',
             },
         ]

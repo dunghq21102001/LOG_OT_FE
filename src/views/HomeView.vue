@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white">
-    xin chào các bạn
+    {{ $t('login') }}
   </div>
 </template>
 

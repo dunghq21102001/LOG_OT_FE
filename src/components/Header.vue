@@ -7,11 +7,12 @@
             <font-awesome-icon class="block sm:hidden w-3" @click="isShowMobileMenu = !isShowMobileMenu"
                 :icon="isShowMobileMenu ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" />
             <div class="w-[50px] relative">
-                <country-flag class="cursor-pointer" v-click-outside-element="close" @click="showLang" country='vn'
-                    size='normal' />
+                <country-flag class="cursor-pointer" v-click-outside-element="close" @click="showLang"
+                    :country="currentLang == 'vnm' ? 'vn' : 'us'" size='normal' />
                 <Transition name="lang">
-                    <div v-show="isShowLang" class="absolute top-[100%] left-0 w-[300%] sm:w-[200%] shadow-md bg-white">
-                        <div class="hover:bg-[#dbd9d9] cursor-pointer flex justify-around px-2 py-3 my-1"
+                    <div v-show="isShowLang" class="absolute top-[100%] left-0 w-[300%] shadow-md bg-white">
+                        <div @click="changeLang(c.code)"
+                            class="hover:bg-[#dbd9d9] cursor-pointer flex justify-around px-2 py-3 my-1"
                             v-for="c in listLang">
                             <country-flag style="margin-top: -7px !important;" :country='c.code' size='normal' />
                             <span class="dark:text-black">{{ c.name }}</span>
@@ -34,28 +35,39 @@
                 </div>
                 <Transition name="profile">
                     <div v-show="isShowProfile" class="absolute top-[100%] left-0 w-full flex flex-col bg-white shadow-lg">
-                        <span v-for="item in profileMenu" class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
-                            {{ item.name }}
+                        <span v-for="item in profileMenu"
+                            class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
+                            {{ $t(item.name) }}
                         </span>
                     </div>
                 </Transition>
             </div>
-            <SideBarMobile v-show="isShowMobileMenu" :isShow="isShowMobileMenu"/>
+            <Transition name="mobile-menu">
+                <SideBarMobile v-show="isShowMobileMenu" :isShow="isShowMobileMenu" @close-menu="closeMenuMobile" />
+            </Transition>
         </div>
     </div>
+    <Loading v-if="isLoading"/>
 </template>
 <script>
+import { useLanguageStore } from '../stores/lang'
 import { useDark, useToggle } from '@vueuse/core'
 import menu from '../service/menu'
+import Loading from './Loading.vue'
 import SideBarMobile from './SideBarMobile.vue'
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 export default {
+    setup() {
+        const langStore = useLanguageStore()
+        return { langStore }
+    },
     components: {
-        SideBarMobile
+        SideBarMobile, Loading
     },
     data() {
         return {
+            currentLang: '',
             listLang: [
                 { id: 1, name: 'Tiếng Việt', code: 'vnm', value: 'vi' },
                 { id: 2, name: 'Tiếng Anh', code: 'us', value: 'us' }
@@ -64,10 +76,22 @@ export default {
             isShowLang: false,
             isShowProfile: false,
             isDark: true,
-            isShowMobileMenu: false
+            isShowMobileMenu: false,
+            isLoading: false
         }
     },
+    created() {
+        this.getCurrentLanguage()
+    },
     methods: {
+        getCurrentLanguage() {
+            this.listLang.map(l => {
+                if (l.value == this.langStore.getLocate) {
+                    if (this.langStore.getLocate == 'vi') this.currentLang = 'vnm'
+                    else this.currentLang = 'us'
+                }
+            })
+        },
         showLang() {
             this.isShowLang = !this.isShowLang
         },
@@ -88,6 +112,19 @@ export default {
         expandAction() {
             const ele = document.body
             ele.requestFullscreen()
+        },
+        closeMenuMobile(e) {
+            this.isShowMobileMenu = e
+        },
+        changeLang(lang) {
+            this.currentLang = lang
+            this.isLoading = true
+            setTimeout(() => {
+                this.isLoading = false
+            }, 1500)
+            const value = lang == 'vnm' ? false : true
+            this.langStore.setLocate(value)
+            this.$i18n.locale = value == true ? 'en' : 'vi'
         }
     }
 }
@@ -130,5 +167,18 @@ export default {
 .profile-leave-to {
     transform: translateY(20px);
     opacity: 0;
+}
+
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+    transition: 0.5s ease;
+}
+
+.mobile-menu-enter-from {
+    transform: translateX(-100%);
+}
+
+.mobile-menu-leave-to {
+    transform: translateX(-100%);
 }
 </style>
