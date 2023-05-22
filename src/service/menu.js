@@ -7,7 +7,7 @@ export default class menu {
                 items: [
                     {
                         itemName: 'Dashboards',
-                        isShow: false,
+                        isShow: true,
                         children: [
                             {
                                 childName: 'Analytics',
@@ -46,11 +46,32 @@ export default class menu {
                             {
                                 childName: 'Tasks',
                                 routeName: ''
+                            },
+                            {
+                                childName: 'OT Time',
+                                routeName: ''
+                            },
+                            {
+                                childName: 'Summary',
+                                routeName: ''
                             }
                         ]
                     },
                 ]
             }
+        ]
+    }
+
+    static profileMenu() {
+        return [
+            {
+                name: 'Profile',
+                routeName: '',
+            },
+            {
+                name: 'Payroll',
+                routeName: '',
+            },
         ]
     }
 }
