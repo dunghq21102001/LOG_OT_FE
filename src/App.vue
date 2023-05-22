@@ -1,10 +1,11 @@
 
 <template>
     <div class="bg-[#f3f3f9] dark:bg-[#1a1d21]">
-        <HeaderCommon />
-        <SideBar />
-        <RouterView class="sm:ml-[32%] md:ml-[22%] mt-5 min-h-screen p-5 dark:bg-[#212529] dark:text-white" />
-        <ScrollToTop/>
+        <HeaderCommon v-if="currentRoute != 'login'" />
+        <SideBar v-if="currentRoute != 'login'" />
+        <RouterView class="min-h-screen p-5 dark:bg-[#212529] dark:text-white"
+            :class="currentRoute == 'login' ? '' : 'mt-5 sm:ml-[32%] md:ml-[22%]'" />
+        <ScrollToTop v-if="currentRoute != 'login'" />
     </div>
 </template>
 
@@ -16,18 +17,25 @@ import { useLanguageStore } from './stores/lang'
 import { RouterLink, RouterView } from 'vue-router'
 export default {
     setup() {
-        const langStore = useLanguageStore();
-        return { langStore };
+        const langStore = useLanguageStore()
+        return { langStore }
     },
     data() {
-        return {};
+        return {
+            currentRoute: ''
+        }
+    },
+    computed: {
+        currentRoute() {
+            return this.currentRoute = this.$route.name
+        }
     },
     created() {
-        this.getCurrentLang();
+        this.getCurrentLang()
     },
     methods: {
         getCurrentLang() {
-            this.$i18n.locale = this.langStore.getLocate;
+            this.$i18n.locale = this.langStore.getLocate
         }
     },
     components: { SideBar, HeaderCommon: HeaderCommon, ScrollToTop }

@@ -2,5 +2,8 @@
     "login": "Đăng nhập",
     "title-login": "Đăng Nhập Tài Khoản",
     "register": "Đăng ký",
-    "backToHome": "Quay lại trang chủ"
+    "backToHome": "Quay lại trang chủ",
+    "processing": "Đang tải",
+    "profile": "Hồ sơ",
+    "payroll": "Bảng lương"
 }

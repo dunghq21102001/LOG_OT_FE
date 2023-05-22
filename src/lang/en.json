@@ -2,5 +2,8 @@
     "login": "Login",
     "title-login": "Login",
     "register": "Register",
-    "backToHome": "Back to home"
+    "backToHome": "Back to home",
+    "processing": "Processing",
+    "profile": "Profile",
+    "payroll": "Payroll"
 }
