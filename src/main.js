@@ -14,11 +14,12 @@ import vueClickOutsideElement from 'vue-click-outside-element'
 import CountryFlag from 'vue-country-flag-next'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
-import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 const app = createApp(App)
 
-library.add(faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash) //đây là ví dụ về dùng FA nha Văn
+library.add(faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark)
+
 
 
 // nơi khai báo các package ở phạm vi global

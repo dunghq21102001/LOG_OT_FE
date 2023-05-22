@@ -5,6 +5,9 @@ import EmployeeInformationView from '../views/EmpInfoView.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    return { x: 0, y: 0 }
+  },
   routes: [
     {
       path: '/',
