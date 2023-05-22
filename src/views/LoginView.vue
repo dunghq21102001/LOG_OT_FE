@@ -4,20 +4,20 @@
             <h2>{{ $t("title-login") }}</h2>
             <form class="content-login">
                 <div class="box-input-login box-input-login-mgb">
-                    <input type="text" name="" required>
+                    <input type="text" name="" required v-model="user.username">
                     <label>Tên tài khoản</label>
                 </div>
                 <div class="box-input-login">
-                    <input type="text" name="" required>
+                    <input :type="eyeShow ? 'text' : 'password'" name="" required v-model="user.password">
                     <label>Mật khẩu</label>
-                    <font-awesome-icon icon="fa-solid fa-eye" class="text-white absolute right-0 top-1/2 -translate-y-1/2 text-2xl" />
-                    <font-awesome-icon icon="fa-solid fa-eye-slash" class="hidden text-white absolute right-0 top-1/2 -translate-y-1/2 text-2xl" />
+                    <font-awesome-icon :icon="!eyeShow ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"
+                        class="text-white absolute right-0 top-1/2 -translate-y-1/2 text-2xl" @click="eyeShow = !eyeShow" />
                 </div>
                 <div class="save-pass-login flex items-center">
-                    <input type="checkbox" name=""/>
+                    <input type="checkbox" name="" />
                     <label>Lưu mật khẩu</label>
                 </div>
-                <a href="">ĐĂNG NHẬP</a>
+                <a @click="login">ĐĂNG NHẬP</a>
             </form>
             <div class="relative">
                 <a href="" class="text-white absolute top-0 right-0 mt-2">Quên mật khẩu?</a>
@@ -26,15 +26,19 @@
     </div>
 </template>
 <script>
+import swal2 from '../utilities/swal2'
 export default {
     data() {
         return {
-            name: 'Van'
+            eyeShow: false,
+            user: { username: "", password: "" }
         }
     },
     methods: {
-        test() {
-            console.log('heoloo');
+        login() {
+            console.log(this.user)
+            if(this.user.username =="") return swal2.error("Tên đăng nhập rỗng") 
+            if(this.user.password =="") return swal2.error("Mật khẩu rỗng")
         }
     }
 }
@@ -77,6 +81,7 @@ export default {
 .box-input-login-mgb input {
     margin-bottom: 30px;
 }
+
 .box-input-login input {
     width: 100%;
     padding: 10px 0;
@@ -89,14 +94,14 @@ export default {
 }
 
 .box-input-login label {
-  position: absolute;
-  top:0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: .5s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
 }
 
 .box-input-login input:focus~label,
@@ -123,29 +128,28 @@ export default {
 }
 
 .content-login a {
-  position: relative;
-  display: inline-flex;
-  padding: 10px 20px;
-  color: white;
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: .5s;
-  letter-spacing: 4px;
-  width: 100%;
-  justify-content: center;
-  font-weight: 700;
+    position: relative;
+    display: inline-flex;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px;
+    width: 100%;
+    justify-content: center;
+    font-weight: 700;
 }
 
 .content-login a:hover {
-  background: #01c5d0;
-  color: white;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #01aab3ab,
-              0 0 25px #01aab3ab,
-              0 0 50px #01aab3ab,
-              0 0 75px #01aab3ab;
-}   
-
+    background: #01c5d0;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #01aab3ab,
+        0 0 25px #01aab3ab,
+        0 0 50px #01aab3ab,
+        0 0 75px #01aab3ab;
+}
 </style>
