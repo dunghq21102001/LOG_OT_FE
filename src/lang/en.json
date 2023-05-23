@@ -5,5 +5,7 @@
     "backToHome": "Back to home",
     "processing": "Processing",
     "profile": "Profile",
-    "payroll": "Payroll"
+    "payroll": "Payroll",
+    "logout": "Logout",
+    "logout success": "Logout Successful"
 }

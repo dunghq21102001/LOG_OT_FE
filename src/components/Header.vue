@@ -39,6 +39,9 @@
                             class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
                             {{ $t(item.name) }}
                         </span>
+                        <span @click="logout" class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
+                            {{ $t('logout') }}
+                        </span>
                     </div>
                 </Transition>
             </div>
@@ -47,10 +50,11 @@
             </Transition>
         </div>
     </div>
-    <Loading v-if="isLoading"/>
+    <Loading v-if="isLoading" />
 </template>
 <script>
 import { useLanguageStore } from '../stores/lang'
+import swal2 from '../utilities/swal2'
 import { useDark, useToggle } from '@vueuse/core'
 import menu from '../service/menu'
 import Loading from './Loading.vue'
@@ -125,6 +129,10 @@ export default {
             const value = lang == 'vnm' ? false : true
             this.langStore.setLocate(value)
             this.$i18n.locale = value == true ? 'en' : 'vi'
+        },
+        logout() {
+            swal2.success(`${this.$t('logout success')}`)
+            this.$router.push({ name: "login" })
         }
     }
 }
