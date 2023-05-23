@@ -5,5 +5,7 @@
     "backToHome": "Quay lại trang chủ",
     "processing": "Đang tải",
     "profile": "Hồ sơ",
-    "payroll": "Bảng lương"
+    "payroll": "Bảng lương",
+    "logout": "Đăng xuất",
+    "logout success": "Đăng xuất thành công"
 }
