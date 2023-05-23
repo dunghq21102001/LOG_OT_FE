@@ -149,6 +149,17 @@
                 </div>
             </div>
         </div>
+        <div class="show-salary-emp h-screen w-screen bg-custom ">
+            <div class="salary-emp w-1/3 h-2/3 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl">
+                <div class="title-empinfo-page w-full h-11 bg-red-400 text-2xl text-white mb-4 font-bold">
+                    Bảng lương chi tiết tháng 5 năm 2023
+                </div>
+                <div class="wrapper-info-salary-emp h-[80%] w-full pr-3 pl-3">
+                    <span class="text-red-600 font-bold text-xl">Thông tin chi tiết lương</span>
+                    <hr class="hr mt-1 mb-2">
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -208,5 +219,20 @@ export default {
 
 .salary-items-content:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+
+.bg-custom {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+}
+
+.wrapper-info-salary-emp hr {
+    border: 1px solid #ccc;
 }
 </style>
