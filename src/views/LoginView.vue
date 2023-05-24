@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper-login-page w-full h-[100vh] bg-no-repeat">
-        <div class="wrapper-login">
-            <h2>{{ $t("title-login") }}</h2>
+        <div class="wrapper-login w-[95%] sm:w-[400px]">
+            <h2 class="text-2xl sm:text-3xl">{{ $t("title-login") }}</h2>
             <form class="content-login">
                 <div class="box-input-login box-input-login-mgb">
                     <input type="text" name="" required v-model="user.username">
@@ -55,7 +55,6 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 400px;
     height: 415px;
     padding: 40px;
     transform: translate(-50%, -50%);
@@ -70,7 +69,6 @@ export default {
     padding: 0;
     color: #fff;
     text-align: center;
-    font-size: 30px;
     font-weight: 700;
 }
 
