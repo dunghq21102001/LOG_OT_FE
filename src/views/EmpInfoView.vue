@@ -1,19 +1,23 @@
 <template>
     <div>
         <div class="wrapper-empinfo-page w-full h-[100vh] relative">
-            <div class="wrapper-empinfo bg-white rounded-2xl absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
-                <div class="title-empinfo-page w-full h-11 bg-red-400 text-2xl text-white mb-4 font-bold">
+            <div
+                class="wrapper-empinfo w-[100%] h-full sm:h-[90%] sm:w-[80%] bg-white rounded-2xl absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                <div
+                    class="title-empinfo-page w-full h-11 bg-red-400 text-xl sm:text-2xl text-white mb-2 sm:mb-4 font-bold">
                     Xem thông tin chi tiết nhân viên
                 </div>
                 <div class="wrapper-empinfo-content  h-[90%] pl-4 pr-4">
                     <span class="text-red-600 font-bold text-xl">Thông tin chung</span>
                     <hr class="hr mt-1 mb-2">
-                    <div class="empinfo-content w-full h-[50%] flex mb-4">
-                        <div class="per-info-emp w-2/3 flex mr-4">
-                            <div class="img-empinfo w-2/5 h-full">
-                                <img src="../assets/images/adz.Webp" alt="ngừi yêu tui" class="h-full rounded-xl" />
+                    <div
+                        class="empinfo-content w-full h-max md:h-max lg:h-[50%] sm:h-[50%] flex flex-col md:flex-col lg:flex-row  sm:flex-row mb-0 md:mb-0 lg:mb-4 sm:mb-4">
+                        <div class="per-info-emp w-full sm:w-2/3 flex mr-0 sm:mr-4 md:w-full lg:w-2/3">
+                            <div class="img-empinfo w-[25%] sm:w-2/5 h-full mr-3 sm:mr-0">
+                                <img src="../assets/images/adz.Webp" alt="ngừi yêu tui" class="h-full w-[90%] rounded-xl" />
                             </div>
-                            <div class="info-empinfo w-[60%] grid items-center">
+                            <div
+                                class="info-empinfo w-[70%] sm:w-[60%] grid items-center text-xs md:text-xs lg:text-base sm:text-base">
                                 <div class="info-emp flex">
                                     <span class="info-emp-w-title">Tên đăng nhập:</span>
                                     <span>adzzzzzzzzzz</span>
@@ -38,20 +42,13 @@
                                     <span class="info-emp-w-title">Chức vụ:</span>
                                     <span>Giám đốc</span>
                                 </div>
-                                <div class="info-emp flex">
-                                    <span class="info-emp-w-title">Tên ngân hàng:</span>
-                                    <span>Vietcombank</span>
-                                </div>
-                                <div class="info-emp flex">
-                                    <span class="info-emp-w-title">Số tài khoản:</span>
-                                    <span>012345678910</span>
-                                </div>
                             </div>
                         </div>
-                        <div class="per-exp-emp w-[30%] p-[10px]">
+                        <div class="per-exp-emp w-full sm:w-[30%] p-[10px] md:w-full lg:w-[30%]">
                             <span class="text-red-600 font-bold text-base">Kinh nghiệm:</span>
                             <br>
-                            <span class="flex text-justify">Tôi là một lập trình viên Front-end có hơn 3 năm kinh nghiệm
+                            <span class="flex text-justify text-base">Tôi là một lập trình viên Front-end có hơn 3 năm kinh
+                                nghiệm
                                 trong việc phát triển giao diện cho các trang web và ứng dụng di động. Tôi đã từng tham gia
                                 các dự án với công nghệ HTML, CSS, JavaScript, React,..., và từ đó tích lũy được nhiều kiến
                                 thức, kinh nghiệm trong lĩnh vực này.</span>
@@ -59,15 +56,15 @@
                     </div>
                     <span class="text-red-600 font-bold text-xl">Danh sách bảng lương</span>
                     <hr class="hr mt-1 mb-2">
-                    <div class="info-salary-content w-full h-[30%]">
-                        <table class="w-[98%] info-salary">
+                    <div class="info-salary-content w-full h-[45%] sm:h-[30%] md:h-[35%] lg:h-[30%]">
+                        <table class="sm:w-[98%] info-salary w-max overflow-scroll md:w-max lg:w-[98%]">
                             <thead class="font-bold bg-gray-300">
                                 <tr class="leading-10">
                                     <th>Mã lương</th>
                                     <th>Ngày nhận</th>
                                     <th>Trạng thái</th>
                                     <th>Số tiền</th>
-                                    <th>Chi tiết lương</th>
+                                    <th>Xem chi tiết</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,7 +73,7 @@
                                     <td>10/5/2023</td>
                                     <td><button class="bg-red-400 w-full rounded-xl leading-[170%]">Chưa nhận</button></td>
                                     <td>10,000,000 VND</td>
-                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Xem thông tin</button>
+                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Chi tiết</button>
                                     </td>
                                 </tr>
                                 <tr class="salary-items-content leading-9">
@@ -84,7 +81,7 @@
                                     <td>10/4/2023</td>
                                     <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
                                     <td>10,000,000 VND</td>
-                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Xem thông tin</button>
+                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Chi tiết</button>
                                     </td>
                                 </tr>
                                 <tr class="salary-items-content leading-9">
@@ -92,7 +89,7 @@
                                     <td>10/3/2023</td>
                                     <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
                                     <td>10,000,000 VND</td>
-                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Xem thông tin</button>
+                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Chi tiết</button>
                                     </td>
                                 </tr>
                                 <tr class="salary-items-content leading-9">
@@ -100,7 +97,31 @@
                                     <td>10/2/2023</td>
                                     <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
                                     <td>10,000,000 VND</td>
-                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Xem thông tin</button>
+                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Chi tiết</button>
+                                    </td>
+                                </tr>
+                                <tr class="salary-items-content leading-9">
+                                    <td>25245245234</td>
+                                    <td>10/1/2023</td>
+                                    <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
+                                    <td>10,000,000 VND</td>
+                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Chi tiết</button>
+                                    </td>
+                                </tr>
+                                <tr class="salary-items-content leading-9">
+                                    <td>25245245234</td>
+                                    <td>10/1/2023</td>
+                                    <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
+                                    <td>10,000,000 VND</td>
+                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Chi tiết</button>
+                                    </td>
+                                </tr>
+                                <tr class="salary-items-content leading-9">
+                                    <td>25245245234</td>
+                                    <td>10/1/2023</td>
+                                    <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
+                                    <td>10,000,000 VND</td>
+                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Chi tiết</button>
                                     </td>
                                 </tr>
                                 <tr class="salary-items-content leading-9">
@@ -116,31 +137,7 @@
                                     <td>10/1/2023</td>
                                     <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
                                     <td>10,000,000 VND</td>
-                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Xem thông tin</button>
-                                    </td>
-                                </tr>
-                                <tr class="salary-items-content leading-9">
-                                    <td>25245245234</td>
-                                    <td>10/1/2023</td>
-                                    <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
-                                    <td>10,000,000 VND</td>
-                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Xem thông tin</button>
-                                    </td>
-                                </tr>
-                                <tr class="salary-items-content leading-9">
-                                    <td>25245245234</td>
-                                    <td>10/1/2023</td>
-                                    <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
-                                    <td>10,000,000 VND</td>
-                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Xem thông tin</button>
-                                    </td>
-                                </tr>
-                                <tr class="salary-items-content leading-9">
-                                    <td>25245245234</td>
-                                    <td>10/1/2023</td>
-                                    <td><button class="bg-green-400 w-full rounded-xl leading-[170%]">Đã nhận</button></td>
-                                    <td>10,000,000 VND</td>
-                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Xem thông tin</button>
+                                    <td><button class="bg-red-300 w-full rounded-xl leading-[170%]">Chi tiết</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -150,7 +147,8 @@
             </div>
         </div>
         <div class="show-salary-emp h-screen w-screen bg-custom ">
-            <div class="salary-emp w-1/3 h-2/3 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl">
+            <div
+                class="salary-emp w-1/3 h-2/3 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl">
                 <div class="title-empinfo-page w-full h-11 bg-red-400 text-2xl text-white mb-4 font-bold">
                     Bảng lương chi tiết tháng 5 năm 2023
                 </div>
@@ -177,11 +175,6 @@ export default {
 <style scoped>
 .wrapper-empinfo-page {
     background-color: #f3f3f9
-}
-
-.wrapper-empinfo {
-    height: 90%;
-    width: 80%;
 }
 
 .title-empinfo-page {
@@ -229,10 +222,15 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    display: block;
+    display: none;
 }
 
 .wrapper-info-salary-emp hr {
     border: 1px solid #ccc;
 }
-</style>
+
+@media only screen and (max-width: 376px) {
+    .info-salary-content {
+        height: 21%;
+    }
+}</style>
