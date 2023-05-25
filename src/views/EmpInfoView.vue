@@ -56,7 +56,7 @@
                     </div>
                     <span class="text-red-600 font-bold text-xl">Danh sách bảng lương</span>
                     <hr class="hr mt-1 mb-2">
-                    <div class="info-salary-content w-full h-[45%] sm:h-[30%] md:h-[35%] lg:h-[30%]">
+                    <!-- <div class="info-salary-content w-full h-[45%] sm:h-[30%] md:h-[35%] lg:h-[30%]">
                         <table class="sm:w-[98%] info-salary w-max overflow-scroll md:w-max lg:w-[98%]">
                             <thead class="font-bold bg-gray-300">
                                 <tr class="leading-10">
@@ -142,7 +142,23 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div> -->
+                    <EasyDataTable :headers="headers" :items="items"
+                        :table-class-name="themeStore.getTheme == 'auto' ? 'dark-theme' : 'light-theme'">
+                        <template #item-status="{ status }">
+                            <div class="text-white rounded-md px-2 py-1 w-24 text-center"
+                                :class="status == 'Đã nhận' ? 'bg-green-400' : 'bg-red-500'">
+                                {{ status }}
+                            </div>
+                        </template>
+                        <template #item-detail="item">
+                            <div>
+                                <button @click="detailItem(item)" class="px-2 py-1 rounded-lg bg-green-500 text-white">
+                                    {{ $t('see detail') }}
+                                </button>
+                            </div>
+                        </template>
+                    </EasyDataTable>
                 </div>
             </div>
         </div>
@@ -161,14 +177,35 @@
     </div>
 </template>
 <script>
+import { useThemeStore } from '../stores/theme';
 export default {
+    setup() {
+        const themeStore = useThemeStore()
+        return { themeStore }
+    },
     data() {
         return {
-            name: 'Van'
+            name: 'Van',
+            headers: [
+                { text: "Mã Lương", value: "id" },
+                { text: "Ngày nhận", value: "receivedDate" },
+                { text: "Trạng thái", value: "status" },
+                { text: "Số tiền", value: "money" },
+                { text: "Xem chi tiết", value: "detail", width: 150 },
+            ],
+            items: [
+                { id: '1', receivedDate: '10/1/2023', status: 'Chưa nhận', money: '20.000.000 VND' },
+                { id: '2', receivedDate: '10/2/2023', status: 'Đã nhận', money: '20.000.000 VND' },
+                { id: '3', receivedDate: '10/3/2023', status: 'Chưa nhận', money: '20.000.000 VND' },
+                { id: '4', receivedDate: '10/4/2023', status: 'Chưa nhận', money: '20.000.000 VND' },
+                { id: '5', receivedDate: '10/5/2023', status: 'Chưa nhận', money: '20.000.000 VND' },
+            ]
         }
     },
     methods: {
-
+        detailItem(item) {
+            console.log(item);
+        }
     }
 }
 </script>
@@ -233,4 +270,5 @@ export default {
     .info-salary-content {
         height: 21%;
     }
-}</style>
+}
+</style>
