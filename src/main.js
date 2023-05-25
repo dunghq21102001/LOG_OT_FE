@@ -13,6 +13,9 @@ import i18n from './utilities/i18n'
 import vueClickOutsideElement from 'vue-click-outside-element'
 import CountryFlag from 'vue-country-flag-next'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import Vue3EasyDataTable from 'vue3-easy-data-table'
+import 'vue3-easy-data-table/dist/style.css'
+
 
 import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 
@@ -30,6 +33,7 @@ window.axios = axios
 // nơi khai báo các component ở phạm vi global
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('country-flag', CountryFlag)
+app.component('EasyDataTable', Vue3EasyDataTable)
 
 app.use(VueSweetalert2)
 app.use(createPinia())

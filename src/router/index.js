@@ -3,6 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import EmployeeInformationView from '../views/EmpInfoView.vue'
 import PageNotFound from '../views/PageNotFound.vue'
+import checkAuth from '../middleware/checkAuth'
+import RequestOT from '../views/RequestOTView.vue'
+import requestOff from '../views/RequestOffView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
@@ -12,25 +15,50 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        middleware: checkAuth
+      }
     },
     {
       path: "/:catchAll(.*)",
       name: "not-found",
       component: PageNotFound,
       meta: {
-        // middleware:
+        // middleware: checkAuth
       }
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      meta: {
+        // middleware: checkAuth
+      }
     },
     {
-      path: '/employee/:id',
+      path: '/employee',
       name: 'empinfo',
-      component: EmployeeInformationView
+      component: EmployeeInformationView,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/request-ot',
+      name: 'request-ot',
+      component: RequestOT,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/request-off',
+      name: 'request-off',
+      component: requestOff,
+      meta: {
+        middleware: checkAuth
+      }
     }
   ]
 })

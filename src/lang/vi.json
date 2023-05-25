@@ -7,5 +7,25 @@
     "profile": "Hồ sơ",
     "payroll": "Bảng lương",
     "logout": "Đăng xuất",
-    "logout success": "Đăng xuất thành công"
+    "logout success": "Đăng xuất thành công",
+    "request ot": "Xin làm thêm giờ",
+    "request off": "Xin nghỉ phép",
+    "hours": "Tiếng",
+    "choose ot time": "Chọn số giờ làm thêm",
+    "choose ot date": "Chọn ngày làm thêm",
+    "save": "Lưu",
+    "confirm ot": "Bạn có chắc chắn muốn làm thêm vào",
+    "empty all": "Vui lòng nhập đầy đủ thông tin để thực hiện thao tác này!",
+    "create": "Tạo",
+    "edit": "Chỉnh sửa",
+    "delete": "Xoá",
+    "cancel": "Huỷ",
+    "startDate": "Ngày bắt đầu",
+    "endDate": "Ngày kết thúc",
+    "action": "Hành Động",
+    "choose end ot date": "Chọn ngày kết thúc",
+    "choose start ot date": "Chọn ngày bắt đầu"
+
+
+
 }

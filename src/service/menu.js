@@ -66,11 +66,19 @@ export default class menu {
         return [
             {
                 name: 'profile',
-                routeName: '',
+                routeName: 'empinfo',
             },
             {
                 name: 'payroll',
-                routeName: '',
+                routeName: 'payroll',
+            },
+            {
+                name: 'request ot',
+                routeName: 'request-ot',
+            },
+            {
+                name: 'request off',
+                routeName: 'request-off',
             },
         ]
     }

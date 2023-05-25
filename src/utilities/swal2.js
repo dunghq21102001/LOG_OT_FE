@@ -33,9 +33,9 @@ class swal {
             }
         })
     }
-    static confirm(type, mess = '') {
+    static confirm(mess = '') {
         return swal2.fire({
-            text: `${mess} ${type}`,
+            text: `${mess}`,
             icon: "warning",
             cancelButtonText: 'No',
             showCancelButton: true,

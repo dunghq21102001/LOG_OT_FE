@@ -44,6 +44,7 @@ export default {
     methods: {
         onChangeRoute(routeName) {
             this.currentRoute = routeName
+            this.$emit('close-menu', false)
         },
         closeMenu() {
             this.$emit('close-menu', false)
