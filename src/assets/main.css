@@ -9,3 +9,45 @@
   font-family: sans-serif;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cccbcb; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b6b5b5; 
+}
+
+
+/* theme for table */
+.dark-theme {
+  /* header */
+  --easy-table-header-font-color: #fff;
+  --easy-table-header-background-color: #1a1d21;
+
+  /* body */
+  --easy-table-body-row-background-color: #1a1d21;
+  --easy-table-body-row-font-color: #fff;
+
+  /* footer */
+  --easy-table-footer-background-color: #1a1d21;
+  --easy-table-footer-font-color: #fff;
+}
+.light-theme {
+  /* header */
+  --easy-table-header-font-color: #000;
+  --easy-table-header-background-color: #fff;
+
+  /* body */
+  --easy-table-body-row-background-color: #fff;
+  --easy-table-body-row-font-color: #000;
+
+  /* footer */
+  --easy-table-footer-background-color: #fff;
+  --easy-table-footer-font-color: #000;
+}
+

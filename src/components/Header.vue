@@ -10,7 +10,7 @@
                 <country-flag class="cursor-pointer" v-click-outside-element="close" @click="showLang"
                     :country="currentLang == 'vnm' ? 'vn' : 'us'" size='normal' />
                 <Transition name="lang">
-                    <div v-show="isShowLang" class="absolute top-[100%] left-0 w-[300%] shadow-md bg-white">
+                    <div v-show="isShowLang" class="absolute top-[100%] left-0 w-[300%] shadow-md bg-white z-10">
                         <div @click="changeLang(c.code)"
                             class="hover:bg-[#dbd9d9] cursor-pointer flex justify-around px-2 py-3 my-1"
                             v-for="c in listLang">
@@ -34,8 +34,9 @@
                     <div class="text-sm">CTO</div>
                 </div>
                 <Transition name="profile">
-                    <div v-show="isShowProfile" class="absolute top-[100%] left-0 w-full flex flex-col bg-white shadow-lg">
-                        <span v-for="item in profileMenu"
+                    <div v-show="isShowProfile"
+                        class="absolute top-[100%] left-0 w-full flex flex-col bg-white shadow-lg z-10 text-[14px]">
+                        <span v-for="item in profileMenu" @click="goTo(item.routeName)"
                             class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
                             {{ $t(item.name) }}
                         </span>
@@ -46,7 +47,8 @@
                 </Transition>
             </div>
             <Transition name="mobile-menu">
-                <SideBarMobile v-show="isShowMobileMenu" :isShow="isShowMobileMenu" @close-menu="closeMenuMobile" />
+                <SideBarMobile v-show="isShowMobileMenu" :isShow="isShowMobileMenu" @close-menu="closeMenuMobile"
+                    class="z-10" />
             </Transition>
         </div>
     </div>
@@ -54,6 +56,7 @@
 </template>
 <script>
 import { useLanguageStore } from '../stores/lang'
+import { useThemeStore } from '../stores/theme'
 import swal2 from '../utilities/swal2'
 import { useDark, useToggle } from '@vueuse/core'
 import menu from '../service/menu'
@@ -64,7 +67,8 @@ const toggleDark = useToggle(isDark)
 export default {
     setup() {
         const langStore = useLanguageStore()
-        return { langStore }
+        const themeStore = useThemeStore()
+        return { langStore, themeStore }
     },
     components: {
         SideBarMobile, Loading
@@ -79,7 +83,7 @@ export default {
             profileMenu: menu.profileMenu(),
             isShowLang: false,
             isShowProfile: false,
-            isDark: true,
+            isDark: localStorage.getItem('vueuse-color-scheme') ? localStorage.getItem('vueuse-color-scheme') == 'auto' ? true : false : true,
             isShowMobileMenu: false,
             isLoading: false
         }
@@ -109,9 +113,9 @@ export default {
             this.isShowProfile = false
         },
         changeTheme() {
-            // isDark.value = !isDark.value
             toggleDark()
             this.isDark = isDark.value
+            this.themeStore.setTheme(isDark.value)
         },
         expandAction() {
             const ele = document.body
@@ -133,6 +137,9 @@ export default {
         logout() {
             swal2.success(`${this.$t('logout success')}`)
             this.$router.push({ name: "login" })
+        },
+        goTo(route) {
+            this.$router.push({ name: route })
         }
     }
 }

@@ -8,7 +8,7 @@
             </router-link>
         </div>
         <div class="w-full flex justify-center items-center">
-            <img src="../assets/pageNotFound.png" alt="404" class="h-[30%]" />
+            <img src="../assets/images/pageNotFound.png" alt="404" class="h-[30%]" />
         </div>
     </div>
 </template>

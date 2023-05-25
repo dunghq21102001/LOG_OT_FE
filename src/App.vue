@@ -5,7 +5,7 @@
         <SideBar v-if="currentRoute != 'login'" />
         <RouterView class="min-h-screen p-5 dark:bg-[#212529] dark:text-white"
             :class="currentRoute == 'login' ? '' : 'mt-5 sm:ml-[32%] md:ml-[22%]'" />
-        <ScrollToTop v-if="currentRoute != 'login'" />
+        <ScrollToTop v-if="currentRoute != 'login'" class="hidden sm:block"/>
     </div>
 </template>
 

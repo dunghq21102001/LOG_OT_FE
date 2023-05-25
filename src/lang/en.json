@@ -7,5 +7,23 @@
     "profile": "Profile",
     "payroll": "Payroll",
     "logout": "Logout",
-    "logout success": "Logout Successful"
+    "logout success": "Logout Successful",
+    "request ot": "Request Overtime",
+    "request off": "Request Time Off",
+    "hours": "Hours",
+    "choose ot time": "Choose the number of overtime hours",
+    "choose ot date": "Choose the date of overtime",
+    "save": "Save",
+    "confirm ot": "Are you sure you want to register for OT on",
+    "empty all": "Please enter all information to perform this operation!",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "action": "Action",
+    "choose end ot date": "Choose end date",
+    "choose start ot date": "Choose start date"
+
 }
