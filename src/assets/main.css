@@ -36,6 +36,16 @@
   /* footer */
   --easy-table-footer-background-color: #1a1d21;
   --easy-table-footer-font-color: #fff;
+
+  /*font-size table  */
+  --easy-table-header-font-size: 16px;
+  --easy-table-body-row-font-size: 16px;
+
+  /* line-height-table */
+  --easy-table-header-height: 30px;
+  --easy-table-body-row-height: 30px;
+
+
 }
 .light-theme {
   /* header */
@@ -49,5 +59,14 @@
   /* footer */
   --easy-table-footer-background-color: #fff;
   --easy-table-footer-font-color: #000;
+
+  /*font-size table  */
+  --easy-table-header-font-size: 16px;
+  --easy-table-body-row-font-size: 16px;
+
+  /* line-height-table */
+  --easy-table-header-height: 30px;
+  --easy-table-body-row-height: 30px;
+
 }
 
