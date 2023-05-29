@@ -80,6 +80,10 @@ export default class menu {
                 name: 'request off',
                 routeName: 'request-off',
             },
+            {
+                name: 'Danh sách nhân viên',
+                routeName: 'hrempmanagement',
+            },
         ]
     }
 }
