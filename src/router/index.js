@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import EmployeeInformationView from '../views/EmpInfoView.vue'
+import HrEmpManagementView from '../views/HrEmpManagementView.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import checkAuth from '../middleware/checkAuth'
 import RequestOT from '../views/RequestOTView.vue'
@@ -32,6 +33,14 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+      meta: {
+        // middleware: checkAuth
+      }
+    },
+    {
+      path: '/hrEmpManagement',
+      name: 'hrempmanagement',
+      component: HrEmpManagementView,
       meta: {
         // middleware: checkAuth
       }

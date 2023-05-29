@@ -118,7 +118,7 @@ export default {
     data() {
         return {
             headers: [
-                { text: "Mã Lương", value: "id", fixed: "left-1" },
+                { text: "Mã Lương", value: "id", fixed: "left" },
                 { text: "Ngày nhận", value: "receivedDate", width: 150 },
                 { text: "Trạng thái", value: "status", width: 150 },
                 { text: "Số tiền", value: "money", width: 150 },
