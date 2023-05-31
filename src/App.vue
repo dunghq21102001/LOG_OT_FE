@@ -1,24 +1,26 @@
 
 <template>
     <div class="bg-[#f3f3f9] dark:bg-[#1a1d21]">
-        <HeaderCommon v-if="currentRoute != 'login'" />
+        <HeaderCommon v-if="currentRoute != 'login'"/>
         <SideBar v-if="currentRoute != 'login'" />
-        <RouterView class="min-h-screen p-5 dark:bg-[#212529] dark:text-white"
-            :class="currentRoute == 'login' ? '' : 'mt-5 sm:ml-[32%] sm:mr-[30px] md:ml-[22%]'" />
-        <ScrollToTop v-if="currentRoute != 'login'" class="hidden sm:block"/>
+        <RouterView class="min-h-screen p-5 dark:bg-[#212529] dark:text-white" 
+        :class="currentRoute == 'login' ? '' : 'mt-5 sm:mr-[30px]'
+            && systemStore.getExpandSideBar ? 'sm:ml-[32%] md:ml-[22%]' : 'ml-[6%]'" />
+        <ScrollToTop v-if="currentRoute != 'login'" class="hidden sm:block" />
     </div>
 </template>
-
 <script>
 import SideBar from './components/SideBar.vue'
 import HeaderCommon from './components/Header.vue'
 import ScrollToTop from './components/ScrollToTop.vue'
 import { useLanguageStore } from './stores/lang'
+import { useSystemStore } from './stores/system'
 import { RouterLink, RouterView } from 'vue-router'
 export default {
     setup() {
         const langStore = useLanguageStore()
-        return { langStore }
+        const systemStore = useSystemStore()
+        return { langStore, systemStore }
     },
     data() {
         return {

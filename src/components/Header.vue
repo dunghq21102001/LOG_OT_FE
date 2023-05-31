@@ -1,9 +1,11 @@
 <template>
-    <div class="bg-white md:w-full w-full flex justify-between p-4 dark:bg-[#292e32] dark:text-[#ced4da]">
-        <div class="sm:block hidden w-2/5">
-
+    <div class="bg-[#f5f2f2] md:w-full w-full flex justify-between p-4 dark:bg-[#292e32] dark:text-[#ced4da]">
+        <div class="sm:flex hidden w-2/5 items-center"
+            :class="systemStore.getExpandSideBar ? 'justify-center' : 'justify-start'">
+            <font-awesome-icon @click="expandSideBar" class="ml-16 cursor-pointer hover-custom"
+                :icon="systemStore.getExpandSideBar ? 'fa-solid fa-bars-staggered' : 'fa-solid fa-arrow-right'" />
         </div>
-        <div class="w-full sm:w-3/5 flex flex-wrap items-center justify-around">
+        <div class="w-full sm:w-3/5 md:w-2/5 flex flex-wrap items-center justify-around">
             <font-awesome-icon class="block sm:hidden w-3" @click="isShowMobileMenu = !isShowMobileMenu"
                 :icon="isShowMobileMenu ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" />
             <div class="w-[50px] relative">
@@ -25,7 +27,7 @@
                 class="hover-custom sm:block hidden" />
             <font-awesome-icon v-show="isDark" @click="changeTheme" icon="fa-solid fa-sun"
                 class="hover-custom sm:block hidden" />
-            <font-awesome-icon icon="fa-solid fa-bell" class="hover-custom sm:block hidden" />
+            <!-- <font-awesome-icon icon="fa-solid fa-bell" class="hover-custom sm:block hidden" /> -->
             <div class="flex items-center space-x-4 relative">
                 <img class="w-10 h-10 rounded-full cursor-pointer" v-click-outside-element="closeProfile"
                     @click="showProfile" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
@@ -57,6 +59,7 @@
 <script>
 import { useLanguageStore } from '../stores/lang'
 import { useThemeStore } from '../stores/theme'
+import { useSystemStore } from '../stores/system'
 import swal2 from '../utilities/swal2'
 import { useDark, useToggle } from '@vueuse/core'
 import menu from '../service/menu'
@@ -68,7 +71,8 @@ export default {
     setup() {
         const langStore = useLanguageStore()
         const themeStore = useThemeStore()
-        return { langStore, themeStore }
+        const systemStore = useSystemStore()
+        return { langStore, themeStore, systemStore }
     },
     components: {
         SideBarMobile, Loading
@@ -99,6 +103,9 @@ export default {
                     else this.currentLang = 'us'
                 }
             })
+        },
+        expandSideBar() {
+            this.systemStore.setExpandSideBar()
         },
         showLang() {
             this.isShowLang = !this.isShowLang

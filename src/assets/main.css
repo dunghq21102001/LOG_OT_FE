@@ -44,8 +44,8 @@
   /* line-height-table */
   --easy-table-header-height: 30px;
   --easy-table-body-row-height: 30px;
-
-
+  
+  --easy-table-rows-per-page-selector-z-index: 1;
 }
 .light-theme {
   /* header */
@@ -67,6 +67,22 @@
   /* line-height-table */
   --easy-table-header-height: 30px;
   --easy-table-body-row-height: 30px;
+  
+  --easy-table-rows-per-page-selector-z-index: 1;
+}
 
+
+.btn-primary {
+  background-color: #f87171;
+  border-radius: 20px;
+  padding: 10px 20px;
+  color: #fff;
+  border: 1px solid #f87171;
+}
+
+.btn-primary:hover {
+  background-color: #fff;
+  color: #f87171;
+  transition: ease-in .2s;
 }
 

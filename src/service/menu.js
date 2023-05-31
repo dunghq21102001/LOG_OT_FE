@@ -6,8 +6,10 @@ export default class menu {
                 name: 'menu',
                 items: [
                     {
+                        iconName: 'dashboardIcon',
                         itemName: 'Dashboards',
                         isShow: true,
+                        isShowExpand: false,
                         children: [
                             {
                                 childName: 'Analytics',
@@ -28,8 +30,10 @@ export default class menu {
                         ]
                     },
                     {
+                        iconName: 'managementItem',
                         itemName: 'Apps',
                         isShow: false,
+                        isShowExpand: false,
                         children: [
                             {
                                 childName: 'Chat',
