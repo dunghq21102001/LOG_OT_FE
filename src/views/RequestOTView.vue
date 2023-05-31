@@ -13,7 +13,7 @@
             </div>
             <button @click="createRequest" class="custom-btn">{{ $t('save') }}</button>
         </div>
-        <div class="w-full">
+        <div class="w-[80%] mx-auto">
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme">
                 <template #item-operation="item">
                     <div class="operation-wrapper">
