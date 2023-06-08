@@ -26,6 +26,7 @@
     </div>
 </template>
 <script>
+import API from '../API'
 import swal2 from '../utilities/swal2'
 export default {
     data() {
@@ -36,9 +37,14 @@ export default {
     },
     methods: {
         login() {
-            console.log(this.user)
-            if(this.user.username =="") return swal2.error("Tên đăng nhập rỗng") 
-            if(this.user.password =="") return swal2.error("Mật khẩu rỗng")
+            const loginData = {Username: this.user.username, Password: this.user.password }
+            API.login(loginData)
+            .then(res => {
+                this.$router.push({ name: "home" })
+            })
+            .catch(error =>{
+                console.log(error)
+            })
         }
     }
 }
