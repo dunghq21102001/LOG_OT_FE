@@ -88,6 +88,10 @@ export default class menu {
                 name: 'Danh sách nhân viên',
                 routeName: 'hrempmanagement',
             },
+            {
+                name: 'Danh sách phòng ban',
+                routeName: 'department',
+            },
         ]
     }
 }
