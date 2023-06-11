@@ -7,6 +7,7 @@ import PageNotFound from '../views/PageNotFound.vue'
 import checkAuth from '../middleware/checkAuth'
 import RequestOT from '../views/RequestOTView.vue'
 import requestOff from '../views/RequestOffView.vue'
+import department from '../views/DepartmentView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
@@ -65,6 +66,14 @@ const router = createRouter({
       path: '/request-off',
       name: 'request-off',
       component: requestOff,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/department',
+      name: 'department',
+      component: department,
       meta: {
         middleware: checkAuth
       }

@@ -6,4 +6,8 @@ export default class API {
     static login(loginData){
         return axios.post(`${this.BASE_URL_V1}/login`, loginData)
     }
+
+    static getListDepartment() {
+        return axios.get(`${this.BASE_URL_V1}/department`)
+    }
 }
