@@ -1,5 +1,5 @@
 <template>
     <div>
-        department
+        Department
     </div>
 </template>
