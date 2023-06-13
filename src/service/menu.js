@@ -94,7 +94,7 @@ export default class menu {
             },
             {
                 name: 'Employee View',
-                routeName: 'info',
+                routeName: 'emp-information',
             }
         ]
     }
@@ -103,32 +103,32 @@ export default class menu {
         return [
             {
                 name: 'information',
-                routeName: 'info',
+                routeName: 'emp-information',
             },
             {
                 name: 'degree',
-                routeName: 'degree',
+                routeName: 'emp-degree',
             },
             {
                 name: 'allowance',
-                routeName: 'allowance',
+                routeName: 'emp-allowance',
             },
             {
                 name: 'department',
-                routeName: 'department',
+                routeName: 'emp-department',
             },
-            // {
-            //     name: 'skill',
-            //     routeName: 'skill',
-            // },
-            // {
-            //     name: 'experience',
-            //     routeName: 'experience',
-            // },
-            // {
-            //     name: 'dependant',
-            //     routeName: 'dependant',
-            // }
+            {
+                name: 'skill',
+                routeName: 'emp-skill',
+            },
+            {
+                name: 'experience',
+                routeName: 'emp-experience',
+            },
+            {
+                name: 'dependant',
+                routeName: 'emp-dependant',
+            }
         ]
     }
 }
