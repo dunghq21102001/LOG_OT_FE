@@ -40,6 +40,7 @@ export default {
             const loginData = {Username: this.user.username, Password: this.user.password }
             API.login(loginData)
             .then(res => {
+                swal.success(this.$t('login success'))
                 this.$router.push({ name: "home" })
             })
             .catch(error =>{
