@@ -9,8 +9,14 @@ import RequestOT from '../views/RequestOTView.vue'
 import requestOff from '../views/RequestOffView.vue'
 import department from '../views/DepartmentView.vue'
 import employeeView from '../views/EmployeeView.vue'
-import Information from '../views/Employee/Information.vue'
-import Degree from '../views/Employee/Degree.vue'
+import InformationEmp from '../views/Employee/Information.vue'
+import AllowanceEmp from '../views/Employee/Allowance.vue'
+import DegreeEmp from '../views/Employee/Degree.vue'
+import DepartmentEmp from '../views/Employee/Department.vue'
+import SkillEmp from '../views/Employee/Skill.vue'
+import ExperienceEmp from '../views/Employee/Experience.vue'
+import DependantEmp from '../views/Employee/Dependant.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
@@ -87,19 +93,41 @@ const router = createRouter({
       component: employeeView,
       children: [
         {
-          path: '/info',
-          name:'info',
-          component: Information
+          path: 'information',
+          name:'information',
+          component: InformationEmp
         },
         {
-          path: '/degree',
+          path: 'degree',
           name:'degree',
-          component: Degree
+          component: DegreeEmp
         },
+        {
+          path: 'allowance',
+          name:'allowance',
+          component: AllowanceEmp
+        },
+        {
+          path: 'department',
+          name:'department',
+          component: DepartmentEmp
+        },
+        {
+          path: 'skill',
+          name:'skill',
+          component: SkillEmp
+        },
+        {
+          path: 'experience',
+          name:'experience',
+          component: ExperienceEmp
+        },
+        {
+          path: 'dependant',
+          name:'Dependant',
+          component: DependantEmp
+        },     
       ],
-      meta: {
-        //middleware: checkAuth
-      }
     }
   ]
 })

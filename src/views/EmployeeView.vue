@@ -29,7 +29,7 @@
             <div class="w-3/4 bg-white rounded-none border-[1px] border-[#ccc] border-solid">
                 <div class="overflow-x-scroll flex w-full justify-around items-center my-2 mx-1">
                     <div class="" v-for="i in empList" :key="i.name">
-                        <router-link :to="'employeeView/'+i.routeName">
+                        <router-link :to="'/employeeView/' + i.routeName">
                             {{ i.name }}
                         </router-link>
                     </div>
