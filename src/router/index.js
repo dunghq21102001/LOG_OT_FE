@@ -9,10 +9,14 @@ import RequestOT from '../views/RequestOTView.vue'
 import requestOff from '../views/RequestOffView.vue'
 import department from '../views/DepartmentView.vue'
 import employeeView from '../views/EmployeeView.vue'
-import Information from '../views/Employee/Information.vue'
-import Degree from '../views/Employee/Degree.vue'
-import Allowance from '../views/Employee/Allowance.vue'
-import Department from '../views/Employee/Department.vue'
+import EmpInformation from '../views/Employee/Information.vue'
+import EmpDegree from '../views/Employee/Degree.vue'
+import EmpAllowance from '../views/Employee/Allowance.vue'
+import EmpDepartment from '../views/Employee/Department.vue'
+import EmpSkill from '../views/Employee/Skill.vue'
+import EmpDependant from '../views/Employee/Dependant.vue'
+import EmpExperience from '../views/Employee/Experience.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
@@ -90,27 +94,45 @@ const router = createRouter({
       meta: { middleware: checkAuth },
       children: [
         {
-          path: 'info',
-          name: 'info',
-          component: Information,
+          path: 'emp-information',
+          name: 'emp-information',
+          component: EmpInformation,
           meta: { middleware: checkAuth },
         },
         {
-          path: 'degree',
-          name: 'degree',
-          component: Degree,
+          path: 'emp-degree',
+          name: 'emp-degree',
+          component: EmpDegree,
           meta: { middleware: checkAuth },
         },
         {
-          path: 'allowance',
-          name: 'allowance',
-          component: Allowance,
+          path: 'emp-allowance',
+          name: 'emp-allowance',
+          component: EmpAllowance,
           meta: { middleware: checkAuth },
         },
         {
-          path: 'department',
-          name: 'department',
-          component: Department,
+          path: 'emp-department',
+          name: 'emp-department',
+          component: EmpDepartment,
+          meta: { middleware: checkAuth },
+        },
+        {
+          path: 'emp-skill',
+          name: 'emp-skill',
+          component: EmpSkill,
+          meta: { middleware: checkAuth },
+        },
+        {
+          path: 'emp-experience',
+          name: 'emp-experience',
+          component: EmpExperience,
+          meta: { middleware: checkAuth },
+        },
+        {
+          path: 'emp-dependant',
+          name: 'emp-dependant',
+          component: EmpDependant,
           meta: { middleware: checkAuth },
         },
       ]
