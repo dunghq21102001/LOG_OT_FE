@@ -85,21 +85,27 @@ const router = createRouter({
       path: '/employeeView',
       name: 'employeeView',
       component: employeeView,
+      meta: {
+        middleware: checkAuth
+      },
       children: [
         {
-          path: '/info',
-          name:'info',
-          component: Information
+          path: 'info',
+          name: 'info',
+          component: Information,
+          meta: {
+            middleware: checkAuth
+          }
         },
         {
-          path: '/degree',
-          name:'degree',
-          component: Degree
-        },
-      ],
-      meta: {
-        //middleware: checkAuth
-      }
+          path: 'degree',
+          name: 'degree',
+          component: Degree,
+          meta: {
+            middleware: checkAuth
+          }
+        }
+      ]
     }
   ]
 })
