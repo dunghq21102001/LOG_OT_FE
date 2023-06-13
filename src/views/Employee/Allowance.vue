@@ -1,5 +1,5 @@
 <template>
-    <div>
-        allowance
+    <div>        allowance
+
     </div>
 </template>

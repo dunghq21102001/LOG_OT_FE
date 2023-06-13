@@ -88,9 +88,10 @@ const router = createRouter({
       }
     },
     {
-      path: '/employeeView',
-      name: 'employeeView',
+      path: '/employee-view',
+      name: 'employee-view',
       component: employeeView,
+      meta: { middleware: checkAuth },
       children: [
         {
           path: 'information',
