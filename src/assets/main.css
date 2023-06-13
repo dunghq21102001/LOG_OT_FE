@@ -86,3 +86,8 @@
   transition: ease-in .2s;
 }
 
+.wrapper-border-xl {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+

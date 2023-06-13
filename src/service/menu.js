@@ -92,6 +92,43 @@ export default class menu {
                 name: 'Danh sách phòng ban',
                 routeName: 'department',
             },
+            {
+                name: 'Employee View',
+                routeName: 'employeeView',
+            }
+        ]
+    }
+
+    static profileEmpMenu(){
+        return [
+            {
+                name: 'information',
+                routeName: 'info',
+            },
+            {
+                name: 'degree',
+                routeName: 'degree',
+            },
+            {
+                name: 'allowance',
+                routeName: 'allowance',
+            },
+            {
+                name: 'department',
+                routeName: 'department',
+            },
+            {
+                name: 'skill',
+                routeName: 'skill',
+            },
+            {
+                name: 'experience',
+                routeName: 'experience',
+            },
+            {
+                name: 'dependant',
+                routeName: 'dependant',
+            }
         ]
     }
 }
