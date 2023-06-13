@@ -11,6 +11,8 @@ import department from '../views/DepartmentView.vue'
 import employeeView from '../views/EmployeeView.vue'
 import Information from '../views/Employee/Information.vue'
 import Degree from '../views/Employee/Degree.vue'
+import Allowance from '../views/Employee/Allowance.vue'
+import Department from '../views/Employee/Department.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
@@ -82,31 +84,37 @@ const router = createRouter({
       }
     },
     {
-      path: '/employeeView',
-      name: 'employeeView',
+      path: '/employee-view',
+      name: 'employee-view',
       component: employeeView,
-      meta: {
-        middleware: checkAuth
-      },
+      meta: { middleware: checkAuth },
       children: [
         {
           path: 'info',
           name: 'info',
           component: Information,
-          meta: {
-            middleware: checkAuth
-          }
+          meta: { middleware: checkAuth },
         },
         {
           path: 'degree',
           name: 'degree',
           component: Degree,
-          meta: {
-            middleware: checkAuth
-          }
-        }
+          meta: { middleware: checkAuth },
+        },
+        {
+          path: 'allowance',
+          name: 'allowance',
+          component: Allowance,
+          meta: { middleware: checkAuth },
+        },
+        {
+          path: 'department',
+          name: 'department',
+          component: Department,
+          meta: { middleware: checkAuth },
+        },
       ]
-    }
+    },
   ]
 })
 
