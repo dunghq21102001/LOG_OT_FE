@@ -94,7 +94,7 @@ export default class menu {
             },
             {
                 name: 'Employee View',
-                routeName: 'info',
+                routeName: 'information',
             }
         ]
     }
@@ -103,7 +103,7 @@ export default class menu {
         return [
             {
                 name: 'information',
-                routeName: 'info',
+                routeName: 'information',
             },
             {
                 name: 'degree',

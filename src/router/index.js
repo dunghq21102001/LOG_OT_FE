@@ -9,10 +9,14 @@ import RequestOT from '../views/RequestOTView.vue'
 import requestOff from '../views/RequestOffView.vue'
 import department from '../views/DepartmentView.vue'
 import employeeView from '../views/EmployeeView.vue'
-import Information from '../views/Employee/Information.vue'
-import Degree from '../views/Employee/Degree.vue'
-import Allowance from '../views/Employee/Allowance.vue'
-import Department from '../views/Employee/Department.vue'
+import InformationEmp from '../views/Employee/Information.vue'
+import AllowanceEmp from '../views/Employee/Allowance.vue'
+import DegreeEmp from '../views/Employee/Degree.vue'
+import DepartmentEmp from '../views/Employee/Department.vue'
+import SkillEmp from '../views/Employee/Skill.vue'
+import ExperienceEmp from '../views/Employee/Experience.vue'
+import DependantEmp from '../views/Employee/Dependant.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
@@ -90,31 +94,42 @@ const router = createRouter({
       meta: { middleware: checkAuth },
       children: [
         {
-          path: 'info',
-          name: 'info',
-          component: Information,
-          meta: { middleware: checkAuth },
+          path: 'information',
+          name:'information',
+          component: InformationEmp
         },
         {
           path: 'degree',
-          name: 'degree',
-          component: Degree,
-          meta: { middleware: checkAuth },
+          name:'degree',
+          component: DegreeEmp
         },
         {
           path: 'allowance',
-          name: 'allowance',
-          component: Allowance,
-          meta: { middleware: checkAuth },
+          name:'allowance',
+          component: AllowanceEmp
         },
         {
           path: 'department',
-          name: 'department',
-          component: Department,
-          meta: { middleware: checkAuth },
+          name:'department',
+          component: DepartmentEmp
         },
-      ]
-    },
+        {
+          path: 'skill',
+          name:'skill',
+          component: SkillEmp
+        },
+        {
+          path: 'experience',
+          name:'experience',
+          component: ExperienceEmp
+        },
+        {
+          path: 'dependant',
+          name:'Dependant',
+          component: DependantEmp
+        },     
+      ],
+    }
   ]
 })
 

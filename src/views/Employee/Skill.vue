@@ -1,5 +1,6 @@
 <template>
-    <div>        allowance
-
+    <div>
+        skill
+        
     </div>
 </template>
