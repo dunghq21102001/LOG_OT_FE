@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="w-full text-xs flex">
-            <div class="w-1/4 bg-white rounded-xl border-[1px] border-[#ccc] border-solid mr-4">
+            <div class="w-1/4 bg-white rounded-xl border-[1px] border-[#ccc] border-solid mr-4 h-fit">
                 <div class="grid justify-items-center p-4">
                     <div
                         class="mb-3 rounded-[50%] border-[1px] border-[#000] border-solid w-[110px] h-[110px] flex justify-center items-center">
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="w-3/4 bg-white rounded-none border-[1px] border-[#ccc] border-solid">
-                <div class="overflow-x-scroll flex w-full justify-around items-center my-2 mx-1">
+                <div class="flex w-full justify-around items-center bg-slate-300 py-2 font-bold">
                     <div class="" v-for="i in empList" :key="i.name">
                         <router-link :to="{ name: i.routeName }">
                             {{ i.name }}
