@@ -20,8 +20,8 @@
                                 <div class="overflow-hidden w-[150px] transition-all flex flex-col items-start">
                                     <span v-for="child in item.children" @click="onChangeRoute(child.childName)"
                                         :class="currentRoute == child.childName ? 'bg-[#6376b3] dark:bg-[#3c3e46]' : ''"
-                                        class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer text-left sm:text-[14px] md:text-[18px]">
-                                        - {{ child.childName }}
+                                        class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer text-left sm:text-[14px] md:text-[18px] px-2 py-1">
+                                         {{ child.childName }}
                                     </span>
                                 </div>
                             </div>
