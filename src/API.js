@@ -10,9 +10,21 @@ export default class API {
     }
 
 
-    // department
+    // department get List
     static getListDepartment() {
-        return axios.get(`${this.BASE_URL_V1}/department`)
+        return axios.get(`${this.BASE_URL_V1}/Department`)
+    }
+
+    static createDepartment(data){
+        return axios.post(`${this.BASE_URL_V1}/Department/Create`, data)
+    }
+
+    static updateDepartment(data){
+        return axios.put(`${this.BASE_URL_V1}/Department/Update`, data)
+    }
+
+    static deleteDepartment(id){
+        return axios.delete(`${this.BASE_URL_V1}/Department/Delete?id=${id}`)
     }
 
     // allowance
