@@ -16,6 +16,7 @@ import EmpDepartment from '../views/Employee/Department.vue'
 import EmpSkill from '../views/Employee/Skill.vue'
 import EmpDependant from '../views/Employee/Dependant.vue'
 import EmpExperience from '../views/Employee/Experience.vue'
+import subsidize from '../views/SubsidizeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -83,6 +84,14 @@ const router = createRouter({
       path: '/department',
       name: 'department',
       component: department,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/subsidize',
+      name: 'subsidize',
+      component: subsidize,
       meta: {
         middleware: checkAuth
       }
