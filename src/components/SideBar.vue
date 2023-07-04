@@ -29,7 +29,7 @@
                         <Transition name="children">
                             <div v-show="item.isShow && systemStore.getExpandSideBar"
                                 class="overflow-hidden w-full transition-all flex flex-col items-start">
-                                <span v-for="child in item.children" @click="onChangeRoute(child.childName)"
+                                <span v-for="child in item.children" @click="onChangeRoute(child.childName, child.routeName)"
                                     :class="currentRoute == child.childName ? 'bg-[#6376b3] dark:bg-[#3c3e46]' : ''"
                                     class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer pl-10 text-left sm:text-[14px] md:text-[18px]">
                                     - {{ child.childName }}
@@ -59,15 +59,19 @@ export default {
     data() {
         return {
             menuList: menu.menuList(),
-            currentRoute: 'Analytics',
+            currentRoute: 'Nhân Viên',
             isExpand: this.systemStore.getExpandSideBar
         }
     },
-    created() { },
+    created() {
+        this.currentRoute = this.$route.name
+     },
     methods: {
-        onChangeRoute(routeName) {
+        onChangeRoute(routeName, roueLink) {
+            console.log(routeName)
+            console.log(roueLink)
+            this.$router.replace({ name: roueLink, params: { } })
             this.currentRoute = routeName
-            // if (!this.systemStore.getExpandSideBar) this.isHiddenAllExpand()
         },
         isActiveExpand(item) {
             if (item.isShowExpand == true) return item.isShowExpand = false

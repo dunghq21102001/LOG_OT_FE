@@ -94,7 +94,7 @@ const router = createRouter({
       meta: { middleware: checkAuth },
       children: [
         {
-          path: 'emp-information',
+          path: 'emp-information/:username',
           name: 'emp-information',
           component: EmpInformation,
           meta: { middleware: checkAuth },

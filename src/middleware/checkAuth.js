@@ -1,5 +1,12 @@
+import { useAuthStore } from '../stores/auth'
 export default function auth({ next, router }) {
-    console.log('here')
+    const user = JSON.parse(sessionStorage.getItem('auth'))
 
-    return next()
+    const authStore = useAuthStore()
+    if (user) {
+        authStore.setAuth(user)
+        return next()
+    }
+    else window.location.href = "/login"
+
 }

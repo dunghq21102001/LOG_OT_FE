@@ -1,43 +1,44 @@
 <template>
     <div>
-        <div class="bg-white rounded-2xl w-full">
+        <div class="bg-white rounded-2xl w-full dark:bg-[#292e32]">
             <div
-                class="w-full h-10 sm:h-14 bg-red-400 text-white font-bold rounded-t-2xl text-lg sm:text-3xl flex justify-center items-center sm">
+                class="w-full h-10 sm:h-14 bg-red-400 text-white font-bold rounded-t-2xl text-lg sm:text-3xl flex justify-center items-center dark:bg-[#292e32]">
                 Xem thông tin chi tiết nhân viên
             </div>
 
-            <div class="w-full pl-1 pr-1 sm:pl-2 sm:pr-2">
+            <div class="w-full pl-1 pr-1 sm:pl-2 sm:pr-2 dark:bg-[#292e32]">
                 <div class="text-red-600 font-bold text-base sm:text-xl mt-1 sm:mt-2 mb-1 sm:mb-2">Thông tin chung</div>
                 <div class="w-full flex flex-col xl:flex-row">
                     <div class="rounded-xl border-[2px] border-solid boder-[#ccc] p-1 flex flex-row w-full xl:w-3/4 mr-8">
                         <div class="mr-2 md:mr-2 lg:mr-8">
-                            <img src="../assets/images/adz.Webp" alt="ngừi yêu tui"
+                            <img :src="auth?.image == '(null)' ? 'https://img.freepik.com/free-icon/user_318-804790.jpg' : auth?.image" alt="profile image"
                                 class="rounded-xl w-[80px] h-full sm:w-[150px] sm:h-full" />
                         </div>
                         <div class="grid items-center text-xs sm:text-base">
                             <div class="flex">
                                 <span class="w-[85px] sm:w-[115px]">Tên đăng nhập:</span>
-                                <span>adzzzzzzzzzz</span>
+                                <span>{{ auth?.username }}</span>
+                            </div>
+                            <div class="flex">
+                                <span class="w-[85px] sm:w-[115px]">Email:</span>
+                                <span>{{ auth?.email }}</span>
                             </div>
                             <div class="flex">
                                 <span class="w-[85px] sm:w-[115px]">Họ và tên:</span>
-                                <span>Happy for you</span>
+                                <span>{{ auth?.fullName }}</span>
                             </div>
-                            <div class="flex">
+                            <!-- <div class="flex">
                                 <span class="w-[85px] sm:w-[115px]">Số điện thoại:</span>
-                                <span>0123456789</span>
-                            </div>
-                            <div class="flex">
-                                <span class="w-[85px] sm:w-[115px]">Giới tính:</span>
-                                <span>Nữ</span>
-                            </div>
+                                <span>{{ auth?. }}</span>
+                            </div> -->
+
                             <div class="flex">
                                 <span class="w-[85px] sm:w-[115px]">Ngày sinh:</span>
                                 <span>11/11/2001</span>
                             </div>
                             <div class="flex">
                                 <span class="w-[85px] sm:w-[115px]">Chức vụ:</span>
-                                <span>Giám đốc</span>
+                                <span>{{ auth.listRoles[0] }}</span>
                             </div>
                         </div>
                     </div>
@@ -77,7 +78,8 @@
         </div>
         <div v-show="isShow" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
             @click.self="isShow = false">
-            <div class="w-[95%] sm:w-1/2 xl:w-1/4 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-8 xl:pb-10">
+            <div
+                class="w-[95%] sm:w-1/2 xl:w-1/4 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-8 xl:pb-10">
                 <div
                     class="w-full h-10 sm:h-20 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
                     Thông tin chi tiết lương tháng 5 năm 2023
@@ -110,13 +112,17 @@
 </template>
 <script>
 import { useThemeStore } from '../stores/theme';
+import { useAuthStore } from '../stores/auth';
 export default {
     setup() {
         const themeStore = useThemeStore()
-        return { themeStore }
+        const authStore = useAuthStore()
+        return { themeStore, authStore }
     },
     data() {
         return {
+            auth: this.authStore.getAuth,
+            defaultImage: "https://img.freepik.com/free-icon/user_318-804790.jpg",
             headers: [
                 { text: "Mã Lương", value: "id", fixed: "left" },
                 { text: "Ngày nhận", value: "receivedDate", width: 150 },

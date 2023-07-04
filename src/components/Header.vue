@@ -28,16 +28,16 @@
             <font-awesome-icon v-show="isDark" @click="changeTheme" icon="fa-solid fa-sun"
                 class="hover-custom sm:block hidden" />
             <!-- <font-awesome-icon icon="fa-solid fa-bell" class="hover-custom sm:block hidden" /> -->
-            <div class="flex items-center space-x-4 relative">
+            <div class="flex items-center space-x-4 relative min-w-[120px]">
                 <img class="w-10 h-10 rounded-full cursor-pointer" v-click-outside-element="closeProfile"
                     @click="showProfile" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
                 <div class="font-medium text-gray-500">
-                    <div>Jese Leos</div>
-                    <div class="text-sm">CTO</div>
+                    <div>{{ auth?.fullName }}</div>
+                    <div class="text-sm">{{ auth?.listRoles ? auth?.listRoles[0] : '' }}</div>
                 </div>
                 <Transition name="profile">
                     <div v-show="isShowProfile"
-                        class="absolute top-[100%] left-0 w-full flex flex-col bg-white shadow-lg z-10 text-[14px]">
+                        class="absolute top-[100%] left-[-20%] w-[120%] flex flex-col bg-white shadow-lg z-10 text-[14px]">
                         <span v-for="item in profileMenu" @click="goTo(item.routeName)"
                             class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
                             {{ $t(item.name) }}
@@ -60,6 +60,7 @@
 import { useLanguageStore } from '../stores/lang'
 import { useThemeStore } from '../stores/theme'
 import { useSystemStore } from '../stores/system'
+import { useAuthStore } from '../stores/auth'
 import swal2 from '../utilities/swal2'
 import { useDark, useToggle } from '@vueuse/core'
 import menu from '../service/menu'
@@ -72,7 +73,8 @@ export default {
         const langStore = useLanguageStore()
         const themeStore = useThemeStore()
         const systemStore = useSystemStore()
-        return { langStore, themeStore, systemStore }
+        const authStore = useAuthStore()
+        return { langStore, themeStore, systemStore, authStore }
     },
     components: {
         SideBarMobile, Loading
@@ -89,7 +91,8 @@ export default {
             isShowProfile: false,
             isDark: localStorage.getItem('vueuse-color-scheme') ? localStorage.getItem('vueuse-color-scheme') == 'auto' ? true : false : true,
             isShowMobileMenu: false,
-            isLoading: false
+            isLoading: false,
+            auth: this.authStore.getAuth,
         }
     },
     created() {
@@ -142,6 +145,7 @@ export default {
             this.$i18n.locale = value == true ? 'en' : 'vi'
         },
         logout() {
+            sessionStorage.removeItem('auth')
             swal2.success(`${this.$t('logout success')}`)
             this.$router.push({ name: "login" })
         },

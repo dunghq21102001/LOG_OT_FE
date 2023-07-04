@@ -15,11 +15,11 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #cccbcb; 
+  background: #cccbcb;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #b6b5b5; 
+  background: #b6b5b5;
 }
 
 
@@ -44,9 +44,10 @@
   /* line-height-table */
   --easy-table-header-height: 30px;
   --easy-table-body-row-height: 30px;
-  
+
   --easy-table-rows-per-page-selector-z-index: 1;
 }
+
 .light-theme {
   /* header */
   --easy-table-header-font-color: #000;
@@ -67,7 +68,7 @@
   /* line-height-table */
   --easy-table-header-height: 30px;
   --easy-table-body-row-height: 30px;
-  
+
   --easy-table-rows-per-page-selector-z-index: 1;
 }
 
@@ -86,8 +87,107 @@
   transition: ease-in .2s;
 }
 
+.edit-btn {
+  background-color: #37b429;
+  border-radius: 20px;
+  padding: 8px 15px;
+  color: #fff;
+  border: 1px solid #37b429;
+  min-width: 100px;
+  margin: 10px;
+}
+
+.edit-btn:hover {
+  background-color: #fff;
+  color: #37b429;
+  transition: ease-in .2s;
+}
+
+.delete-btn {
+  background-color: red;
+  border-radius: 20px;
+  padding: 8px 15px;
+  color: #fff;
+  border: 1px solid red;
+  margin: 10px;
+  min-width: 100px;
+}
+
+.delete-btn:hover {
+  background-color: #fff;
+  color: red;
+  transition: ease-in .2s;
+}
+
+.cancel-btn {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 8px 15px;
+  color: #000;
+  border: 1px solid rgb(193, 193, 193);
+  margin: 10px;
+  min-width: 100px;
+}
+
+.cancel-btn:hover {
+  background-color: rgb(193, 193, 193);
+  color: #fff;
+  transition: ease-in .2s;
+}
+
+.view-btn {
+  background-color: orangered;
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin: 10px;
+  min-width: 100px;
+  color: #fff;
+  border: 1px solid orangered;
+}
+
+.view-btn:hover {
+  background-color: #fff;
+  color: orangered;
+  transition: ease-in .2s;
+}
+
 .wrapper-border-xl {
   border: 1px solid #ccc;
   border-radius: 12px;
 }
 
+.search-cus {
+  background-color: #f5f2f2;
+  border-radius: 10px;
+  padding: 10px 20px;
+  outline: none;
+  color: #000;
+}
+
+.input-cus {
+  background-color: #f5f2f2;
+  border-radius: 10px;
+  padding: 10px 20px;
+  outline: none;
+  color: #000;
+  margin: 10px 0;
+}
+
+.fog-l {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.box-input {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 25px;
+}

@@ -17,7 +17,7 @@
                     <input type="checkbox" name="" />
                     <label>Lưu mật khẩu</label>
                 </div>
-                <a @click="login">ĐĂNG NHẬP</a>
+                <a class="cursor-pointer" @click="login">ĐĂNG NHẬP</a>
             </form>
             <div class="relative">
                 <a href="" class="text-white absolute top-0 right-0 mt-2">Quên mật khẩu?</a>
@@ -28,24 +28,32 @@
 <script>
 import API from '../API'
 import swal2 from '../utilities/swal2'
+import { useAuthStore } from '../stores/auth'
 export default {
+    setup() {
+        const authStore = useAuthStore()
+        return { authStore }
+    },
     data() {
         return {
             eyeShow: false,
-            user: { username: "", password: "" }
+            user: { username: "Manager@localhost", password: "Manager1!" }
         }
     },
     methods: {
         login() {
-            const loginData = {Username: this.user.username, Password: this.user.password }
+            const loginData = { Username: this.user.username, Password: this.user.password }
             API.login(loginData)
-            .then(res => {
-                swal.success(this.$t('login success'))
-                this.$router.push({ name: "home" })
-            })
-            .catch(error =>{
-                console.log(error)
-            })
+                .then(res => {
+                    const data = JSON.stringify(res.data)
+                    sessionStorage.setItem('auth', data)
+                    this.authStore.setAuth(res.data)
+                    swal.success(this.$t('login success'))
+                    this.$router.push({ name: "home" })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
     }
 }

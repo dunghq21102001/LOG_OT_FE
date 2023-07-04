@@ -12,8 +12,8 @@ export default class menu {
                         isShowExpand: false,
                         children: [
                             {
-                                childName: 'Analytics',
-                                routeName: ''
+                                childName: 'Nhân Viên',
+                                routeName: 'home'
                             },
                             {
                                 childName: 'CRM',
