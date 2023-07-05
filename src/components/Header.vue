@@ -146,6 +146,7 @@ export default {
         },
         logout() {
             sessionStorage.removeItem('auth')
+            sessionStorage.removeItem('token')
             swal2.success(`${this.$t('logout success')}`)
             this.$router.push({ name: "login" })
         },

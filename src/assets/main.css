@@ -76,9 +76,11 @@
 .btn-primary {
   background-color: #f87171;
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: 4px 10px;
   color: #fff;
   border: 1px solid #f87171;
+  min-width: 50px;
+  margin: 10px;
 }
 
 .btn-primary:hover {

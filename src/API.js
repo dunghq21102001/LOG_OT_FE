@@ -4,6 +4,7 @@ export default class API {
     static BASE_URL_V1 = 'https://localhost:5001'
     static ALLOWANCE = 'allowance'
     static EMPLOYEE = 'Employee'
+    static POSITION = 'Position'
 
     // auth
     static login(loginData) {

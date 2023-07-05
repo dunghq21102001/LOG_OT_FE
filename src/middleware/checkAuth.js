@@ -1,9 +1,12 @@
 import { useAuthStore } from '../stores/auth'
 export default function auth({ next, router }) {
     const user = JSON.parse(sessionStorage.getItem('auth'))
+    const token = sessionStorage.getItem('token');
 
     const authStore = useAuthStore()
-    if (user) {
+    if (token) {
+        window.axios.defaults.headers.common = { 'Authorization': `bearer ${sessionStorage.getItem('token')}` };
+
         authStore.setAuth(user)
         return next()
     }

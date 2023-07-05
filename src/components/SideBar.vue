@@ -4,7 +4,7 @@
         <span v-show="systemStore.getExpandSideBar" class="font-bold text-white">VELZON</span>
 
         <ul>
-            <li v-for="menu in menuList" :key="menu.id">
+            <li v-if="auth?.listRoles[0] == 'Manager'" v-for="menu in menuList" :key="menu.id">
                 <ul>
                     <div v-for="item in menu.items" :key="item.itemName">
                         <li @click="item.isShow = !item.isShow"
@@ -45,22 +45,26 @@
 </template>
 <script>
 import menu from '../service/menu'
+import { useAuthStore } from '../stores/auth'
 import { useSystemStore } from '../stores/system'
 export default {
     setup() {
+        const authStore = useAuthStore()
         const systemStore = useSystemStore()
         function getUrl(imgName) {
             const imageUrl = new URL(`/src/assets/images/${imgName}.png`, import.meta.url)
             return imageUrl
         }
 
-        return { systemStore, getUrl }
+        return { systemStore, getUrl, authStore }
     },
     data() {
         return {
             menuList: menu.menuList(),
+            menuListEmp: menu.profileEmpMenu(),
             currentRoute: 'Nhân Viên',
-            isExpand: this.systemStore.getExpandSideBar
+            isExpand: this.systemStore.getExpandSideBar,
+            auth: this.authStore.getAuth,
         }
     },
     created() {
@@ -68,8 +72,6 @@ export default {
      },
     methods: {
         onChangeRoute(routeName, roueLink) {
-            console.log(routeName)
-            console.log(roueLink)
             this.$router.replace({ name: roueLink, params: { } })
             this.currentRoute = routeName
         },
