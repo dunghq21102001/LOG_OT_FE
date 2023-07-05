@@ -1,6 +1,6 @@
 <template>
     <div class="h-screen w-screen bg-custom sm:hidden" @click.self="closeMenu">
-        <div class="w-[80%] bg-[#f3f3f9] h-full dark:bg-[#1a1d21] overflow-y-scroll relative">
+        <div class="w-[80%] bg-[#f87171] h-full dark:bg-[#1a1d21] overflow-y-scroll relative">
             <font-awesome-icon icon="fa-solid fa-xmark" class="absolute right-5 top-5" @click="closeMenu" />
             <ul class="mt-10">
                 <li v-for="menu in listMenu" :key="menu.id">

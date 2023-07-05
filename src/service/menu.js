@@ -13,7 +13,7 @@ export default class menu {
                         children: [
                             {
                                 childName: 'Nhân Viên',
-                                routeName: 'home'
+                                routeName: 'employee-list'
                             },
                             {
                                 childName: 'CRM',

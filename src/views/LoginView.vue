@@ -4,14 +4,14 @@
             <h2 class="text-2xl sm:text-3xl">{{ $t("title-login") }}</h2>
             <form class="content-login">
                 <div class="box-input-login box-input-login-mgb">
-                    <input type="text" name="" required v-model="user.username">
+                    <input type="text" name="" required v-model="user.username" @keydown.enter="login">
                     <label>Tên tài khoản</label>
                 </div>
                 <div class="box-input-login">
-                    <input :type="eyeShow ? 'text' : 'password'" name="" required v-model="user.password">
+                    <input :type="eyeShow ? 'text' : 'password'" name="" required v-model="user.password" @keydown.enter="login">
                     <label>Mật khẩu</label>
                     <font-awesome-icon :icon="!eyeShow ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"
-                        class="text-white absolute right-0 top-1/2 -translate-y-1/2 text-2xl" @click="eyeShow = !eyeShow" />
+                        class="text-white absolute right-0 top-1/2 cursor-pointer -translate-y-1/2 text-2xl" @click="eyeShow = !eyeShow" />
                 </div>
                 <div class="save-pass-login flex items-center">
                     <input type="checkbox" name="" />
@@ -29,6 +29,7 @@
 import API from '../API'
 import swal2 from '../utilities/swal2'
 import { useAuthStore } from '../stores/auth'
+import swal from '../utilities/swal2'
 export default {
     setup() {
         const authStore = useAuthStore()
@@ -47,12 +48,15 @@ export default {
                 .then(res => {
                     const data = JSON.stringify(res.data)
                     sessionStorage.setItem('auth', data)
+                    
+                    sessionStorage.setItem('token', res.data.token)
                     this.authStore.setAuth(res.data)
                     swal.success(this.$t('login success'))
                     this.$router.push({ name: "home" })
                 })
                 .catch(error => {
-                    console.log(error)
+                    if(error.response.data)  swal.error(error.response.data, 3500)
+                    else swal.error(error)
                 })
         }
     }

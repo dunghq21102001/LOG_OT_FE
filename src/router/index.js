@@ -12,6 +12,7 @@ import employeeView from '../views/EmployeeView.vue'
 import EmpInformation from '../views/Employee/Information.vue'
 import EmpDegree from '../views/Employee/Degree.vue'
 import EmpAllowance from '../views/Employee/Allowance.vue'
+import EmployeeList from '../views/EmployeeList.vue'
 import EmpDepartment from '../views/Employee/Department.vue'
 import EmpSkill from '../views/Employee/Skill.vue'
 import EmpDependant from '../views/Employee/Dependant.vue'
@@ -62,6 +63,14 @@ const router = createRouter({
       path: '/employee',
       name: 'empinfo',
       component: EmployeeInformationView,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/employee-list',
+      name: 'employee-list',
+      component: EmployeeList,
       meta: {
         middleware: checkAuth
       }
