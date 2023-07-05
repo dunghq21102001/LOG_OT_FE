@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="bg-white w-full p-3">
-            <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">{{ $t('create department')}}</button>
+            <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo phòng ban mới</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button @click="updateDepartmentForm(item.id)"
-                            class="edit-btn">{{ $t('edit')}}</button>
-                        <button @click="deleteDepartment(item.id)" class="delete-btn">{{ $t('delete')}}</button>
+                        <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+                        <button @click="updateDepartmentForm(item.id)" class="edit-btn"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+                        <button @click="deleteDepartment(item.id)" class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -107,6 +107,7 @@ export default {
             this.description = ''    
         },
         createDepartmentForm() {
+            this.resetFormCreate()
             this.isShow = true
         },
         updateDepartmentForm(id) {

@@ -1,13 +1,14 @@
 <template>
     <div>
         <div class="bg-white w-full p-3">
-            <button @click="createPositionForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">{{ $t('create position')}}</button>
+            <button @click="createPositionForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo vị trí mới</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button @click="updatePositionForm(item.id)" class="mr-2 bg-green-400 px-2 rounded-lg">Edit</button>
-                        <button @click="deletePosition(item.id)" class="bg-red-400 px-2 rounded-lg">Delete</button>
+                        <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+                        <button @click="updatePositionForm(item.id)" class="edit-btn"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+                        <button @click="deletePosition(item.id)" class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -51,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div v-show="isShow2" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
+        <div v-show="isShow2" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
             @click.self="isShow2 = false">
             <div
                 class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
@@ -67,9 +68,16 @@
                             v-model="name" placeholder="Nhập mã nhân viên">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập tên nhân viên">
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
+                        <select @change="test" v-model="departmentIdSelected" class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3">
+                            <option v-for="option in options" :value="option.id" >{{ option.name }}</option>
+                        </select>
+                    </div>
+                    <div class="flex p-1 sm:p-2">
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Tên trình độ:</span></label>
+                        <select v-model="levelIdSelected" class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3">
+                            <option v-for="option in options2" :value="option.id">{{ option.name }}</option>
+                        </select>
                     </div>
 
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
@@ -84,7 +92,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 <script>
@@ -106,57 +114,62 @@ export default {
             name: '',
             id: '',
             departmentName: '',
-            departmentId: null,
-            levelId: null,
-            levelName: '',           
+            departmentId: '',
+            levelId: '',
+            levelName: '',   
+            departmentIdSelected: '',
+            levelIdSelected: '',         
             options: [],
             options2: [],
         }
     },
 
-    methods: {
+    methods: {      
         resetFormCreate() {
             this.name = '',
-            this.description = ''
+            this.departmentId = '',
+            this.levelId = ''
         },
         createPositionForm() {
+            this.resetFormCreate()
             this.isShow = true
         },
         updatePositionForm(id) {
             this.isShow2 = true
-            const currentDepartment = this.items.find(item => item.id == id)
+            const currentLevel = this.items.find(item => item.id == id)
 
-            this.name = currentDepartment.name
-            this.id = currentDepartment.id
-            this.description = currentDepartment.description
-
+            this.name = currentLevel.name
+            this.id = currentLevel.id
+            this.departmentIdSelected = currentLevel.departmentId
+            this.levelIdSelected = currentLevel.levelId     
         },
-        updateDepartmentButton() {
+        updatePositionButton() {
             const data = {
                 id: this.id,
                 name: this.name,
-                description: this.description
+                departmentId: this.departmentIdSelected,
+                levelId: this.levelIdSelected 
             }
-            API.updateDepartment(data)
-                .then(response => {
+            API.updatePosition(data)
+                .then(response => {                   
                     swal.success(response.data)
                     this.exit2()
-                    this.getListDepartment()
+                    this.getListPosition()
                 })
                 .catch(error => {
-                    swal.error(error)
+                    swal.error(error.response.data)
                 });
         },
-        deleteDepartment(id) {
+        deletePosition(id) {
             swal.confirm('Bạn có chắc chắn xóa phòng ban không?').then((result) => {
                 if (result.value) {
-                    API.deleteDepartment(id)
+                    API.deletePosition(id)
                         .then(responsive => {
-                            this.getListDepartment()
+                            this.getListPosition()
                             swal.success(responsive.data)
                         })
                         .catch(error => {
-                            swal.error(error)
+                            swal.error(error.response.data)
                         })
                 }
             })
@@ -175,10 +188,12 @@ export default {
                 .then(response => {
                     this.items = response.data.items.map(item => {
                         return {
-                            id: item.departmentId,
+                            id: item.id,
                             departmentName: item.department.name,
                             levelName: item.level.name,
-                            name: item.name
+                            name: item.name,
+                            departmentId: item.departmentId,
+                            levelId: item.levelId
                         }
                     })
                 })
@@ -214,7 +229,7 @@ export default {
                 .then(response => {
                     swal.success(response.data)
                     this.exit()
-                    //this.resetFormCreate()
+                    this.resetFormCreate()
                     this.getListPosition()
                 })
                 .catch(error => {
@@ -228,9 +243,7 @@ export default {
         this.getListLevel();
     },
     computed: {
-        imageUrl() {
-            return this.imageFile ? URL.createObjectURL(this.imageFile) : null
-        }
+        
     },
 }
 

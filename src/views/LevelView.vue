@@ -6,9 +6,11 @@
                 body-text-direction="center">
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button @click="updateLevelForm(item.id)"
-                            class="edit-btn">{{ $t('edit')}}</button>
-                        <button @click="deleteLevel(item.id)" class="delete-btn">{{ $t('delete')}}</button>
+                        <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+                        <button @click="updateLevelForm(item.id)" class="edit-btn"><font-awesome-icon
+                                icon="fa-solid fa-pen-to-square" /></button>
+                        <button @click="deleteLevel(item.id)" class="delete-btn"><font-awesome-icon
+                                :icon="['fas', 'trash']" /></button>                   
                     </div>
                 </template>
             </EasyDataTable>
@@ -26,12 +28,12 @@
                     <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên trình độ:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
-                            v-model="name" placeholder="Nhập tên phòng ban">
+                            v-model="name" placeholder="Nhập tên trình độ">
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trình độ:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
+                            type="text" v-model="description" placeholder="Nhập mô tả trình độ">
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
                         <button type="submit" @click="createLevel"
@@ -102,32 +104,32 @@ export default {
     },
 
     methods: {
-        resetFormCreate(){
-            this.name = '',   
-            this.description = ''    
+        resetFormCreate() {
+            this.name = '',
+            this.description = ''
         },
         createLevelForm() {
+            this.resetFormCreate()
             this.isShow = true
         },
         updateLevelForm(id) {
             this.isShow2 = true
             const currentLevel = this.items.find(item => item.id == id)
-
             this.name = currentLevel.name
             this.id = currentLevel.id
             this.description = currentLevel.description
 
         },
-        updateLevelButton() {
-            const data = {
-                id: this.id,
+        updateLevelButton() {          
+            const data = {              
                 name: this.name,
                 description: this.description
-            }
-            API.updateLevelment(data)
+            }           
+            API.updateLevel(this.id, data)
                 .then(response => {
                     swal.success(response.data)
                     this.exit2()
+                    this.resetFormCreate()
                     this.getListLevel()
                 })
                 .catch(error => {
@@ -140,7 +142,8 @@ export default {
                     API.deleteLevel(id)
                         .then(responsive => {
                             this.getListLevel()
-                            swal.success(responsive.data)
+                            swal.success(responsive.data.message)
+                            this.resetFormCreate()
                         })
                         .catch(error => {
                             swal.error(error)
@@ -153,7 +156,7 @@ export default {
         },
         exit2() {
             this.isShow2 = false
-        },        
+        },
         getListLevel() {
             API.getListLevel()
                 .then(response => {
@@ -183,7 +186,7 @@ export default {
     created() {
         this.getListLevel();
     },
-    computed: {        
+    computed: {
     },
 }
 

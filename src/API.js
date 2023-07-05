@@ -67,12 +67,12 @@ export default class API {
         return axios.post(`${this.BASE_URL_V1}/Level/CreateLevel`, data)
     }
 
-    static updateLevel(data){
-        return axios.put(`${this.BASE_URL_V1}/Level/Update/${id}`, data)
-    }
-
     static deleteLevel(id){
         return axios.delete(`${this.BASE_URL_V1}/Level/Delete/${id}`)
+    }
+
+    static updateLevel(id, data) {
+        return axios.put(`${this.BASE_URL_V1}/Level/Update/${id}`, data);
     }
 
 }
