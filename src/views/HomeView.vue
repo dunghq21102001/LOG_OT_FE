@@ -19,60 +19,60 @@
         </template>
         <template #item-operation="item">
           <div class="operation-wrapper">
-            <button class="view-btn" @click="goTo(item.userName)">{{ $t('view') }}</button>
-            <button class="edit-btn" @click="showUpdate(item)">{{ $t('edit') }}</button>
-            <button class="delete-btn">{{ $t('delete') }}</button>
+            <button class="view-btn" @click="goTo(item.userName)"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+            <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+            <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button>
           </div>
         </template>
       </EasyDataTable>
     </div>
-    <div v-show="isShow" class="fog-l">
+    <div v-show="isShow" @click.self="cancelAll" class="fog-l">
       <div class="w-[90%] md:w-[60%] bg-white dark:bg-[#292e32] p-7 rounded-md h-[90vh] overflow-y-scroll">
         <div class="flex flex-wrap justify-center w-full">
           <div class="box-input w-[40%]">
             <label for="username">Tên đăng nhập</label>
-            <input type="text" id="username" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="text" id="username" v-model="currentEmp.userName" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[40%]">
             <label for="fullName">Họ và Tên</label>
-            <input type="text" id="fullName" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="text" id="fullName" v-model="currentEmp.fullName" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[40%]">
             <label for="gender">Giới tính</label>
-            <input type="text" id="gender" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="text" id="gender" v-model="currentEmp.genderType" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[40%]">
             <label for="email">Email</label>
-            <input type="text" id="email" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="text" id="email" v-model="currentEmp.email" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[40%]">
             <label for="phone">Số điện thoại</label>
-            <input type="text" id="phone" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="text" id="phone" v-model="currentEmp.phoneNumber" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[40%]">
             <label for="birthday">Sinh nhật</label>
-            <input type="date" id="birthday" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="date" id="birthday" v-model="formattedDate" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
-          <div class="box-input w-[40%]">
+          <!-- <div class="box-input w-[40%]">
             <label for="bankName">Tên ngân hàng</label>
-            <input type="text" id="bankName" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="text" id="bankName" v-model="currentEmp.bankName" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[40%]">
             <label for="bankAccName">Tên Tài khoản ngân hàng</label>
-            <input type="text" id="bankAccName" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="text" id="bankAccName" v-model="currentEmp.bankAccountName" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[40%]">
             <label for="bankAccNum">Số tài khoản ngân hàng</label>
-            <input type="text" id="bankAccNum" class="input-cus dark:bg-gray-900 dark:text-white  ">
-          </div>
-          <div class="box-input w-[40%]">
+            <input type="text" id="bankAccNum" v-model="currentEmp.bankAccountNumber" class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div> -->
+          <div class="box-input w-[86%]">
             <label for="address">Địa chỉ</label>
-            <input type="text" id="address" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <input type="text" id="address" v-model="currentEmp.address" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
         </div>
         <div class="w-[80%] mx-auto flex justify-center">
           <button class="cancel-btn" @click="cancelAll">Huỷ</button>
-          <button v-if="isUpdate" class="edit-btn">Chỉnh sửa</button>
+          <button v-if="isUpdate" @click="actionUpdate" class="edit-btn">Chỉnh sửa</button>
           <button v-if="isCreate" class="main-btn">Tạo</button>
         </div>
       </div>
@@ -105,9 +105,9 @@ export default {
         { text: "Email", value: "email", width: 200 },
         { text: "Số điện thoại", value: "phoneNumber", width: 200 },
         { text: "Sinh nhật", value: "birthDay", width: 200 },
-        { text: "Tên ngân hàng", value: "bankName", width: 200 },
-        { text: "Tên tài khoản ngân hàng", value: "bankAccountName", width: 200 },
-        { text: "Số tài khoản ngân hàng", value: "bankAccountNumber", width: 200 },
+        // { text: "Tên ngân hàng", value: "bankName", width: 200 },
+        // { text: "Tên tài khoản ngân hàng", value: "bankAccountName", width: 200 },
+        // { text: "Số tài khoản ngân hàng", value: "bankAccountNumber", width: 200 },
         { text: "Địa chỉ", value: "address", width: 200 },
         { text: "Kinh nghiệm", value: "experiences", width: 200 },
         { text: "Hành động", value: "operation", width: 500 },
@@ -131,6 +131,11 @@ export default {
   created() {
     this.getList()
     this.setTheme()
+  },
+  computed: {
+    formattedDate() {
+      return this.currentEmp.birthDay.split('T')[0];
+    }
   },
   watch: {
     'themeStore.getTheme': function (val) {
@@ -156,9 +161,11 @@ export default {
       this.currentEmp.address = item.address
       this.currentEmp.experiences = item.experiences
 
-      console.log(this.currentEmp);
       this.isShow = true
       this.isUpdate = true
+    },
+    actionUpdate() {
+      console.log(this.currentEmp);
     },
     convertDate(date) {
       return functionCustom.convertDate(date)
