@@ -95,7 +95,16 @@ export default class menu {
             {
                 name: 'Employee View',
                 routeName: 'emp-information',
+            },
+            {
+                name: 'Danh sách vị trí',
+                routeName: 'position',
+            },
+            {
+                name: 'Danh sách trình độ',
+                routeName: 'level',
             }
+            
         ]
     }
 

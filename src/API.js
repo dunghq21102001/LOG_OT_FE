@@ -41,5 +41,38 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/${this.EMPLOYEE}/GetDetailEmployee?username=${username}`)
     }
 
+    // Position
+    static getListPosition() {
+        return axios.get(`${this.BASE_URL_V1}/Position`)
+    }
+
+    static createPosition(data){
+        return axios.post(`${this.BASE_URL_V1}/Position/Create`, data)
+    }
+
+    static updatePosition(data){
+        return axios.put(`${this.BASE_URL_V1}/Position/Update`, data)
+    }
+
+    static deletePosition(id){
+        return axios.delete(`${this.BASE_URL_V1}/Position/Delete?id=${id}`)
+    }
+
+    // Level
+    static getListLevel() {
+        return axios.get(`${this.BASE_URL_V1}/Level/GetLevel`)
+    }
+
+    static createLevel(data){
+        return axios.post(`${this.BASE_URL_V1}/Level/CreateLevel`, data)
+    }
+
+    static updateLevel(data){
+        return axios.put(`${this.BASE_URL_V1}/Level/Update/${id}`, data)
+    }
+
+    static deleteLevel(id){
+        return axios.delete(`${this.BASE_URL_V1}/Level/Delete/${id}`)
+    }
 
 }

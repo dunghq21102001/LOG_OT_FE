@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="bg-white w-full p-3">
-            <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">{{ $t('create department')}}</button>
+            <button @click="createLevelForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo trình độ mới</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button @click="updateDepartmentForm(item.id)"
+                        <button @click="updateLevelForm(item.id)"
                             class="edit-btn">{{ $t('edit')}}</button>
-                        <button @click="deleteDepartment(item.id)" class="delete-btn">{{ $t('delete')}}</button>
+                        <button @click="deleteLevel(item.id)" class="delete-btn">{{ $t('delete')}}</button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -19,24 +19,24 @@
                 class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
                 <div
                     class="w-full h-10 sm:h-10 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
-                    Tạo phòng ban
+                    Tạo trình độ
                 </div>
                 <div
                     class="w-full px-1 sm:sx-2 grid items-center text-xs sm:text-base justify-center p-1 sm:p-2 mt-1 sm:mt-2">
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên trình độ:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
                             v-model="name" placeholder="Nhập tên phòng ban">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả phòng ban:</span></label>
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trình độ:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
                             type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
-                        <button type="submit" @click="createDepartment"
+                        <button type="submit" @click="createLevel"
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
-                            Tạo phòng ban
+                            Tạo trình độ
                         </button>
                         <button @click="exit" type="exit" class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
                             Hủy tạo
@@ -51,24 +51,24 @@
                 class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
                 <div
                     class="w-full h-10 sm:h-10 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
-                    Chỉnh sửa phòng ban
+                    Chỉnh sửa trình độ
                 </div>
                 <div
                     class="w-full px-1 sm:sx-2 grid items-center text-xs sm:text-base justify-center p-1 sm:p-2 mt-1 sm:mt-2">
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên trình độ:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
-                            v-model="name" placeholder="Nhập tên phòng ban">
+                            v-model="name" placeholder="Nhập tên trình độ">
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trình độ:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
+                            type="text" v-model="description" placeholder="Nhập mô tả trình độ">
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
-                        <button type="submit" @click="updateDepartmentButton"
+                        <button type="submit" @click="updateLevelButton"
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
-                            Chỉnh sửa phòng ban
+                            Chỉnh sửa trình độ
                         </button>
                         <button @click="exit2" type="exit"
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
@@ -88,8 +88,8 @@ export default {
         return {
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
-                { text: "Tên phòng ban", value: "name", width: 140, },
-                { text: "Mô tả phòng ban", value: "description", width: 200, },
+                { text: "Tên trình độ", value: "name", width: 140, },
+                { text: "Mô tả trình độ", value: "description", width: 200, },
                 { text: "Action", value: "operation", width: 300 },
             ],
             items: [],
@@ -106,40 +106,40 @@ export default {
             this.name = '',   
             this.description = ''    
         },
-        createDepartmentForm() {
+        createLevelForm() {
             this.isShow = true
         },
-        updateDepartmentForm(id) {
+        updateLevelForm(id) {
             this.isShow2 = true
-            const currentDepartment = this.items.find(item => item.id == id)
+            const currentLevel = this.items.find(item => item.id == id)
 
-            this.name = currentDepartment.name
-            this.id = currentDepartment.id
-            this.description = currentDepartment.description
+            this.name = currentLevel.name
+            this.id = currentLevel.id
+            this.description = currentLevel.description
 
         },
-        updateDepartmentButton() {
+        updateLevelButton() {
             const data = {
                 id: this.id,
                 name: this.name,
                 description: this.description
             }
-            API.updateDepartment(data)
+            API.updateLevelment(data)
                 .then(response => {
                     swal.success(response.data)
                     this.exit2()
-                    this.getListDepartment()
+                    this.getListLevel()
                 })
                 .catch(error => {
                     swal.error(error)
                 });
         },
-        deleteDepartment(id) {
+        deleteLevel(id) {
             swal.confirm('Bạn có chắc chắn xóa phòng ban không?').then((result) => {
                 if (result.value) {
-                    API.deleteDepartment(id)
+                    API.deleteLevel(id)
                         .then(responsive => {
-                            this.getListDepartment()
+                            this.getListLevel()
                             swal.success(responsive.data)
                         })
                         .catch(error => {
@@ -154,8 +154,8 @@ export default {
         exit2() {
             this.isShow2 = false
         },        
-        getListDepartment() {
-            API.getListDepartment()
+        getListLevel() {
+            API.getListLevel()
                 .then(response => {
                     this.items = response.data.items
                 })
@@ -163,17 +163,17 @@ export default {
                     swal.error(error)
                 });
         },
-        createDepartment() {
+        createLevel() {
             const data = {
                 name: this.name,
                 description: this.description,
             }
-            API.createDepartment(data)
+            API.createLevel(data)
                 .then(response => {
-                    swal.success(response.data)
+                    swal.success(response.data.message)
                     this.exit()
                     this.resetFormCreate()
-                    this.getListDepartment()
+                    this.getListLevel()
                 })
                 .catch(error => {
                     swal.error(error)
@@ -181,7 +181,7 @@ export default {
         },
     },
     created() {
-        this.getListDepartment();
+        this.getListLevel();
     },
     computed: {        
     },

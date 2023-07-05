@@ -29,8 +29,8 @@
     "create emp": "Tạo nhân viên",
     "login success": "Đăng nhập thành công",
     "create department": "Tạo phòng ban",
-    "getdepartmentbyusername": "Lấy phòng ban bằng Username"
-
+    "getdepartmentbyusername": "Lấy phòng ban bằng Username",
+    "create position": "Tạo vị trí mới"
 
 
 

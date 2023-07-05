@@ -1,14 +1,13 @@
 <template>
     <div>
         <div class="bg-white w-full p-3">
-            <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">{{ $t('create department')}}</button>
+            <button @click="createPositionForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">{{ $t('create position')}}</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button @click="updateDepartmentForm(item.id)"
-                            class="edit-btn">{{ $t('edit')}}</button>
-                        <button @click="deleteDepartment(item.id)" class="delete-btn">{{ $t('delete')}}</button>
+                        <button @click="updatePositionForm(item.id)" class="mr-2 bg-green-400 px-2 rounded-lg">Edit</button>
+                        <button @click="deletePosition(item.id)" class="bg-red-400 px-2 rounded-lg">Delete</button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -19,33 +18,40 @@
                 class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
                 <div
                     class="w-full h-10 sm:h-10 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
-                    Tạo phòng ban
+                    Tạo Vị trí mới
                 </div>
                 <div
                     class="w-full px-1 sm:sx-2 grid items-center text-xs sm:text-base justify-center p-1 sm:p-2 mt-1 sm:mt-2">
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên vị trí:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
                             v-model="name" placeholder="Nhập tên phòng ban">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả phòng ban:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
+                        <select v-model="departmentIdSelected" class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3">
+                            <option v-for="option in options" :value="option.id" >{{ option.name }}</option>
+                        </select>
+                    </div>
+                    <div class="flex p-1 sm:p-2">
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Tên trình độ:</span></label>
+                        <select v-model="levelIdSelected" class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3">
+                            <option v-for="option in options2" :value="option.id">{{ option.name }}</option>
+                        </select>
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
-                        <button type="submit" @click="createDepartment"
+                        <button type="submit" @click="createPosition"
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
-                            Tạo phòng ban
+                            {{ $t('create position')}}
                         </button>
                         <button @click="exit" type="exit" class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
-                            Hủy tạo
+                            {{ $t('cancel')}}
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-show="isShow2" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
+        <!-- <div v-show="isShow2" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
             @click.self="isShow2 = false">
             <div
                 class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
@@ -58,26 +64,27 @@
                     <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
-                            v-model="name" placeholder="Nhập tên phòng ban">
+                            v-model="name" placeholder="Nhập mã nhân viên">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trình độ:</span></label>
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
+                            type="text" v-model="description" placeholder="Nhập tên nhân viên">
                     </div>
+
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
-                        <button type="submit" @click="updateDepartmentButton"
+                        <button type="submit" @click="updatePositionButton"
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
-                            Chỉnh sửa phòng ban
+                            chỉnh sửa phòng ban
                         </button>
                         <button @click="exit2" type="exit"
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
-                            Hủy chỉnh sửa
+                            Hủy
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -87,29 +94,35 @@ export default {
     data() {
         return {
             headers: [
-                //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
-                { text: "Tên phòng ban", value: "name", width: 140, },
-                { text: "Mô tả phòng ban", value: "description", width: 200, },
-                { text: "Action", value: "operation", width: 300 },
+                //{ text: "Department ID", value: "id", width: 100, fixed: "left", },
+                { text: "Name", value: "name", width: 140, },
+                { text: "Department Name", value: "departmentName", width: 140, },
+                { text: "Level Name", value: "levelName", width: 140, },
+                { text: "Action", value: "operation", width: 120 },
             ],
             items: [],
             isShow: false,
             isShow2: false,
             name: '',
             id: '',
-            description: ''
+            departmentName: '',
+            departmentId: null,
+            levelId: null,
+            levelName: '',           
+            options: [],
+            options2: [],
         }
     },
 
     methods: {
-        resetFormCreate(){
-            this.name = '',   
-            this.description = ''    
+        resetFormCreate() {
+            this.name = '',
+            this.description = ''
         },
-        createDepartmentForm() {
+        createPositionForm() {
             this.isShow = true
         },
-        updateDepartmentForm(id) {
+        updatePositionForm(id) {
             this.isShow2 = true
             const currentDepartment = this.items.find(item => item.id == id)
 
@@ -153,27 +166,56 @@ export default {
         },
         exit2() {
             this.isShow2 = false
-        },        
-        getListDepartment() {
-            API.getListDepartment()
+        },
+        handleImageChange(event) {
+            this.imageFile = event.target.files[0]
+        },
+        getListPosition() {
+            API.getListPosition()
                 .then(response => {
-                    this.items = response.data.items
+                    this.items = response.data.items.map(item => {
+                        return {
+                            id: item.departmentId,
+                            departmentName: item.department.name,
+                            levelName: item.level.name,
+                            name: item.name
+                        }
+                    })
                 })
                 .catch(error => {
                     swal.error(error)
                 });
         },
-        createDepartment() {
+        getListDepartment() {
+            API.getListDepartment()
+                .then(response => {
+                    this.options = response.data.items
+                })
+                .catch(error => {
+                    swal.error(error)
+                });
+        },
+        getListLevel() {
+            API.getListLevel()
+                .then(response => {
+                    this.options2 = response.data.items
+                })
+                .catch(error => {
+                    swal.error(error)
+                });
+        },
+        createPosition() {
             const data = {
                 name: this.name,
-                description: this.description,
+                levelId: this.levelIdSelected,
+                departmentId: this.departmentIdSelected,
             }
-            API.createDepartment(data)
+            API.createPosition(data)
                 .then(response => {
                     swal.success(response.data)
                     this.exit()
-                    this.resetFormCreate()
-                    this.getListDepartment()
+                    //this.resetFormCreate()
+                    this.getListPosition()
                 })
                 .catch(error => {
                     swal.error(error)
@@ -181,9 +223,14 @@ export default {
         },
     },
     created() {
+        this.getListPosition();
         this.getListDepartment();
+        this.getListLevel();
     },
-    computed: {        
+    computed: {
+        imageUrl() {
+            return this.imageFile ? URL.createObjectURL(this.imageFile) : null
+        }
     },
 }
 
