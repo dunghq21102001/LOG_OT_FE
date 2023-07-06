@@ -62,7 +62,7 @@ export default {
         return {
             menuList: menu.menuList(),
             menuListEmp: menu.profileEmpMenu(),
-            currentRoute: 'Nhân Viên',
+            currentRoute: 'Dashboard',
             isExpand: this.systemStore.getExpandSideBar,
             auth: this.authStore.getAuth,
         }

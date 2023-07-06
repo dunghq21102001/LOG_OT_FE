@@ -12,20 +12,24 @@ export default class menu {
                         isShowExpand: false,
                         children: [
                             {
+                                childName: 'Dashboard',
+                                routeName: 'home'
+                            },
+                            {
                                 childName: 'Nhân Viên',
                                 routeName: 'employee-list'
                             },
                             {
-                                childName: 'CRM',
-                                routeName: ''
+                                childName: 'Thai Sản',
+                                routeName: 'maternity-employee'
                             },
                             {
-                                childName: 'Ecommerce',
-                                routeName: ''
+                                childName: 'Nhật ký làm thêm',
+                                routeName: 'overtime-log'
                             },
                             {
-                                childName: 'Crypto',
-                                routeName: ''
+                                childName: 'Phụ thuộc',
+                                routeName: 'dependent-list'
                             }
                         ]
                     },
@@ -133,6 +137,10 @@ export default class menu {
             {
                 name: 'experience',
                 routeName: 'emp-experience',
+            },
+            {
+                name: 'contract',
+                routeName: 'emp-contract',
             },
             {
                 name: 'dependant',

@@ -6,7 +6,7 @@
                     <div
                         class="mb-3 rounded-[50%] border-[1px] border-[#000] border-solid w-[110px] h-[110px] flex justify-center items-center">
                         <img :src="currentEmp?.image" alt="image"
-                            class="rounded-[50%] w-[100px] h-[100px] justify-center content-center" />
+                            class="w-[100px] h-[100px] block mx-auto rounded-full object-cover justify-center content-center" />
                     </div>
                     <div class="flex mb-1">
                         <span>Name:&nbsp</span>

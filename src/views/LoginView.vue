@@ -4,18 +4,21 @@
             <h2 class="text-2xl sm:text-3xl">{{ $t("title-login") }}</h2>
             <form class="content-login">
                 <div class="box-input-login box-input-login-mgb">
-                    <input type="text" name="" required v-model="user.username" @keydown.enter="login">
+                    <input type="text" name="" required :value="user.username"
+                        @change="handleChangeUsername($event.target.value)" @keydown.enter="login">
                     <label>Tên tài khoản</label>
                 </div>
                 <div class="box-input-login">
-                    <input :type="eyeShow ? 'text' : 'password'" name="" required v-model="user.password" @keydown.enter="login">
+                    <input :type="eyeShow ? 'text' : 'password'" name="" required v-model="user.password"
+                        @keydown.enter="login">
                     <label>Mật khẩu</label>
                     <font-awesome-icon :icon="!eyeShow ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"
-                        class="text-white absolute right-0 top-1/2 cursor-pointer -translate-y-1/2 text-2xl" @click="eyeShow = !eyeShow" />
+                        class="text-white absolute right-0 top-1/2 cursor-pointer -translate-y-1/2 text-2xl"
+                        @click="eyeShow = !eyeShow" />
                 </div>
                 <div class="save-pass-login flex items-center">
-                    <input type="checkbox" name="" />
-                    <label>Lưu mật khẩu</label>
+                    <input id="save" v-model="savePassword" type="checkbox" name="" />
+                    <label for="save">Lưu mật khẩu</label>
                 </div>
                 <a class="cursor-pointer" @click="login">ĐĂNG NHẬP</a>
             </form>
@@ -27,7 +30,6 @@
 </template>
 <script>
 import API from '../API'
-import swal2 from '../utilities/swal2'
 import { useAuthStore } from '../stores/auth'
 import swal from '../utilities/swal2'
 export default {
@@ -38,7 +40,17 @@ export default {
     data() {
         return {
             eyeShow: false,
-            user: { username: "Manager@localhost", password: "Manager1!" }
+            user: { username: "", password: "" },
+            savePassword: false,
+            tmpUsername: '',
+            tmpPassword: ''
+        }
+    },
+    created() {
+        if (localStorage.getItem('username') && localStorage.getItem('password')) {
+            this.tmpUsername = localStorage.getItem('username')
+            this.tmpPassword = localStorage.getItem('password')
+            this.savePassword = true
         }
     },
     methods: {
@@ -48,16 +60,28 @@ export default {
                 .then(res => {
                     const data = JSON.stringify(res.data)
                     sessionStorage.setItem('auth', data)
-                    
                     sessionStorage.setItem('token', res.data.token)
+                    if (this.savePassword) {
+                        localStorage.setItem('username', this.user.username)
+                        localStorage.setItem('password', this.user.password)
+                    } else {
+                        localStorage.removeItem('username')
+                        localStorage.removeItem('password')
+                    }
                     this.authStore.setAuth(res.data)
                     swal.success(this.$t('login success'))
                     this.$router.push({ name: "home" })
                 })
                 .catch(error => {
-                    if(error.response.data)  swal.error(error.response.data, 3500)
+                    if (error.response.data) swal.error(error.response.data, 3500)
                     else swal.error(error)
                 })
+        },
+        handleChangeUsername(value) {
+            this.user.username = value
+            if (this.user.username == this.tmpUsername) {
+                this.user.password = this.tmpPassword
+            }
         }
     }
 }

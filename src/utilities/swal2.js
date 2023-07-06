@@ -23,6 +23,7 @@ class swal {
             showConfirmButton: false,
             position: 'top-end',
             timer: time,
+            width: '500px',
             icon: 'error',
             timerProgressBar: true,
             title: message,

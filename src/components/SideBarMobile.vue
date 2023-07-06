@@ -38,7 +38,7 @@ export default {
     data() {
         return {
             listMenu: menu.menuList(),
-            currentRoute: 'Analytics'
+            currentRoute: 'Dashboard'
         }
     },
     methods: {

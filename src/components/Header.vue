@@ -5,10 +5,10 @@
             <font-awesome-icon @click="expandSideBar" class="ml-16 cursor-pointer hover-custom"
                 :icon="systemStore.getExpandSideBar ? 'fa-solid fa-bars-staggered' : 'fa-solid fa-arrow-right'" />
         </div>
-        <div class="w-full sm:w-3/5 md:w-2/5 flex flex-wrap items-center justify-around">
+        <div class="w-full sm:w-3/5 md:w-2/5 lg:w-1/5 flex flex-wrap items-center justify-around">
             <font-awesome-icon class="block sm:hidden w-3" @click="isShowMobileMenu = !isShowMobileMenu"
                 :icon="isShowMobileMenu ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" />
-            <div class="w-[50px] relative">
+            <!-- <div class="w-[50px] relative">
                 <country-flag class="cursor-pointer" v-click-outside-element="close" @click="showLang"
                     :country="currentLang == 'vnm' ? 'vn' : 'us'" size='normal' />
                 <Transition name="lang">
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </Transition>
-            </div>
+            </div> -->
             <font-awesome-icon icon="fa-solid fa-expand" class="hover-custom sm:block hidden" @click="expandAction" />
             <font-awesome-icon v-show="!isDark" @click="changeTheme" icon="fa-solid fa-moon"
                 class="hover-custom sm:block hidden" />
@@ -29,8 +29,8 @@
                 class="hover-custom sm:block hidden" />
             <!-- <font-awesome-icon icon="fa-solid fa-bell" class="hover-custom sm:block hidden" /> -->
             <div class="flex items-center space-x-4 relative min-w-[120px]">
-                <img class="w-10 h-10 rounded-full cursor-pointer" v-click-outside-element="closeProfile"
-                    @click="showProfile" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                <img class="w-10 h-10 object-cover rounded-full cursor-pointer" v-click-outside-element="closeProfile"
+                    @click="showProfile" :src="auth?.image" alt="">
                 <div class="font-medium text-gray-500">
                     <div>{{ auth?.fullName }}</div>
                     <div class="text-sm">{{ auth?.listRoles ? auth?.listRoles[0] : '' }}</div>
@@ -158,7 +158,6 @@ export default {
 </script>
 <style scoped>
 .hover-custom {
-    padding: 15px;
     transition: ease 0.4s;
     font-size: 24px;
 }
