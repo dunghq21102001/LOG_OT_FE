@@ -10,6 +10,7 @@ import axios from 'axios';
 import App from './App.vue'
 import API from './API'
 import router from './router'
+import { VueSelect } from "vue-select";
 import i18n from './utilities/i18n'
 import vueClickOutsideElement from 'vue-click-outside-element'
 import CountryFlag from 'vue-country-flag-next'
@@ -41,6 +42,7 @@ window.axios.defaults.headers.common = { 'Authorization': `bearer ${sessionStora
 // nơi khai báo các component ở phạm vi global
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('country-flag', CountryFlag)
+app.component("v-select", VueSelect)
 app.component('EasyDataTable', Vue3EasyDataTable)
 
 app.use(VueSweetalert2)

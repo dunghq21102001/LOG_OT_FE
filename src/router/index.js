@@ -8,9 +8,13 @@ import checkAuth from '../middleware/checkAuth'
 import RequestOT from '../views/RequestOTView.vue'
 import requestOff from '../views/RequestOffView.vue'
 import department from '../views/DepartmentView.vue'
+import MaternityEmployee from '../views/MaternityEmployeeView.vue'
+import Dependent from '../views/DependentView.vue'
+import OvertimeLog from '../views/OvertimeLog.vue'
 import employeeView from '../views/EmployeeView.vue'
 import EmpInformation from '../views/Employee/Information.vue'
 import EmpDegree from '../views/Employee/Degree.vue'
+import EmpContract from '../views/Employee/Contract.vue'
 import EmpAllowance from '../views/Employee/Allowance.vue'
 import EmployeeList from '../views/EmployeeList.vue'
 import EmpDepartment from '../views/Employee/Department.vue'
@@ -76,6 +80,30 @@ const router = createRouter({
       }
     },
     {
+      path: '/maternity-employee',
+      name: 'maternity-employee',
+      component: MaternityEmployee,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/overtime-log',
+      name: 'overtime-log',
+      component: OvertimeLog,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/dependent-list',
+      name: 'dependent-list',
+      component: Dependent,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
       path: '/request-ot',
       name: 'request-ot',
       component: RequestOT,
@@ -133,6 +161,12 @@ const router = createRouter({
           path: 'emp-information/:username',
           name: 'emp-information',
           component: EmpInformation,
+          meta: { middleware: checkAuth },
+        },
+        {
+          path: 'emp-contract/:username',
+          name: 'emp-contract',
+          component: EmpContract,
           meta: { middleware: checkAuth },
         },
         {

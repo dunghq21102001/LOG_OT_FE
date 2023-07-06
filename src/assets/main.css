@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import "vue-select/dist/vue-select.css";
 * {
   margin: 0;
   padding: 0;
@@ -173,7 +173,18 @@
   outline: none;
   color: #000;
   margin: 10px 0;
+  border: 1px solid transparent;
 }
+
+.select-cus {
+  background-color: #dbdbdb;
+  border-radius: 10px;
+  padding: 14px 20px;
+  outline: none;
+  color: #000;
+  margin: 10px 0;
+}
+
 
 .fog-l {
   background-color: rgba(0, 0, 0, 0.5);

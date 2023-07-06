@@ -31,13 +31,13 @@
                             <div class="flex flex-col items-start mt-4 w-[71%]">
                                 <div
                                     class="w-20 h-20 rounded-lg border-[1px] border-[#ccc] border-solid mb-2 flex items-center justify-center">
-                                    <img :src="image" alt="mage" class="w-[95%] h-[95%] rounded-lg">
+                                    <img :src="image" alt="mage" class="w-[95%] h-[95%] block mx-auto rounded-lg object-cover">
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <input type="file" id="image" class="hidden" />
                                     <label class="bg-[#f87171] px-3 py-1 rounded-md cursor-pointer text-white"
                                         for="image">Choose File</label>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="flex p-1">
@@ -52,14 +52,14 @@
                             <label for="maternity" class="w-[29%]">Maternity:&nbsp</label>
                             <div class="pr-1 sm:pr-6 flex items-center">
                                 <label for="maternityYes" class="pr-1 sm:pr-2">Yes</label>
-                                <input type="radio" id="maternityYes" value="True" v-model="maternity">
+                                <input type="radio" id="maternityYes" value="true" v-model="maternity">
                             </div>
                             <div class="pr-1 sm:pr-6 flex items-center">
                                 <label for="maternityNo" class="pr-1 sm:pr-2">No</label>
-                                <input type="radio" id="maternityNo" value="False" v-model="maternity">
+                                <input type="radio" id="maternityNo" value="false" v-model="maternity">
                             </div>
                         </div>
-                        <div class="flex p-1">
+                        <!-- <div class="flex p-1">
                             <label for="imagebase" class="w-[29%]">Image Base:&nbsp</label>
                             <div class="flex flex-col items-start mt-4 w-[71%]">
                                 <div
@@ -72,7 +72,7 @@
                                         for="imagebase">Choose File</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="flex p-1">
                             <label for="workStatus" class="w-[29%]">Work Status:&nbsp</label>
                             <div class="pr-1 sm:pr-6 flex items-center">
@@ -84,6 +84,103 @@
                                 <input type="radio" id="workStatusNo" value="0" v-model="workStatus">
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-1/2">
+                <div class="mb-4">
+                    <div class="flex justify-center font-bold text-base mb-2">
+                        <span>Security</span>
+                    </div>
+                    <div class="flex justify-start flex-col">
+                        <div class="flex p-1">
+                            <label for="username" class="w-[29%]">Username:&nbsp</label>
+                            <input id="username" type="text" :value="username" disabled class="w-[71%]" />
+                        </div>
+                        <!-- <div class="flex p-1">
+                            <label for="normalizedUsername" class="w-[29%]">Normalized Username:&nbsp</label>
+                            <input id="normalizedUsername" type="text" :value="normalizedUsername" disabled
+                                class="w-[71%]" />
+                        </div> -->
+                        <div class="flex p-1">
+                            <label for="email" class="w-[29%]">Email:&nbsp</label>
+                            <input id="email" type="text" :value="email" disabled class="w-[71%]" />
+                        </div>
+                        <!-- <div class="flex p-1">
+                            <label for="normalizedEmail" class="w-[29%]">Normalized Email:&nbsp</label>
+                            <input id="normalizedEmail" type="text" :value="normalizedEmail" disabled class="w-[71%]" />
+                        </div> -->
+                        <!-- <div class="flex p-1">
+                            <label for="emailConfirmed" class="w-[29%]">Email Confirmed:&nbsp</label>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="emailConfirmedYes" class="pr-1 sm:pr-2">Yes</label>
+                                <input type="radio" id="emailConfirmedYes" value="true" v-model="emailConfirmed">
+                            </div>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="emailConfirmedNo" class="pr-1 sm:pr-2">No</label>
+                                <input type="radio" id="emailConfirmedNo" value="false" v-model="emailConfirmed">
+                            </div>
+                        </div> -->
+                        <!-- <div class="flex p-1">
+                            <label for="passwordHash" class="w-[29%]">Password Hash:&nbsp</label>
+                            <input id="passwordHash" type="text" :value="passwordHash" disabled class="w-[71%]" />
+                        </div> -->
+                        <!-- <div class="flex p-1">
+                            <label for="securityStamp" class="w-[29%]">Security Stamp:&nbsp</label>
+                            <input id="securityStamp" type="text" :value="securityStamp" disabled class="w-[71%]" />
+                        </div> -->
+                        <!-- <div class="flex p-1">
+                            <label for="concurrencyStamp" class="w-[29%]">Concurrency Stamp:&nbsp</label>
+                            <input id="concurrencyStamp" type="text" :value="concurrencyStamp" disabled class="w-[71%]" />
+                        </div> -->
+                        <div class="flex p-1">
+                            <label for="phoneNumber" class="w-[29%]">Phone Number:&nbsp</label>
+                            <input id="phoneNumber" type="text" :value="phoneNumber" disabled class="w-[71%]" />
+                        </div>
+                        <!-- <div class="flex p-1">
+                            <label for="phoneNumberConfirmed" class="w-[29%]">Phone Number Confirmed:&nbsp</label>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="phoneNumberConfirmedYes" class="pr-1 sm:pr-2">Yes</label>
+                                <input type="radio" id="phoneNumberConfirmedYes" value="true"
+                                    v-model="phoneNumberConfirmed">
+                            </div>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="phoneNumberConfirmedNo" class="pr-1 sm:pr-2">No</label>
+                                <input type="radio" id="phoneNumberConfirmedNo" value="false"
+                                    v-model="phoneNumberConfirmed">
+                            </div>
+                        </div> -->
+                        <!-- <div class="flex p-1">
+                            <label for="twoFactorEnabled" class="w-[29%]">Two Factor Enabled:&nbsp</label>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="twoFactorEnabledYes" class="pr-1 sm:pr-2">Yes</label>
+                                <input type="radio" id="twoFactorEnabledYes" value="true" v-model="twoFactorEnabled">
+                            </div>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="twoFactorEnabledNo" class="pr-1 sm:pr-2">No</label>
+                                <input type="radio" id="twoFactorEnabledNo" value="false" v-model="twoFactorEnabled">
+                            </div>
+                        </div> -->
+                        <!-- <div class="flex p-1">
+                            <label for="lockoutEnd" class="w-[29%]">Lockout End:&nbsp</label>
+                            <input v-model="lockoutEnd" type="datetime-local" id="lockoutEnd" disabled
+                                class="w-[50%] bg-slate-400" />
+                        </div> -->
+                        <!-- <div class="flex p-1">
+                            <label for="lockoutEnabled" class="w-[29%]">Lockout Enabled:&nbsp</label>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="lockoutEnabledYes" class="pr-1 sm:pr-2">Yes</label>
+                                <input type="radio" id="lockoutEnabledYes" value="true" v-model="lockoutEnabled">
+                            </div>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="lockoutEnabledNo" class="pr-1 sm:pr-2">No</label>
+                                <input type="radio" id="lockoutEnabledNo" value="false" v-model="lockoutEnabled">
+                            </div>
+                        </div> -->
+                        <!-- <div class="flex p-1">
+                            <label for="accessFailedCount" class="w-[29%]">Access Failed Count:&nbsp</label>
+                            <input id="accessFailedCount" type="text" :value="accessFailedCount" disabled class="w-[71%]" />
+                        </div> -->
                     </div>
                 </div>
                 <div class="mb-4">
@@ -106,103 +203,6 @@
                     </div>
                 </div>
             </div>
-            <div class="w-1/2">
-                <div class="mb-4">
-                    <div class="flex justify-center font-bold text-base mb-2">
-                        <span>Security</span>
-                    </div>
-                    <div class="flex justify-start flex-col">
-                        <div class="flex p-1">
-                            <label for="username" class="w-[29%]">Username:&nbsp</label>
-                            <input id="username" type="text" :value="username" disabled class="w-[71%]" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="normalizedUsername" class="w-[29%]">Normalized Username:&nbsp</label>
-                            <input id="normalizedUsername" type="text" :value="normalizedUsername" disabled
-                                class="w-[71%]" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="email" class="w-[29%]">Email:&nbsp</label>
-                            <input id="email" type="text" :value="email" disabled class="w-[71%]" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="normalizedEmail" class="w-[29%]">Normalized Email:&nbsp</label>
-                            <input id="normalizedEmail" type="text" :value="normalizedEmail" disabled class="w-[71%]" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="emailConfirmed" class="w-[29%]">Email Confirmed:&nbsp</label>
-                            <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="emailConfirmedYes" class="pr-1 sm:pr-2">Yes</label>
-                                <input type="radio" id="emailConfirmedYes" value="true" v-model="emailConfirmed">
-                            </div>
-                            <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="emailConfirmedNo" class="pr-1 sm:pr-2">No</label>
-                                <input type="radio" id="emailConfirmedNo" value="false" v-model="emailConfirmed">
-                            </div>
-                        </div>
-                        <div class="flex p-1">
-                            <label for="passwordHash" class="w-[29%]">Password Hash:&nbsp</label>
-                            <input id="passwordHash" type="text" :value="passwordHash" disabled class="w-[71%]" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="securityStamp" class="w-[29%]">Security Stamp:&nbsp</label>
-                            <input id="securityStamp" type="text" :value="securityStamp" disabled class="w-[71%]" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="concurrencyStamp" class="w-[29%]">Concurrency Stamp:&nbsp</label>
-                            <input id="concurrencyStamp" type="text" :value="concurrencyStamp" disabled class="w-[71%]" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="phoneNumber" class="w-[29%]">Phone Number:&nbsp</label>
-                            <input id="phoneNumber" type="text" :value="phoneNumber" disabled class="w-[71%]" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="phoneNumberConfirmed" class="w-[29%]">Phone Number Confirmed:&nbsp</label>
-                            <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="phoneNumberConfirmedYes" class="pr-1 sm:pr-2">Yes</label>
-                                <input type="radio" id="phoneNumberConfirmedYes" value="true"
-                                    v-model="phoneNumberConfirmed">
-                            </div>
-                            <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="phoneNumberConfirmedNo" class="pr-1 sm:pr-2">No</label>
-                                <input type="radio" id="phoneNumberConfirmedNo" value="false"
-                                    v-model="phoneNumberConfirmed">
-                            </div>
-                        </div>
-                        <div class="flex p-1">
-                            <label for="twoFactorEnabled" class="w-[29%]">Two Factor Enabled:&nbsp</label>
-                            <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="twoFactorEnabledYes" class="pr-1 sm:pr-2">Yes</label>
-                                <input type="radio" id="twoFactorEnabledYes" value="true" v-model="twoFactorEnabled">
-                            </div>
-                            <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="twoFactorEnabledNo" class="pr-1 sm:pr-2">No</label>
-                                <input type="radio" id="twoFactorEnabledNo" value="false" v-model="twoFactorEnabled">
-                            </div>
-                        </div>
-                        <div class="flex p-1">
-                            <label for="lockoutEnd" class="w-[29%]">Lockout End:&nbsp</label>
-                            <input v-model="lockoutEnd" type="datetime-local" id="lockoutEnd" disabled
-                                class="w-[50%] bg-slate-400" />
-                        </div>
-                        <div class="flex p-1">
-                            <label for="lockoutEnabled" class="w-[29%]">Lockout Enabled:&nbsp</label>
-                            <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="lockoutEnabledYes" class="pr-1 sm:pr-2">Yes</label>
-                                <input type="radio" id="lockoutEnabledYes" value="true" v-model="lockoutEnabled">
-                            </div>
-                            <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="lockoutEnabledNo" class="pr-1 sm:pr-2">No</label>
-                                <input type="radio" id="lockoutEnabledNo" value="false" v-model="lockoutEnabled">
-                            </div>
-                        </div>
-                        <div class="flex p-1">
-                            <label for="accessFailedCount" class="w-[29%]">Access Failed Count:&nbsp</label>
-                            <input id="accessFailedCount" type="text" :value="accessFailedCount" disabled class="w-[71%]" />
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -216,7 +216,7 @@ export default {
             gender: 0,
             imageFile: null,
             birthday: null,
-            maternity: '',
+            maternity: false,
             workStatus: 0,
             imageFileBase: null,
             emailConfirmed: false,
@@ -277,6 +277,7 @@ export default {
                     this.emailConfirmed = this.currentEmp?.emailConfirmed
                     this.passwordHash = this.currentEmp?.passwordHash
                     this.securityStamp = this.currentEmp?.securityStamp
+                    this.maternity = this.currentEmp?.isMaternity
                     this.concurrencyStamp = this.currentEmp?.concurrencyStamp
                     this.phoneNumber = this.currentEmp?.phoneNumber
                     this.phoneNumberConfirmed = this.currentEmp?.phoneNumberConfirmed
