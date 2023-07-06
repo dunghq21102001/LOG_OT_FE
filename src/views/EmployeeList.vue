@@ -15,7 +15,7 @@
         </template>
         <template #item-genderType="item">
           <div>
-            {{ item.genderType = 1 ? "Nam" : "Nữ" }}
+            {{ item.genderType == 1 ? "Nữ" : item.genderType == 2 ? "Nam" : "Khác" }}
           </div>
         </template>
         <template #item-operation="item">
@@ -192,7 +192,7 @@ export default {
       currentEmp: {
         userName: '',
         fullName: '',
-        genderType: 0,
+        genderType: 1,
         email: '',
         phoneNumber: '',
         birthDay: '',
@@ -382,7 +382,7 @@ export default {
       this.currentEmp = {
         userName: '',
         fullName: '',
-        genderType: 0,
+        genderType: 1,
         email: '',
         phoneNumber: '',
         birthDay: '',

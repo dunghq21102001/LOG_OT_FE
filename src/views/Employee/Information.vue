@@ -14,12 +14,16 @@
                         <div class="flex p-1">
                             <label for="gender" class="w-[29%]">Gender:&nbsp</label>
                             <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="male" class="pr-1 sm:pr-2">Male</label>
-                                <input type="radio" id="male" value="1" v-model="gender">
+                                <label for="male" class="pr-1 sm:pr-2">Nam</label>
+                                <input type="radio" id="male" value="2" v-model="gender">
                             </div>
                             <div class="pr-1 sm:pr-6 flex items-center">
-                                <label for="female" class="pr-1 sm:pr-2">Female</label>
-                                <input type="radio" id="female" value="0" v-model="gender">
+                                <label for="female" class="pr-1 sm:pr-2">Nữ</label>
+                                <input type="radio" id="female" value="1" v-model="gender">
+                            </div>
+                            <div class="pr-1 sm:pr-6 flex items-center">
+                                <label for="other" class="pr-1 sm:pr-2">Khác</label>
+                                <input type="radio" id="other" value="3" v-model="gender">
                             </div>
                         </div>
                         <div class="flex p-1">
@@ -31,7 +35,8 @@
                             <div class="flex flex-col items-start mt-4 w-[71%]">
                                 <div
                                     class="w-20 h-20 rounded-lg border-[1px] border-[#ccc] border-solid mb-2 flex items-center justify-center">
-                                    <img :src="image" alt="mage" class="w-[95%] h-[95%] block mx-auto rounded-lg object-cover">
+                                    <img :src="image" alt="mage"
+                                        class="w-[95%] h-[95%] block mx-auto rounded-lg object-cover">
                                 </div>
                                 <!-- <div>
                                     <input type="file" id="image" class="hidden" />
