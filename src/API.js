@@ -125,4 +125,77 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/api/Enum/InsuranceType`)
     }
 
+    static getListEmployeeContract(page) {
+        return axios.get(`${this.BASE_URL_V1}/EmployeeContract/GetList?pg=${page}`)
+    }
+
+    static createEmployeeContract(data) {
+        return axios.post(`${this.BASE_URL_V1}/EmployeeContract/Create`, data)
+    }
+
+    static getListEmployeeContractStatus() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/EmployeeContractStatus`)
+    }
+
+    static getListSalaryType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/SalaryType`)
+    }
+
+    static getListContractType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/ContractType`)
+    }
+
+    static getListInsuranceType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/InsuranceType`)
+    }
+
+    static getListEmployeeContractStatus() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/EmployeeContractStatus`)
+    }
+
+    static updateEmployeeContract(data) {
+        return axios.put(`${this.BASE_URL_V1}/EmployeeContract/Update`, data)
+    }
+
+    static deleteEmployeeContract(id) {
+        return axios.delete(`${this.BASE_URL_V1}/EmployeeContract/Delete/${id}`)
+    }
+    
+    //allowance
+    static getListAllowance(page) {
+        return axios.get(`${this.BASE_URL_V1}/Allowance/GetListAllowance/${page}`)
+    }
+
+    static getAllListAllowance() {
+        return axios.get(`${this.BASE_URL_V1}/Allowance/GetAll`)
+    }
+
+    static createAllowance(data){
+        return axios.post(`${this.BASE_URL_V1}/Allowance/CreateAllowance`, data)
+    }
+
+    static deleteAllowance(id){
+        return axios.delete(`${this.BASE_URL_V1}/Allowance/DeleteAllowance/${id}`)
+    }
+
+    static updateAllowance(data){
+        return axios.put(`${this.BASE_URL_V1}/Allowance/UpdateAllowance`, data)
+    }
+
+    static getListAllowanceType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/AllowanceType`)
+    }
+
+    //config Workday
+    static getListConfigDay() {
+        return axios.get(`${this.BASE_URL_V1}/Config/WorkDay`)
+    }
+
+    static getListShiftType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/ShiftType`)
+    }
+
+    static updateConfigDay(data){
+        return axios.put(`${this.BASE_URL_V1}/Config/WorkDay/Update`, data)
+    }
 }

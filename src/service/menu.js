@@ -107,6 +107,18 @@ export default class menu {
             {
                 name: 'Danh sách trình độ',
                 routeName: 'level',
+            },
+            {
+                name: 'Danh sách phụ cấp',
+                routeName: 'allowance',
+            },
+            {
+                name: 'Danh sách hợp đồng',
+                routeName: 'employeeContract',
+            },
+            {
+                name: 'Quản lí thời gian làm việc',
+                routeName: 'configWorkDay',
             }
             
         ]
