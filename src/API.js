@@ -198,4 +198,26 @@ export default class API {
     static updateConfigDay(data){
         return axios.put(`${this.BASE_URL_V1}/Config/WorkDay/Update`, data)
     }
+
+    //departmentallowance
+    static getListDepartmentAllowance() {
+        return axios.get(`${this.BASE_URL_V1}/DepartmentAllowance`)
+    }
+
+    static createDepartmentSubsidize(data) {
+        return axios.post(`${this.BASE_URL_V1}/DepartmentAllowance/Create`, data)
+    }
+
+    static updateDepartmentAllowance(data) {
+        return axios.put(`${this.BASE_URL_V1}/DepartmentAllowance/Update`, data)
+    }
+
+    static deleteDepartmentAllowance(id) {
+        return axios.delete(`${this.BASE_URL_V1}/DepartmentAllowance/Delete?id=${id}`)
+    }
+
+    //subsidize
+    static getListSubsidize() {
+        return axios.get(`${this.BASE_URL_V1}/Subsidize`)
+    }
 }

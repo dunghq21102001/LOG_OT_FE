@@ -27,7 +27,7 @@ import level from '../views/LevelView.vue'
 import allowance from '../views/AllowanceView.vue'
 import employeeContract from '../views/EmployeeContractView.vue'
 import configWorkDay from '../views/ConfigDayView.vue'
-
+import departmentAllowance from '../views/DepartmentAllowanceView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -175,6 +175,14 @@ const router = createRouter({
       path: '/configWorkDay',
       name: 'configWorkDay',
       component: configWorkDay,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/departmentAllowance',
+      name: 'departmentAllowance',
+      component: departmentAllowance,
       meta: {
         middleware: checkAuth
       }

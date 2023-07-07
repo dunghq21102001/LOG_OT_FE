@@ -119,6 +119,10 @@ export default class menu {
             {
                 name: 'Quản lí thời gian làm việc',
                 routeName: 'configWorkDay',
+            },
+            {
+                name: 'Danh sách phụ cấp theo phòng ban',
+                routeName: 'departmentAllowance',
             }
             
         ]
