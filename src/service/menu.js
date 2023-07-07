@@ -115,6 +115,10 @@ export default class menu {
             {
                 name: 'Danh sách hợp đồng',
                 routeName: 'employeeContract',
+            },
+            {
+                name: 'Quản lí thời gian làm việc',
+                routeName: 'configWorkDay',
             }
             
         ]

@@ -173,4 +173,17 @@ export default class API {
     static getListAllowanceType() {
         return axios.get(`${this.BASE_URL_V1}/api/Enum/AllowanceType`)
     }
+
+    //config Workday
+    static getListConfigDay() {
+        return axios.get(`${this.BASE_URL_V1}/Config/WorkDay`)
+    }
+
+    static getListShiftType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/ShiftType`)
+    }
+
+    static updateConfigDay(data){
+        return axios.put(`${this.BASE_URL_V1}/Config/WorkDay/Update`, data)
+    }
 }

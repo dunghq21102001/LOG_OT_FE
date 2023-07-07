@@ -26,6 +26,9 @@ import position from '../views/PositionView.vue'
 import level from '../views/LevelView.vue'
 import allowance from '../views/AllowanceView.vue'
 import employeeContract from '../views/EmployeeContractView.vue'
+import configWorkDay from '../views/ConfigDayView.vue'
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
@@ -164,6 +167,14 @@ const router = createRouter({
       path: '/employeeContract',
       name: 'employeeContract',
       component: employeeContract,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/configWorkDay',
+      name: 'configWorkDay',
+      component: configWorkDay,
       meta: {
         middleware: checkAuth
       }

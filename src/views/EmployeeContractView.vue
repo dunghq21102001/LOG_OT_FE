@@ -346,7 +346,6 @@ export default {
                     swal.success(response.data)
                     this.exit2()
                     this.getListEmployeeContract()
-                    console.log(data);
                 })
                 .catch(error => {
                     swal.error(error.data)
