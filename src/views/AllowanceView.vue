@@ -231,7 +231,7 @@ export default {
                 allowanceType: this.allowanceTypeSelected,
                 amount: this.amount,
                 eligibility_Criteria: this.eligibility_Criteria,
-                requirements: this.eligibility_Criteria
+                requirements: this.requirements
             }
             API.createAllowance(data)
                 .then(response => {

@@ -111,6 +111,10 @@ export default class menu {
             {
                 name: 'Danh sách phụ cấp',
                 routeName: 'allowance',
+            },
+            {
+                name: 'Danh sách hợp đồng',
+                routeName: 'employeeContract',
             }
             
         ]
