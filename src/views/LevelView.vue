@@ -137,7 +137,7 @@ export default {
                 });
         },
         deleteLevel(id) {
-            swal.confirm('Bạn có chắc chắn xóa phòng ban không?').then((result) => {
+            swal.confirm('Bạn có chắc chắn xóa trình độ không?').then((result) => {
                 if (result.value) {
                     API.deleteLevel(id)
                         .then(responsive => {

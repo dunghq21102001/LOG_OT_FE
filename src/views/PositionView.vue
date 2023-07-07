@@ -161,7 +161,7 @@ export default {
                 });
         },
         deletePosition(id) {
-            swal.confirm('Bạn có chắc chắn xóa phòng ban không?').then((result) => {
+            swal.confirm('Bạn có chắc chắn xóa vị trí không?').then((result) => {
                 if (result.value) {
                     API.deletePosition(id)
                         .then(responsive => {

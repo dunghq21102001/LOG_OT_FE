@@ -111,4 +111,27 @@ export default class API {
         return axios.put(`${this.BASE_URL_V1}/Level/Update/${id}`, data);
     }
 
+    // Emp contact
+
+
+    //allowance
+    static getListAllowance(page) {
+        return axios.get(`${this.BASE_URL_V1}/Allowance/GetListAllowance/${page}`)
+    }
+
+    static createAllowance(data){
+        return axios.post(`${this.BASE_URL_V1}/Allowance/CreateAllowance`, data)
+    }
+
+    static deleteAllowance(id){
+        return axios.delete(`${this.BASE_URL_V1}/Allowance/DeleteAllowance/${id}`)
+    }
+
+    static updateAllowance(data){
+        return axios.put(`${this.BASE_URL_V1}/Allowance/UpdateAllowance`, data)
+    }
+
+    static getListAllowanceType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/AllowanceType`)
+    }
 }

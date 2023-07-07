@@ -107,6 +107,10 @@ export default class menu {
             {
                 name: 'Danh sách trình độ',
                 routeName: 'level',
+            },
+            {
+                name: 'Danh sách phụ cấp',
+                routeName: 'allowance',
             }
             
         ]
