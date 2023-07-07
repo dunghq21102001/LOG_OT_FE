@@ -29,6 +29,7 @@
     "vue-sweetalert2": "^5.0.5",
     "vue3-easy-data-table": "^1.5.42",
     "vuefire": "^3.1.0",
+    "vuesax": "^4.0.1-alpha.25",
     "vuetable-2": "^2.0.0-beta.4"
   },
   "devDependencies": {

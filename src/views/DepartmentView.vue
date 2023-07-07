@@ -13,42 +13,42 @@
                 </template>
             </EasyDataTable>
         </div>
-        <div v-show="isShow" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
+        <div v-show="isShow" class="h-screen w-screen fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
             @click.self="isShow = false">
             <div
-                class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
+                class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white dark:bg-[#292e32] absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
                 <div
-                    class="w-full h-10 sm:h-10 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
+                    class="w-full h-10 sm:h-10 primary-btn text-sm sm:text-3xl flex justify-center items-center sm">
                     Tạo phòng ban
                 </div>
                 <div
                     class="w-full px-1 sm:sx-2 grid items-center text-xs sm:text-base justify-center p-1 sm:p-2 mt-1 sm:mt-2">
                     <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
+                        <input class="bg-slate-200 dark:bg-gray-900 dark:text-white w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
                             v-model="name" placeholder="Nhập tên phòng ban">
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả phòng ban:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
+                        <input class="bg-slate-200 dark:bg-gray-900 dark:text-white w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
                             type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
                         <button type="submit" @click="createDepartment"
-                            class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
+                            class="btn-primary mr-4 sm:mr-8">
                             Tạo phòng ban
                         </button>
-                        <button @click="exit" type="exit" class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
+                        <button @click="exit" type="exit" class="cancel-btn">
                             Hủy tạo
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-show="isShow2" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
+        <div v-show="isShow2" class="h-screen w-screen fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
             @click.self="isShow2 = false">
             <div
-                class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
+                class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white dark:bg-[#292e32] absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
                 <div
                     class="w-full h-10 sm:h-10 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
                     Chỉnh sửa phòng ban
@@ -57,12 +57,12 @@
                     class="w-full px-1 sm:sx-2 grid items-center text-xs sm:text-base justify-center p-1 sm:p-2 mt-1 sm:mt-2">
                     <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
+                        <input class="bg-slate-200 dark:bg-gray-900 dark:text-white w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
                             v-model="name" placeholder="Nhập tên phòng ban">
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trình độ:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
+                        <input class="bg-slate-200 dark:text-white dark:bg-gray-900 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
                             type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">

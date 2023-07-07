@@ -68,7 +68,7 @@ export default {
         }
     },
     created() {
-        this.currentRoute = this.$route.name
+        // this.currentRoute = this.$route.name
      },
     methods: {
         onChangeRoute(routeName, roueLink) {

@@ -16,8 +16,6 @@ import CountryFlag from 'vue-country-flag-next'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import Vue3EasyDataTable from 'vue3-easy-data-table'
 import 'vue3-easy-data-table/dist/style.css'
-
-
 import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage } from '@fortawesome/free-solid-svg-icons'
 
 const app = createApp(App)

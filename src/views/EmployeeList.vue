@@ -30,6 +30,9 @@
     </div>
     <div v-show="isShow" @click.self="cancelAll" class="fog-l">
       <div class="w-[90%] md:w-[60%] bg-white dark:bg-[#292e32] p-7 rounded-md h-[90vh] overflow-y-scroll">
+        <div class="w-full" v-if="isCreate">
+          <p class="text-[30px] my-2">Thông tin nhân viên</p>
+        </div>
         <div class="flex flex-wrap justify-center w-full">
           <div class="box-input w-[86%] lg:w-[40%]">
             <label for="username">Tên đăng nhập</label>
@@ -44,10 +47,12 @@
           <div class="box-input w-[86%] lg:w-[40%]">
             <label for="gender">Giới tính</label>
             <div class="w-full mt-[10px]">
-              <input type="radio" id="male" value="1" v-model="currentEmp.genderType">
+              <input type="radio" id="male" value="2" v-model="currentEmp.genderType">
               <label class="mr-10" for="male">Nam</label>
-              <input type="radio" id="female" value="0" v-model="currentEmp.genderType">
-              <label for="female">Nữ</label>
+              <input type="radio" id="female" value="1" v-model="currentEmp.genderType">
+              <label class="mr-10" for="female">Nữ</label>
+              <input type="radio" id="other" value="3" v-model="currentEmp.genderType">
+              <label for="other">Khác</label>
             </div>
           </div>
 
@@ -63,7 +68,7 @@
           </div>
           <div class="box-input w-[86%] lg:w-[40%]">
             <label for="birthday">Sinh nhật</label>
-            <input type="date" id="birthday" v-model="currentEmp.birthDay"
+            <input type="datetime-local" id="birthday" v-model="currentEmp.birthDay"
               class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[86%] lg:w-[40%]">
@@ -86,6 +91,36 @@
               class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[86%] lg:w-[40%]">
+            <label for="bankName">Tên ngân hàng</label>
+            <input type="text" id="bankName" v-model="currentEmp.bankName"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div class="box-input w-[86%] lg:w-[40%]">
+            <label for="bankAccount">Tên tài khoản</label>
+            <input type="text" id="bankAccount" v-model="currentEmp.bankAccountName"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div class="box-input w-[86%] lg:w-[40%]">
+            <label for="bankNumber">Số tài khoản ngân hàng</label>
+            <input type="text" id="bankNumber" v-model="currentEmp.bankAccountNumber"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="salary">Lương cơ bản</label>
+            <input type="text" id="salary" v-model="currentEmp.basicSalary"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="startDate">Ngày bắt đầu</label>
+            <input type="date" id="startDate" v-model="currentEmp.startDate"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="endDate">Ngày kết thúc</label>
+            <input type="date" id="endDate" v-model="currentEmp.endDate"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div class="box-input w-[86%] lg:w-[40%]">
             <label for="position">Vị trí</label>
             <select type="text" id="position" v-model="selectedPosition"
               class="select-cus dark:bg-gray-900 dark:text-white  ">
@@ -103,23 +138,22 @@
               </option>
             </select>
           </div>
-          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+          <!-- <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="contract">Hợp đồng</label>
             <select type="text" id="contract" v-model="selectedContract"
               class="select-cus dark:bg-gray-900 dark:text-white  ">
               <option class="flex flex-col p-10" v-for="c in contractList" :value="c?.id" :key="c?.id">
-               Lương cơ bản: {{ c.basicSalary }} -
+                Lương cơ bản: {{ c.basicSalary }} -
                 Ngày bắt đầu: {{ c.startDate }} -
-               Ngày kết thúc: {{ c.endDate }} -
-               Loại hợp đồng: {{ c.contractType }} 
+                Ngày kết thúc: {{ c.endDate }} -
+                Loại hợp đồng: {{ c.contractType }}
               </option>
             </select>
-          </div>
+          </div> -->
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="">Vai trò</label>
             <select class="select-cus" v-model="currentEmp.role" name="" id="">
               <option value="Employee">Employee</option>
-              <option value="Staff">Staff</option>
               <option value="Manager">Manager</option>
             </select>
           </div>
@@ -134,11 +168,66 @@
             <button @click="uploadImage" class="btn-primary">Lưu</button>
           </div>
         </div>
+        <hr v-if="isCreate">
+        <div class="w-full" v-if="isCreate">
+          <p class="text-[30px] my-2">Thông tin hợp đồng</p>
+        </div>
+        <div class="flex flex-wrap items-center w-full">
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="contractCode">Mã hợp đồng</label>
+            <input type="text" id="contractCode" v-model="contract.contractCode"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="file">File</label>
+            <input type="text" id="file" v-model="contract.file" class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="job">Công việc</label>
+            <input type="text" id="job" v-model="contract.job" class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="perD">Khấu trừ %</label>
+            <input type="number" id="perD" v-model="contract.percentDeduction"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="salaryType">Loại lương</label>
+            <select class="select-cus" v-model="contract.salaryType" name="" id="">
+              <option v-for="salary in salaryTypeList" :value="salary.value">{{ salary.display }}</option>
+            </select>
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="contractType">Loại hợp đồng</label>
+            <select class="select-cus" v-model="contract.contractType" name="" id="">
+              <option v-for="contractT in contractTypeList" :value="contractT.value">{{ contractT.display }}</option>
+            </select>
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="tax">Thuế cá nhân</label>
+            <div class="w-full mt-[10px]">
+              <input type="radio" id="yes" value="true" v-model="contract.isPersonalTaxDeduction">
+              <label class="mr-10" for="yes">Có</label>
+              <input type="radio" id="no" value="false" v-model="contract.isPersonalTaxDeduction">
+              <label for="no">Không</label>
+            </div>
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="insuranceType">Hình thức nộp bảo hiểm</label>
+            <select class="select-cus" v-model="contract.insuranceType" name="" id="">
+              <option v-for="ins in insuranceTypeList" :value="ins.value">{{ ins.display }}</option>
+            </select>
+          </div>
+          <div v-if="isCreate && isShowInsuranceAmount" class="box-input w-[86%] lg:w-[40%]">
+            <label for="insuranceAmount">Tiền bảo hiểm</label>
+            <input type="number" id="insuranceAmount" v-model="contract.insuranceAmount"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+        </div>
         <div class="w-[86%] mx-auto flex justify-end">
-          <button class="cancel-btn" @click="cancelAll"><font-awesome-icon icon="fa-solid fa-xmark" /></button>
+          <button class="cancel-btn" @click="cancelAll">Huỷ</button>
           <button v-if="isUpdate" @click="actionUpdate" class="edit-btn">Chỉnh sửa</button>
-          <button v-if="isCreate" @click="actionCreate" class="btn-primary"><font-awesome-icon
-              icon="fa-solid fa-plus" /></button>
+          <button v-if="isCreate" @click="actionCreate" class="btn-primary">Lưu</button>
         </div>
       </div>
     </div>
@@ -168,9 +257,13 @@ export default {
       isShow: false,
       isCreate: false,
       isUpdate: false,
+      isShowInsuranceAmount: false,
       positionList: [],
       contractList: [],
       allowanceList: [],
+      salaryTypeList: [],
+      insuranceTypeList: [],
+      contractTypeList: [],
       selectedPosition: null,
       selectedAllowance: null,
       selectedContract: null,
@@ -204,10 +297,25 @@ export default {
         image: 'https://placehold.co/600x400',
         identityNumber: '',
         isMaternity: false,
-        role: 'Employee'
+        role: 'Employee',
+        startDate: '',
+        endDate: '',
+        basicSalary: 0
       },
       currentTheme: "",
-
+      contract: {
+        username: '',
+        contractCode: '',
+        file: '',
+        job: '',
+        percentDeduction: 0,
+        salaryType: 1,
+        contractType: 1,
+        isPersonalTaxDeduction: true,
+        insuranceType: 1,
+        insuranceAmount: 0,
+        allowanceId: []
+      }
     }
   },
   created() {
@@ -216,6 +324,7 @@ export default {
     this.getPositionList()
     this.getContractList()
     this.getAllowanceList()
+    this.getEnumList()
   },
   computed: {
     formattedDate() {
@@ -225,6 +334,14 @@ export default {
   watch: {
     'themeStore.getTheme': function (val) {
       this.currentTheme == 'light-theme' ? this.currentTheme = 'dark-theme' : this.currentTheme = 'light-theme'
+    },
+    'contract.insuranceType': function (newValue) {
+      if (newValue == 3) {
+        this.isShowInsuranceAmount = true
+      } else {
+        this.contract.insuranceAmount = 0
+        this.isShowInsuranceAmount = false
+      }
     }
   },
   methods: {
@@ -253,6 +370,25 @@ export default {
       API.getListPosition()
         .then(res => {
           this.positionList = res.data.items
+        })
+        .catch(err => swal.error(err))
+    },
+    getEnumList() {
+      API.salaryType()
+        .then(res => {
+          this.salaryTypeList = res.data
+        })
+        .catch(err => swal.error(err))
+
+      API.contractType()
+        .then(res => {
+          this.contractTypeList = res.data
+        })
+        .catch(err => swal.error(err))
+
+      API.insuranceType()
+        .then(res => {
+          this.insuranceTypeList = res.data
         })
         .catch(err => swal.error(err))
     },
@@ -298,7 +434,7 @@ export default {
         positionId: this.selectedPosition,
         fullName: this.currentEmp.fullName,
         address: this.currentEmp.address,
-        genderType: this.currentEmp.genderType,
+        genderType: Number.parseInt(this.currentEmp.genderType),
         identityNumber: this.currentEmp.identityNumber,
         birthDay: this.currentEmp.birthDay,
         bankAccountNumber: this.currentEmp.bankAccountNumber,
@@ -306,7 +442,7 @@ export default {
         bankName: this.currentEmp.bankName,
         username: this.currentEmp.userName,
         email: this.currentEmp.email,
-        isMaternity: this.currentEmp.isMaternity,
+        isMaternity: this.currentEmp.isMaternity ? true : false,
         image: this.currentEmp.image,
         phoneNumber: this.currentEmp.phoneNumber
       }
@@ -325,8 +461,7 @@ export default {
         address: this.currentEmp.address,
         genderType: this.currentEmp.genderType,
         identityNumber: this.currentEmp.identityNumber,
-        // birthDay: this.currentEmp.birthDay,
-        birthDay: '2000-07-06T09:12:52.177Z',
+        birthDay: this.currentEmp.birthDay,
         bankAccountNumber: this.currentEmp.bankAccountNumber,
         bankAccountName: this.currentEmp.bankAccountName,
         bankName: this.currentEmp.bankName,
@@ -336,34 +471,41 @@ export default {
         image: this.currentEmp.image,
         phoneNumber: this.currentEmp.phoneNumber,
         role: this.currentEmp.role,
-        contractCode: '34b1f382-adad-40c6-851c-b0e508622ccd',
-        file: 'string',
-        startDate: new Date().toISOString(),
-        endDate: '2025-07-06T09:12:52.177Z',
-        job: 'string',
-        basicSalary: 5000000,
-        percentDeduction: 0,
-        salaryType: 1,
-        contractType: 1,
-        isPersonalTaxDeduction: true,
-        insuranceType: 1,
-        insuranceAmount: 0,
+        contractCode: this.contract.contractCode,
+        file: this.contract.file,
+        startDate: this.currentEmp.startDate,
+        endDate: this.currentEmp.endDate,
+        job: this.contract.job,
+        basicSalary: this.currentEmp.basicSalary,
+        percentDeduction: this.contract.percentDeduction,
+        salaryType: this.contract.salaryType,
+        contractType: this.contract.contractType,
+        isPersonalTaxDeduction: this.contract.isPersonalTaxDeduction ? true : false,
+        insuranceType: this.contract.insuranceType,
+        insuranceAmount: this.contract.insuranceAmount,
         allowanceId: [this.selectedAllowance]
       }
 
+      this.contract.username = this.currentEmp.userName
+      this.contract.allowanceId = [this.selectedAllowance]
+
       API.createEmployee(data)
         .then(res => {
+          this.getList()
           swal.success('Tạo người dùng mới thành công')
           this.cancelAll()
-          this.getList()
         })
         .catch(err => {
-          if (err.response.data.errors.newEmp) {
+          console.log(err);
+          if (err.response.data.errors?.newEmp) {
             swal.error(err.response.data.errors.newEmp[0])
           }
           const listErr = err.response.data.join('\n')
+          console.log(listErr);
           swal.error(listErr, 3000)
         })
+
+
 
     },
     convertDate(date) {
@@ -392,8 +534,24 @@ export default {
         address: '',
         experiences: '',
         image: 'https://placehold.co/600x400',
-        isMaternity: 1,
-        identityNumber: 1
+        identityNumber: '',
+        isMaternity: false,
+        role: 'Employee',
+        startDate: '',
+        endDate: '',
+        basicSalary: 0
+      }
+      this.contract = {
+        contractCode: '',
+        file: '',
+        job: '',
+        percentDeduction: 0,
+        salaryType: 1,
+        contractType: 1,
+        isPersonalTaxDeduction: true,
+        insuranceType: 1,
+        insuranceAmount: 0,
+        allowanceId: []
       }
     },
     goTo(userName) {

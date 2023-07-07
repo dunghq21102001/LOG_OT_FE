@@ -47,6 +47,9 @@ export default class API {
     static getContractList(page) {
         return axios.get(`${this.BASE_URL_V1}/${this.CONTRACT}/GetList?pg=${page}`)
     }
+    static createEmployeeContract(data) {
+        return axios.post(`${this.BASE_URL_V1}/${this.CONTRACT}/Create`, data)
+    }
 
     //employee
     static getListEmployee(page = 1) {
@@ -111,7 +114,16 @@ export default class API {
         return axios.put(`${this.BASE_URL_V1}/Level/Update/${id}`, data);
     }
 
-    // Emp contact
+    //enums
+    static salaryType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/SalaryType`)
+    }
+    static contractType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/ContractType`)
+    }
+    static insuranceType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/InsuranceType`)
+    }
 
     static getListEmployeeContract(page) {
         return axios.get(`${this.BASE_URL_V1}/EmployeeContract/GetList?pg=${page}`)
