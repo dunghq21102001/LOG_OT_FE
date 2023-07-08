@@ -1,6 +1,37 @@
 <template>
     <div class="bg-white">
         <button class="btn-primary my-3" @click="showCreate">Tạo mới</button>
+        <div class="w-[90%] mx-auto mt-10">
+            <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"
+                body-text-direction="center">
+                <template #item-userName="item">
+                    <div>
+                        {{ item.applicationUser.userName }}
+                    </div>
+                </template>
+                <template #item-fullname="item">
+                    <div>
+                        {{ item.applicationUser.fullname }}
+                    </div>
+                </template>
+                <template #item-email="item">
+                    <div>
+                        {{ item.applicationUser.email }}
+                    </div>
+                </template>
+                <template #item-date="item">
+                    <div>
+                        {{ convertDate(item.date) }}
+                    </div>
+                </template>
+                <template #item-operation="item">
+                    <div class="operation-wrapper">
+                        <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
+                                icon="fa-solid fa-pen-to-square" /></button>
+                    </div>
+                </template>
+            </EasyDataTable>
+        </div>
         <div @click.self="cancelAll" v-show="isShow" class="fog-l">
             <div class="w-[90%] lg:w-[60%] bg-white overflow-y-scroll max-h-[90vh]">
                 <div class="w-full flex flex-wrap items-center justify-center">
@@ -28,7 +59,8 @@
                 <div class="w-[86%] mx-auto flex justify-end">
                     <button class="cancel-btn" @click="cancelAll"><font-awesome-icon icon="fa-solid fa-xmark" /></button>
                     <button v-if="isUpdate" class="edit-btn">Chỉnh sửa</button>
-                    <button v-if="isCreate" @click="actionCreate" class="btn-primary"><font-awesome-icon icon="fa-solid fa-plus" /></button>
+                    <button v-if="isCreate" @click="actionCreate" class="btn-primary"><font-awesome-icon
+                            icon="fa-solid fa-plus" /></button>
                 </div>
             </div>
         </div>
@@ -37,6 +69,7 @@
 
 <script>
 import API from '../API'
+import functionCustom from '../utilities/functionCustom'
 import swal from '../utilities/swal2'
 export default {
     data() {
@@ -51,7 +84,15 @@ export default {
                 date: '2023-01-01T00:00:00.070Z',
                 hours: 1,
                 employeeId: ''
-            }
+            },
+            headers: [
+                { text: "Tên tài khoản", value: "userName", width: 200 },
+                { text: "Họ và Tên", value: "fullname", width: 200 },
+                { text: "Email", value: "email", width: 200 },
+                { text: "Ngày đăng ký OT", value: "date", width: 200 },
+                { text: "Số giờ OT", value: "hours", width: 200 },
+                { text: "Hành động", value: "operation", width: 400 },
+            ]
         }
     },
     created() {
@@ -85,6 +126,9 @@ export default {
             const date = new Date(selectedDatetime)
             this.overtimeLog.date = date.toISOString()
         },
+        convertDate(date) {
+            return functionCustom.convertDate(date)
+        },
         showCreate() {
             this.isShow = true
             this.isCreate = true
@@ -109,7 +153,14 @@ export default {
                 hours: 1,
                 employeeId: ''
             }
-        }
+        },
+        showUpdate(item) {
+            this.isShow = true
+            this.isUpdate = true
+            this.overtimeLog.date = item.date
+            this.overtimeLog.employeeId = item.applicationUser.id
+            this.overtimeLog.hours = item.hours
+         },
     }
 }
 </script>

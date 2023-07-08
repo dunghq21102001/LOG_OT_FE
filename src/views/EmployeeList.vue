@@ -23,7 +23,7 @@
             <button class="view-btn" @click="goTo(item.userName)"><font-awesome-icon icon="fa-solid fa-eye" /></button>
             <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
                 icon="fa-solid fa-pen-to-square" /></button>
-            <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button>
+            <!-- <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button> -->
           </div>
         </template>
       </EasyDataTable>
@@ -501,7 +501,6 @@ export default {
             swal.error(err.response.data.errors.newEmp[0])
           }
           const listErr = err.response.data.join('\n')
-          console.log(listErr);
           swal.error(listErr, 3000)
         })
 
