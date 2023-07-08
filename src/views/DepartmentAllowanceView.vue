@@ -108,11 +108,7 @@ export default {
             isShow2: false,
             departmentIdSelected: '',
             subsidizeIdSelected: '',
-            departmentId:'',
-            subsidizeId: '',
             id: '',
-            departments: '',
-            subsidize: ''
         }
     },
 
@@ -128,10 +124,11 @@ export default {
         updateDepartmentAllowanceForm(id) {
             this.isShow2 = true
             const currentDepartmentAllowance = this.items.find(item => item.id == id)
-            this.id = currentDepartmentAllowance.id,
-            this.departmentIdSelected = this.options.find(option => option.id == currentDepartmentAllowance.departmentId).name,
-            this.subsidizeIdSelected = this.options1.find(option => option.id == currentDepartmentAllowance.subsidizeId).name
-
+            this.subsidizeIdSelected = currentDepartmentAllowance.subsidizeId.toLowerCase(),
+            this.departmentIdSelected = currentDepartmentAllowance.departmentId.toLowerCase(),
+            this.id = currentDepartmentAllowance.id
+            console.log(this.subsidizeIdSelected);
+            console.log(this.departmentIdSelected);
         },
         updateDepartmentAllowance() {          
             const data = {       
@@ -145,7 +142,6 @@ export default {
                     this.exit2()
                     this.resetFormCreate()
                     this.getListDepartmentAllowance()
-                    console.log(data)
                 })
                 .catch(error => {
                     swal.error(error)
@@ -157,7 +153,7 @@ export default {
                     API.deleteDepartmentAllowance(id)
                         .then(responsive => {
                             this.getListDepartmentAllowance()
-                            swal.success(responsive.data.message)
+                            swal.success("Xóa thành công")
                             this.resetFormCreate()
                         })
                         .catch(error => {
@@ -201,7 +197,12 @@ export default {
         getListSubsidize() {
             API.getListSubsidize()
                 .then(response => {
-                    this.options1 = response.data.items
+                    this.options1 = response.data.items.map(item => {
+                        return {
+                            id: item.id,
+                            name: item.name
+                        }
+                    })
                 })
                 .catch(error => {
                     swal.error(error)
