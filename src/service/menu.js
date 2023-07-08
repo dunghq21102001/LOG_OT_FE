@@ -150,6 +150,14 @@ export default class menu {
             {
                 name: 'Danh sách phụ cấp theo phòng ban',
                 routeName: 'departmentAllowance',
+            },
+            {
+                name: 'Hệ số lương',
+                routeName: 'coefficient',
+            },
+            {
+                name: 'Ngày làm việc hàng năm',
+                routeName: 'annualWorkingDay',
             }
 
         ]

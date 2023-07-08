@@ -31,6 +31,9 @@ import configWorkDay from '../views/ConfigDayView.vue'
 import departmentAllowance from '../views/DepartmentAllowanceView.vue'
 import permissionDenied from '../views/NotHavePermission.vue'
 import checkValidRole from '../middleware/checkValidRole'
+import coefficient from '../views/CoefficientView.vue'
+import annualWorkingDay from '../views/AnnualWorkingDayView.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
@@ -254,6 +257,22 @@ const router = createRouter({
       component: permissionDenied,
       meta: {
         // middleware: checkAuth,
+      }
+    },
+    {
+      path: '/coefficient',
+      name: 'coefficient',
+      component: coefficient,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/annualWorkingDay',
+      name: 'annualWorkingDay',
+      component: annualWorkingDay,
+      meta: {
+        middleware: checkAuth
       }
     },
     {
