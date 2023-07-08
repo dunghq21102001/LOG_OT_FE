@@ -70,7 +70,8 @@ export default {
                     }
                     this.authStore.setAuth(res.data)
                     swal.success(this.$t('login success'))
-                    this.$router.push({ name: "home" })
+                    if (res.data?.listRoles?.[0] == 'Employee') return this.$router.push({ name: "attendance-employee" })
+                    else return this.$router.push({ name: "home" })
                 })
                 .catch(error => {
                     if (error.response.data) swal.error(error.response.data, 3500)

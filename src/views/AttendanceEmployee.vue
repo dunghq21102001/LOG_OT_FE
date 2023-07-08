@@ -9,14 +9,14 @@
                         {{ convertDate(item.birthDay) }}
                     </div>
                 </template>
-                <template #item-operation="item">
+                <!-- <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
                                 icon="fa-solid fa-pen-to-square" /></button>
                         <button @click="deleteM(item.id)" class="delete-btn"><font-awesome-icon
                                 :icon="['fas', 'trash']" /></button>
                     </div>
-                </template>
+                </template> -->
             </EasyDataTable>
         </div>
         <div @click.self="cancelAll" v-show="isShow" class="fog-l">
@@ -96,36 +96,21 @@ export default {
                 { text: "Sinh nhật", value: "birthDay", width: 200 },
                 { text: "Lý do từ chối", value: "denyReason", width: 200 },
                 { text: "Acceptance Type", value: "acceptanceType", width: 200 },
-                { text: "Hành động", value: "operation", width: 400 },
             ]
         }
     },
     created() {
         this.getList()
-        this.getEmpList()
-        this.getEnums()
     },
     methods: {
         getList() {
-            API.getMaternityEmployeeList(this.page)
+            API.getAttendanceEmployeeList(this.page)
                 .then(res => {
                     this.list = res.data.result.items
                 })
                 .catch(err => swal.error(err))
         },
-        getEnums() {
-            API.getListAcceptanceType()
-                .then(res => {
-                    this.acceptanceTypeList = res.data
-                })
-        },
-        getEmpList() {
-            API.getListEmployee(this.empPage)
-                .then(res => {
-                    this.empList = res.data.items
-                })
-                .catch(err => swal.error(err))
-        },
+       
         showCreate() {
             this.isShow = true
             this.isCreate = true
@@ -136,35 +121,6 @@ export default {
         convertDate(date) {
             return functionCustom.convertDate(date)
         },
-        showUpdate(item) {
-
-            const inputDateTime = item.birthDay
-            const formattedDateTime = inputDateTime.replace(' ', 'T').substring(0, 16)
-
-            this.isShow = true
-            this.isUpdate = true
-            this.selectedEmpId = item.applicationUserId
-            this.imageUrl = item.image
-            this.acceptanceType = item.acceptanceType == 'Accept' ? 1 : item.acceptanceType == 'Deny' ? 2 : 3
-            this.denyReason = item.denyReason
-            this.birthDay = formattedDateTime
-            this.id = item.id
-
-            const currEmp = this.empList.find(em => em.id == this.selectedEmpId)
-            this.selectedEmp = currEmp.userName
-        },
-        deleteM(id) {
-            swal.confirm('Bạn có chắc chắn muốn xoá?').then(result => {
-                if (result.value) {
-                    API.deleteMaternityEmployee(id)
-                        .then(res => {
-                            swal.success('Xoá thành công')
-                            this.getList()
-                        })
-                        .catch(err => swal.error(err))
-                }
-            })
-        },
         actionCreate() {
             const data = {
                 applicationUserId: this.selectedEmpId,
@@ -173,21 +129,7 @@ export default {
                 acceptanceType: this.acceptanceType,
                 denyReason: this.denyReason
             }
-            API.createMaternityEmployee(data)
-                .then(res => {
-                    swal.success('Tạo mới thành công')
-                    this.getList()
-                    this.cancelAll()
-                })
-                .catch(err => {
-                    if (err.response.data.errors) {
-                        const listErr = err.response.data?.errors?.createMaternityEmployeeView.join('\n')
-                        swal.error(listErr, 3000)
-                    } else {
-                        const listErr = err.response.data.join('\n')
-                        swal.error(listErr, 3000)
-                    }
-                })
+           
         },
         cancelAll() {
             this.isCreate = false
@@ -205,23 +147,6 @@ export default {
             this.selectedEmp = username
             this.selectedEmpId = id
         },
-        actionUpdate() {
-            const data = {
-                id: this.id,
-                image: this.imageUrl,
-                birthDay: this.birthDay,
-                acceptanceType: this.acceptanceType,
-                denyReason: this.denyReason
-            }
-
-            API.updateMaternityEmployee(data)
-                .then(res => {
-                    swal.success('Cập nhật thông tin thành công')
-                    this.getList()
-                    this.cancelAll()
-                })
-                .catch(er => swal.error(er))
-        }
     }
 }
 </script>
