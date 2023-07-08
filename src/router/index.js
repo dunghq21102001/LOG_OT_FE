@@ -10,6 +10,7 @@ import requestOff from '../views/RequestOffView.vue'
 import department from '../views/DepartmentView.vue'
 import MaternityEmployee from '../views/MaternityEmployeeView.vue'
 import Dependent from '../views/DependentView.vue'
+import AttendanceEmployee from '../views/AttendanceEmployee.vue'
 import OvertimeLog from '../views/OvertimeLog.vue'
 import employeeView from '../views/EmployeeView.vue'
 import EmpInformation from '../views/Employee/Information.vue'
@@ -28,6 +29,8 @@ import allowance from '../views/AllowanceView.vue'
 import employeeContract from '../views/EmployeeContractView.vue'
 import configWorkDay from '../views/ConfigDayView.vue'
 import departmentAllowance from '../views/DepartmentAllowanceView.vue'
+import permissionDenied from '../views/NotHavePermission.vue'
+import checkValidRole from '../middleware/checkValidRole'
 import coefficient from '../views/CoefficientView.vue'
 import annualWorkingDay from '../views/AnnualWorkingDayView.vue'
 
@@ -42,15 +45,17 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: "/:catchAll(.*)",
       name: "not-found",
       component: PageNotFound,
       meta: {
-        // middleware: checkAuth
+        // middleware: checkAuth,
       }
     },
     {
@@ -58,7 +63,7 @@ const router = createRouter({
       name: 'login',
       component: LoginView,
       meta: {
-        // middleware: checkAuth
+        // middleware: checkAuth,
       }
     },
     {
@@ -66,127 +71,192 @@ const router = createRouter({
       name: 'hrempmanagement',
       component: HrEmpManagementView,
       meta: {
-        // middleware: checkAuth
-      }
+        // middleware: checkAuth,
+        requiredRole: 'Manager'
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/employee',
       name: 'empinfo',
       component: EmployeeInformationView,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/employee-list',
       name: 'employee-list',
       component: EmployeeList,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/maternity-employee',
       name: 'maternity-employee',
       component: MaternityEmployee,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/overtime-log',
       name: 'overtime-log',
       component: OvertimeLog,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/dependent-list',
       name: 'dependent-list',
       component: Dependent,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/request-ot',
       name: 'request-ot',
       component: RequestOT,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/request-off',
       name: 'request-off',
       component: requestOff,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/department',
       name: 'department',
       component: department,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/subsidize',
       name: 'subsidize',
       component: subsidize,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/position',
       name: 'position',
       component: position,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/level',
       name: 'level',
       component: level,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/allowance',
       name: 'allowance',
       component: allowance,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/employeeContract',
       name: 'employeeContract',
       component: employeeContract,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/configWorkDay',
       name: 'configWorkDay',
       component: configWorkDay,
       meta: {
-        middleware: checkAuth
-      }
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/AttendanceEmployee',
+      name: 'attendance-employee',
+      component: AttendanceEmployee,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Employee'
+
+      },
+      beforeEnter: checkValidRole
     },
     {
       path: '/departmentAllowance',
       name: 'departmentAllowance',
       component: departmentAllowance,
       meta: {
-        middleware: checkAuth
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/permission-denied',
+      name: 'permission-denied',
+      component: permissionDenied,
+      meta: {
+        // middleware: checkAuth,
       }
     },
     {
@@ -209,55 +279,91 @@ const router = createRouter({
       path: '/employee-view',
       name: 'employee-view',
       component: employeeView,
-      meta: { middleware: checkAuth },
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+      },
+      beforeEnter: checkValidRole,
       children: [
         {
           path: 'emp-information/:username',
           name: 'emp-information',
           component: EmpInformation,
-          meta: { middleware: checkAuth },
+          meta: {
+            middleware: checkAuth,
+            requiredRole: 'Manager'
+          },
+          beforeEnter: checkValidRole
         },
         {
           path: 'emp-contract/:username',
           name: 'emp-contract',
           component: EmpContract,
-          meta: { middleware: checkAuth },
+          meta: {
+            middleware: checkAuth,
+            requiredRole: 'Manager'
+          },
+          beforeEnter: checkValidRole
         },
         {
           path: 'emp-degree/:username',
           name: 'emp-degree',
           component: EmpDegree,
-          meta: { middleware: checkAuth },
+          meta: {
+            middleware: checkAuth,
+            requiredRole: 'Manager'
+          },
+          beforeEnter: checkValidRole
         },
         {
           path: 'emp-allowance/:username',
           name: 'emp-allowance',
           component: EmpAllowance,
-          meta: { middleware: checkAuth },
+          meta: {
+            middleware: checkAuth,
+            requiredRole: 'Manager'
+          },
+          beforeEnter: checkValidRole
         },
         {
           path: 'emp-department/:username',
           name: 'emp-department',
           component: EmpDepartment,
-          meta: { middleware: checkAuth },
+          beforeEnter: checkValidRole,
+          meta: {
+            middleware: checkAuth,
+            requiredRole: 'Manager'
+          },
         },
         {
           path: 'emp-skill/:username',
           name: 'emp-skill',
           component: EmpSkill,
-          meta: { middleware: checkAuth },
+          meta: {
+            middleware: checkAuth,
+            requiredRole: 'Manager'
+          },
+          beforeEnter: checkValidRole
         },
         {
           path: 'emp-experience/:username',
           name: 'emp-experience',
           component: EmpExperience,
-          meta: { middleware: checkAuth },
+          meta: {
+            middleware: checkAuth,
+            requiredRole: 'Manager'
+          },
+          beforeEnter: checkValidRole
         },
         {
           path: 'emp-dependant/:username',
           name: 'emp-dependant',
           component: EmpDependant,
-          meta: { middleware: checkAuth },
+          meta: {
+            middleware: checkAuth,
+            requiredRole: 'Manager'
+          },
+          beforeEnter: checkValidRole
         },
       ]
     },

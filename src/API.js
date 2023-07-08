@@ -42,7 +42,20 @@ export default class API {
     static getDependentList(page) {
         return axios.get(`${this.BASE_URL_V1}/${this.DEPENDENT}/GetListDependent/${page}`)
     }
-    
+    static createDependent(data) {
+        return axios.post(`${this.BASE_URL_V1}/${this.DEPENDENT}/CreateDependent`, data)
+    }
+    static updateDependent(data) {
+        return axios.put(`${this.BASE_URL_V1}/${this.DEPENDENT}/Update`, data)
+    }
+    static deleteDependent(id) {
+        return axios.delete(`${this.BASE_URL_V1}/${this.DEPENDENT}/DeleteDegree/${id}`)
+    }
+
+    //api of employee
+    static getAttendanceEmployeeList(page) {
+        return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee?pg=${page}`)
+    }
 
     //contract
     static getContractList(page) {
@@ -97,7 +110,7 @@ export default class API {
     static deleteMaternityEmployee(id) {
         return axios.delete(`${this.BASE_URL_V1}/${this.MATERNITYEMPLOYEE}/DeleteMaternityEmployee/${id}`)
     }
-    
+
 
     //OvertimeLog
     static getOverTimeLogList() {
@@ -171,7 +184,7 @@ export default class API {
     static deleteEmployeeContract(id) {
         return axios.delete(`${this.BASE_URL_V1}/EmployeeContract/Delete/${id}`)
     }
-    
+
     //allowance
     static getListAllowance(page) {
         return axios.get(`${this.BASE_URL_V1}/Allowance/GetListAllowance/${page}`)
@@ -181,15 +194,15 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/Allowance/GetAll`)
     }
 
-    static createAllowance(data){
+    static createAllowance(data) {
         return axios.post(`${this.BASE_URL_V1}/Allowance/CreateAllowance`, data)
     }
 
-    static deleteAllowance(id){
+    static deleteAllowance(id) {
         return axios.delete(`${this.BASE_URL_V1}/Allowance/DeleteAllowance/${id}`)
     }
 
-    static updateAllowance(data){
+    static updateAllowance(data) {
         return axios.put(`${this.BASE_URL_V1}/Allowance/UpdateAllowance`, data)
     }
 
@@ -210,7 +223,7 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/api/Enum/acceptanceType`)
     }
 
-    static updateConfigDay(data){
+    static updateConfigDay(data) {
         return axios.post(`${this.BASE_URL_V1}/Config/WorkDay/Update`, data)
     }
 

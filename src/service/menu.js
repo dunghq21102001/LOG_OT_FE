@@ -30,6 +30,10 @@ export default class menu {
                             {
                                 childName: 'Phụ thuộc',
                                 routeName: 'dependent-list'
+                            },
+                            {
+                                childName: 'Chấm công',
+                                routeName: 'attendance-employee'
                             }
                         ]
                     },
@@ -65,6 +69,29 @@ export default class menu {
                             }
                         ]
                     },
+                ]
+            }
+        ]
+    }
+
+    static menuListEmp() {
+        return [
+            {
+                id: 1,
+                name: 'menu',
+                items: [
+                    {
+                        iconName: 'dashboardIcon',
+                        itemName: 'Dashboards',
+                        isShow: true,
+                        isShowExpand: false,
+                        children: [
+                            {
+                                childName: 'Chấm công',
+                                routeName: 'attendance-employee'
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -132,11 +159,11 @@ export default class menu {
                 name: 'Ngày làm việc hàng năm',
                 routeName: 'annualWorkingDay',
             }
-            
+
         ]
     }
 
-    static profileEmpMenu(){
+    static profileEmpMenu() {
         return [
             {
                 name: 'information',
