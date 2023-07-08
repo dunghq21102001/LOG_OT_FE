@@ -42,6 +42,7 @@ export default class API {
     static getDependentList(page) {
         return axios.get(`${this.BASE_URL_V1}/${this.DEPENDENT}/GetListDependent/${page}`)
     }
+    
 
     //contract
     static getContractList(page) {
@@ -87,6 +88,16 @@ export default class API {
     static getMaternityEmployeeList(page) {
         return axios.get(`${this.BASE_URL_V1}/${this.MATERNITYEMPLOYEE}/GetListMaternityEmployee/${page}`)
     }
+    static createMaternityEmployee(data) {
+        return axios.post(`${this.BASE_URL_V1}/${this.MATERNITYEMPLOYEE}/CreateMaternityEmployee`, data)
+    }
+    static updateMaternityEmployee(data) {
+        return axios.put(`${this.BASE_URL_V1}/${this.MATERNITYEMPLOYEE}/UpdateMaternityEmployee`, data)
+    }
+    static deleteMaternityEmployee(id) {
+        return axios.delete(`${this.BASE_URL_V1}/${this.MATERNITYEMPLOYEE}/DeleteMaternityEmployee/${id}`)
+    }
+    
 
     //OvertimeLog
     static getOverTimeLogList() {
@@ -195,7 +206,11 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/api/Enum/ShiftType`)
     }
 
+    static getListAcceptanceType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/acceptanceType`)
+    }
+
     static updateConfigDay(data){
-        return axios.put(`${this.BASE_URL_V1}/Config/WorkDay/Update`, data)
+        return axios.post(`${this.BASE_URL_V1}/Config/WorkDay/Update`, data)
     }
 }

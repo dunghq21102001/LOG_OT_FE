@@ -102,6 +102,7 @@
 </template>
 <script>
 import API from '../API';
+import swal from '../utilities/swal2';
 
 export default {
     data() {
@@ -155,9 +156,10 @@ export default {
             }           
             API.updateConfigDay(data)
                 .then(response => {                
-                    swal.success(response.data)
+                    // swal.success(response.data)
+                    swal.success('Cập nhật thành công')
                     this.exit2()
-                    this.getListDepartment()
+                    this.getListConfigDay()
                 })
                 .catch(error => {
                     swal.error(error)
@@ -187,6 +189,7 @@ export default {
         getListConfigDay() {
             API.getListConfigDay()
                 .then(response => {
+                    this.items = []
                     this.items.push(response.data)
                 })
                 .catch(error => {

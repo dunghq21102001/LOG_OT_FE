@@ -4,24 +4,25 @@
         <span v-show="systemStore.getExpandSideBar" class="font-bold text-white">VELZON</span>
 
         <ul>
-            <li v-if="auth?.listRoles[0] == 'Manager'" v-for="menu in menuList" :key="menu.id">
+            <li v-if="auth?.listRoles?.[0] == 'Manager'" v-for="menu in menuList"
+                :key="menu.id">
                 <ul>
                     <div v-for="item in menu.items" :key="item.itemName">
                         <li @click="item.isShow = !item.isShow"
                             class="flex justify-between items-center text-white my-3 cursor-pointer hover:bg-[#6376b3] parent sm:text-[16px] md:text-[18px]"
                             :class="systemStore.getExpandSideBar ? 'px-5 py-2' : 'mx-1'">
-                            <img v-show="!systemStore.getExpandSideBar" class="w-[100px]"
-                                :src="getUrl(item.iconName)" alt="">
+                            <img v-show="!systemStore.getExpandSideBar" class="w-[100px]" :src="getUrl(item.iconName)"
+                                alt="">
                             <span v-show="systemStore.getExpandSideBar">{{ item.itemName }}</span>
                             <font-awesome-icon v-show="systemStore.getExpandSideBar" icon="fa-solid fa-chevron-right"
                                 class="transition-all" :class="!item.isShow ? '' : 'rotate-90'" />
                             <div class="bg-[#405189] dark:bg-[#212529] pl-2 z-20"
-                            :class="systemStore.getExpandSideBar ? 'hidden' : 'child'">
+                                :class="systemStore.getExpandSideBar ? 'hidden' : 'child'">
                                 <div class="overflow-hidden w-[150px] transition-all flex flex-col items-start">
-                                    <span v-for="child in item.children" @click="onChangeRoute(child.childName)"
+                                    <span v-for="child in item.children" @click="onChangeRoute(child.childName, child.routeName)"
                                         :class="currentRoute == child.childName ? 'bg-[#6376b3] dark:bg-[#3c3e46]' : ''"
                                         class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer text-left sm:text-[14px] md:text-[18px] px-2 py-1">
-                                         {{ child.childName }}
+                                        {{ child.childName }}
                                     </span>
                                 </div>
                             </div>
@@ -29,7 +30,8 @@
                         <Transition name="children">
                             <div v-show="item.isShow && systemStore.getExpandSideBar"
                                 class="overflow-hidden w-full transition-all flex flex-col items-start">
-                                <span v-for="child in item.children" @click="onChangeRoute(child.childName, child.routeName)"
+                                <span v-for="child in item.children"
+                                    @click="onChangeRoute(child.childName, child.routeName)"
                                     :class="currentRoute == child.childName ? 'bg-[#6376b3] dark:bg-[#3c3e46]' : ''"
                                     class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer pl-10 text-left sm:text-[14px] md:text-[18px]">
                                     - {{ child.childName }}
@@ -69,10 +71,10 @@ export default {
     },
     created() {
         // this.currentRoute = this.$route.name
-     },
+    },
     methods: {
         onChangeRoute(routeName, roueLink) {
-            this.$router.replace({ name: roueLink, params: { } })
+            this.$router.replace({ name: roueLink, params: {} })
             this.currentRoute = routeName
         },
         isActiveExpand(item) {
