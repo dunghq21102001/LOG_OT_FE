@@ -28,6 +28,8 @@ import allowance from '../views/AllowanceView.vue'
 import employeeContract from '../views/EmployeeContractView.vue'
 import configWorkDay from '../views/ConfigDayView.vue'
 import departmentAllowance from '../views/DepartmentAllowanceView.vue'
+import coefficient from '../views/CoefficientView.vue'
+import annualWorkingDay from '../views/AnnualWorkingDayView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -183,6 +185,22 @@ const router = createRouter({
       path: '/departmentAllowance',
       name: 'departmentAllowance',
       component: departmentAllowance,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/coefficient',
+      name: 'coefficient',
+      component: coefficient,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/annualWorkingDay',
+      name: 'annualWorkingDay',
+      component: annualWorkingDay,
       meta: {
         middleware: checkAuth
       }

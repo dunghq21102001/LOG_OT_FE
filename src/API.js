@@ -235,4 +235,30 @@ export default class API {
     static getListSubsidize() {
         return axios.get(`${this.BASE_URL_V1}/Subsidize`)
     }
+
+    //Coefficient
+    static getListCoefficient() {
+        return axios.get(`${this.BASE_URL_V1}/Coefficient`)
+    }
+
+    static updateCoefficient(data) {
+        return axios.post(`${this.BASE_URL_V1}/Coefficient/Update`, data)
+    }
+
+    //annual
+    static getListAnnual() {
+        return axios.get(`${this.BASE_URL_V1}/Annual`)
+    }
+
+    static createAnnual(data) {
+        return axios.post(`${this.BASE_URL_V1}/Annual/Create`, data)
+    }
+
+    static updateAnnual(data) {
+        return axios.put(`${this.BASE_URL_V1}/Annual/Update`, data)
+    }
+
+    static deleteAnnual(id) {
+        return axios.delete(`${this.BASE_URL_V1}/Annual/Delete`, id)
+    }
 }
