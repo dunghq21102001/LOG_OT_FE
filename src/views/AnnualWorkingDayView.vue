@@ -154,8 +154,8 @@ export default {
             swal.confirm('Bạn có chắc chắn ngày làm này không?').then((result) => {
                 if (result.value) {
                     API.deleteAnnual(id)
-                        .then(responsive => {
-                            swal.success('Xoá thành công')
+                    .then(response => {                       
+                            swal.success(response.data)
                             this.getListAnnual()
                         })
                         .catch(error => {

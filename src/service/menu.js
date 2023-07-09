@@ -70,6 +70,10 @@ export default class menu {
                             {
                                 childName: 'Ngày làm việc hàng năm',
                                 routeName: 'annualWorkingDay',
+                            },
+                            {
+                                childName: 'Quản lí chấm công',
+                                routeName: 'attendanceManager',
                             }
                         ]
                     },
@@ -135,7 +139,7 @@ export default class menu {
             {
                 name: 'Employee View',
                 routeName: 'emp-information',
-            }
+            }       
         ]
     }
 

@@ -276,6 +276,19 @@ export default class API {
     }
 
     static deleteAnnual(id) {
-        return axios.delete(`${this.BASE_URL_V1}/Annual/Delete`, id)
+        return axios.delete(`${this.BASE_URL_V1}/Annual/Delete?id=${id}`)
+    }
+
+    //attendace manager
+    static getAttendanceManager() {
+        return axios.get(`${this.BASE_URL_V1}/Attendance`)
+    }
+
+    static getAttendanceByUsername(data) {
+        return axios.get(`${this.BASE_URL_V1}/Attendance/GetListByUser?username=${data}`)
+    }
+
+    static getAttendanceByFilter(fromDate, toDate) {
+        return axios.get(`${this.BASE_URL_V1}/Attendance/Filter?FromDate=${fromDate}&ToDate=${toDate}&pg=1`)
     }
 }
