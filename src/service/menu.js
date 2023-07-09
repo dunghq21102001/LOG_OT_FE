@@ -34,6 +34,42 @@ export default class menu {
                             {
                                 childName: 'Chấm công',
                                 routeName: 'attendance-employee'
+                            },
+                            {
+                                childName: 'Phòng ban',
+                                routeName: 'department',
+                            },
+                            {
+                                childName: 'Vị trí',
+                                routeName: 'position',
+                            },
+                            {
+                                childName: 'Trình độ',
+                                routeName: 'level',
+                            },
+                            {
+                                childName: 'Phụ cấp',
+                                routeName: 'allowance',
+                            },
+                            {
+                                childName: 'Hợp đồng',
+                                routeName: 'employeeContract',
+                            },
+                            {
+                                childName: 'Quản lí thời gian làm việc',
+                                routeName: 'configWorkDay',
+                            },
+                            {
+                                childName: 'Phụ cấp theo phòng ban',
+                                routeName: 'departmentAllowance',
+                            },
+                            {
+                                childName: 'Hệ số lương',
+                                routeName: 'coefficient',
+                            },
+                            {
+                                childName: 'Ngày làm việc hàng năm',
+                                routeName: 'annualWorkingDay',
                             }
                         ]
                     },
@@ -43,30 +79,7 @@ export default class menu {
                         isShow: false,
                         isShowExpand: false,
                         children: [
-                            {
-                                childName: 'Chat',
-                                routeName: ''
-                            },
-                            {
-                                childName: 'Email',
-                                routeName: ''
-                            },
-                            {
-                                childName: 'Project',
-                                routeName: ''
-                            },
-                            {
-                                childName: 'Tasks',
-                                routeName: ''
-                            },
-                            {
-                                childName: 'OT Time',
-                                routeName: ''
-                            },
-                            {
-                                childName: 'Summary',
-                                routeName: ''
-                            }
+                            
                         ]
                     },
                 ]
@@ -120,46 +133,9 @@ export default class menu {
                 routeName: 'hrempmanagement',
             },
             {
-                name: 'Danh sách phòng ban',
-                routeName: 'department',
-            },
-            {
                 name: 'Employee View',
                 routeName: 'emp-information',
-            },
-            {
-                name: 'Danh sách vị trí',
-                routeName: 'position',
-            },
-            {
-                name: 'Danh sách trình độ',
-                routeName: 'level',
-            },
-            {
-                name: 'Danh sách phụ cấp',
-                routeName: 'allowance',
-            },
-            {
-                name: 'Danh sách hợp đồng',
-                routeName: 'employeeContract',
-            },
-            {
-                name: 'Quản lí thời gian làm việc',
-                routeName: 'configWorkDay',
-            },
-            {
-                name: 'Danh sách phụ cấp theo phòng ban',
-                routeName: 'departmentAllowance',
-            },
-            {
-                name: 'Hệ số lương',
-                routeName: 'coefficient',
-            },
-            {
-                name: 'Ngày làm việc hàng năm',
-                routeName: 'annualWorkingDay',
             }
-
         ]
     }
 

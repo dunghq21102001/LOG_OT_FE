@@ -1,5 +1,5 @@
 <template>
-    <div class="sm:block hidden text-center bg-[#405189] dark:bg-[#212529] min-h-screen fixed top-0 left-0 transition-all z-50"
+    <div class="sm:block hidden text-center bg-[#405189] dark:bg-[#212529] h-screen fixed top-0 left-0 transition-all z-50"
         :class="systemStore.getExpandSideBar ? 'sm:w-[30%] md:w-[20%] xl:w-[15%]' : 'w-[6%]'">
         <span v-show="systemStore.getExpandSideBar" class="font-bold text-white">VELZON</span>
 
@@ -21,7 +21,7 @@
                                 <div class="overflow-hidden w-[150px] transition-all flex flex-col items-start">
                                     <span v-for="child in item.children" @click="onChangeRoute(child.childName, child.routeName)"
                                         :class="currentRoute == child.childName ? 'bg-[#6376b3] dark:bg-[#3c3e46]' : ''"
-                                        class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer text-left sm:text-[14px] md:text-[18px] px-2 py-1">
+                                        class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer text-left sm:text-[14px] md:text-[16px] px-2 py-1">
                                         {{ child.childName }}
                                     </span>
                                 </div>

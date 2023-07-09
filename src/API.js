@@ -53,8 +53,12 @@ export default class API {
     }
 
     //api of employee
+    static getRuleAttendance() {}
     static getAttendanceEmployeeList(page) {
         return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee?pg=${page}`)
+    }
+    static createAttendance() {
+        return axios.post(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/Create`)
     }
 
     //contract
