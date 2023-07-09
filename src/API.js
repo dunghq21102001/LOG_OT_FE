@@ -127,7 +127,7 @@ export default class API {
 
     // Level
     static getListLevel() {
-        return axios.get(`${this.BASE_URL_V1}/Level/GetLevel`)
+        return axios.get(`${this.BASE_URL_V1}/Level/GetLevel?pg=1`)
     }
 
     static createLevel(data) {
