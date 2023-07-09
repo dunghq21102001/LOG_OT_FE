@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="bg-white w-full p-3">
-            <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo phòng ban mới</button>
+            <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo phòng ban</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
                 <template #item-operation="item">
@@ -18,7 +18,7 @@
             <div
                 class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white dark:bg-[#292e32] absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
                 <div
-                    class="w-full h-10 sm:h-10 primary-btn text-sm sm:text-3xl flex justify-center items-center sm">
+                class="w-full h-10 sm:h-10 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
                     Tạo phòng ban
                 </div>
                 <div
@@ -29,7 +29,7 @@
                             v-model="name" placeholder="Nhập tên phòng ban">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả phòng ban:</span></label>
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả:</span></label>
                         <input class="bg-slate-200 dark:bg-gray-900 dark:text-white w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
                             type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
                     </div>
@@ -88,7 +88,7 @@ export default {
         return {
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
-                { text: "Tên phòng ban", value: "name", width: 140, },
+                { text: "Tên phòng ban", value: "name", width: 200, },
                 { text: "Mô tả phòng ban", value: "description", width: 200, },
                 { text: "Action", value: "operation", width: 300 },
             ],
@@ -177,7 +177,8 @@ export default {
                     this.getListDepartment()
                 })
                 .catch(error => {
-                    swal.error(error)
+                    swal.error(error.response.data)
+                    console.log(error.response.data);
                 });
         },
     },
