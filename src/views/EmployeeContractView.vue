@@ -5,6 +5,12 @@
                 mới</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
+                <template #item-basicSalary="item">
+                    {{ convertVnd(item.basicSalary) }}
+                </template>
+                <template #item-insuranceAmount="item">
+                    {{ convertVnd(item.insuranceAmount) }}
+                </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
@@ -220,7 +226,8 @@
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
                             Chỉnh sửa hợp đồng
                         </button>
-                        <button @click="exit2" type="exit" class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
+                        <button @click="exit2" type="exit"
+                            class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
                             Hủy chỉnh sửa
                         </button>
                     </div>
@@ -231,7 +238,7 @@
 </template>
 <script>
 import API from '../API';
-
+import functionCustom from '../utilities/functionCustom'
 export default {
     data() {
         return {
@@ -309,7 +316,7 @@ export default {
         updateEmployeeContractForm(id) {
             this.isShow2 = true
             const currentEmployeeContract = this.items.find(item => item.id == id)
-                this.id = currentEmployeeContract.id,
+            this.id = currentEmployeeContract.id,
                 this.contractCode = currentEmployeeContract.contractCode,
                 this.file = currentEmployeeContract.file,
                 this.startDate = currentEmployeeContract.startDate,
@@ -398,6 +405,9 @@ export default {
                 .catch(error => {
                     swal.error(error)
                 });
+        },
+        convertVnd(price) {
+            return functionCustom.convertVND(price)
         },
         createEmployeeContract() {
             const data = {

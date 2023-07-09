@@ -1,6 +1,6 @@
 <template>
     <div class="bg-[#f5f2f2] md:w-full w-full flex justify-between p-4 dark:bg-[#292e32] dark:text-[#ced4da]">
-        <div class="sm:flex hidden w-2/5 items-center"
+        <div class="sm:flex hidden w-2/5 items-center ml-[20px]"
             :class="systemStore.getExpandSideBar ? 'justify-center' : 'justify-start'">
             <font-awesome-icon @click="expandSideBar" class="ml-16 cursor-pointer hover-custom"
                 :icon="systemStore.getExpandSideBar ? 'fa-solid fa-bars-staggered' : 'fa-solid fa-arrow-right'" />
