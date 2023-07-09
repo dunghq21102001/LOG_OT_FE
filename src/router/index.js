@@ -33,6 +33,7 @@ import permissionDenied from '../views/NotHavePermission.vue'
 import checkValidRole from '../middleware/checkValidRole'
 import coefficient from '../views/CoefficientView.vue'
 import annualWorkingDay from '../views/AnnualWorkingDayView.vue'
+import attendanceManager from '../views/AttendanceManagerView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -271,6 +272,14 @@ const router = createRouter({
       path: '/annualWorkingDay',
       name: 'annualWorkingDay',
       component: annualWorkingDay,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/attendanceManager',
+      name: 'attendanceManager',
+      component: attendanceManager,
       meta: {
         middleware: checkAuth
       }
