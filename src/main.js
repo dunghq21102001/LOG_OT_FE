@@ -1,5 +1,6 @@
 import './assets/main.css'
-import 'sweetalert2/dist/sweetalert2.min.css'
+// import 'sweetalert2/dist/sweetalert2.min.css'
+import '../node_modules/sweetalert2/dist/sweetalert2.min.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import VueSweetalert2 from 'vue-sweetalert2'
@@ -15,7 +16,8 @@ import vueClickOutsideElement from 'vue-click-outside-element'
 import CountryFlag from 'vue-country-flag-next'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import Vue3EasyDataTable from 'vue3-easy-data-table'
-import 'vue3-easy-data-table/dist/style.css'
+// import 'vue3-easy-data-table/dist/style.css'
+import '../node_modules/vue3-easy-data-table/dist/style.css'
 import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage } from '@fortawesome/free-solid-svg-icons'
 
 const app = createApp(App)
