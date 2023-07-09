@@ -35,7 +35,7 @@ const axiosInstance = axios.create({
 window.functionCustom = functionCustom
 window.swal = swal
 window.axios = axios
-window.axios.defaults.headers.common = { 'Authorization': `bearer ${sessionStorage.getItem("token")}` }
+window.axios.defaults.headers.common = { 'Authorization': `Bearer ${sessionStorage.getItem("token")}` }
 // nơi khai báo các component ở phạm vi global
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('country-flag', CountryFlag)

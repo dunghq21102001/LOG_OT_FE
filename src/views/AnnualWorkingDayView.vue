@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="bg-white w-full p-3">
-            <button @click="createDepartmentAllowanceForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo phụ ngày làm</button>
+            <button @click="createDepartmentAllowanceForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo phụ ngày
+                làm</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
                 <template #item-operation="item">
@@ -10,7 +11,7 @@
                         <button @click="updateDepartmentAllowanceForm(item)" class="edit-btn"><font-awesome-icon
                                 icon="fa-solid fa-pen-to-square" /></button>
                         <button @click="deleteAnnual(item.id)" class="delete-btn"><font-awesome-icon
-                                :icon="['fas', 'trash']" /></button>                   
+                                :icon="['fas', 'trash']" /></button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -32,8 +33,7 @@
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Có là ngày lễ:</span></label>
-                        <select v-model="isHoliday"
-                            class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3">
+                        <select v-model="isHoliday" class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3">
                             <option v-for="option in options" :value="option.value">{{ option.label }}</option>
                         </select>
                     </div>
@@ -76,7 +76,8 @@
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
                             Chỉnh sửa ngày làm việc
                         </button>
-                        <button @click="exit2" type="exit" class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
+                        <button @click="exit2" type="exit"
+                            class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
                             Hủy tạo
                         </button>
                     </div>
@@ -99,13 +100,13 @@ export default {
                 { text: "Hệ số lương", value: "coefficient.amountCoefficient", width: 200, },
                 { text: "Action", value: "operation", width: 300 },
             ],
-            items: [],  
+            items: [],
             options: [
                 { value: true, label: 'yes' },
                 { value: false, label: 'no' },
-            ],    
+            ],
             day: '',
-            isHoliday: '',    
+            isHoliday: '',
             isShow: false,
             isShow2: false,
             id: '',
@@ -113,14 +114,14 @@ export default {
                 id: '',
                 day: '',
                 isHoliday: ''
-            },     
+            },
         }
     },
 
     methods: {
         resetFormCreate() {
             this.day = '',
-            this.isHoliday = ''
+                this.isHoliday = ''
         },
         createDepartmentAllowanceForm() {
             this.resetFormCreate()
@@ -129,15 +130,15 @@ export default {
         updateDepartmentAllowanceForm(item) {
             this.isShow2 = true
             this.currentAnnual.id = item.id,
-            this.currentAnnual.day = item.day,
-            this.currentAnnual.isHoliday = item.typeDate == "Holiday" ? "true" : "false"
+                this.currentAnnual.day = item.day,
+                this.currentAnnual.isHoliday = item.typeDate == "Holiday" ? "true" : "false"
         },
-        updateDepartmentAllowance() {          
-            const data = {       
-                id: this.currentAnnual.id,       
+        updateDepartmentAllowance() {
+            const data = {
+                id: this.currentAnnual.id,
                 day: this.currentAnnual.day,
                 isHoliday: this.currentAnnual.isHoliday
-            }           
+            }
             API.updateAnnual(data)
                 .then(response => {
                     swal.success(response.data)
@@ -153,8 +154,8 @@ export default {
             swal.confirm('Bạn có chắc chắn ngày làm này không?').then((result) => {
                 if (result.value) {
                     API.deleteAnnual(id)
-                        .then(responsive => {                       
-                            swal.success(responsive.data)
+                        .then(responsive => {
+                            swal.success('Xoá thành công')
                             this.getListAnnual()
                         })
                         .catch(error => {
@@ -177,9 +178,9 @@ export default {
                 .catch(error => {
                     swal.error(error)
                 });
-        },      
+        },
         createDepartmentAllowance() {
-            const data = {               
+            const data = {
                 day: this.day,
                 isHoliday: this.isHoliday
             }
@@ -188,7 +189,7 @@ export default {
                     swal.success(response.data)
                     this.exit()
                     this.resetFormCreate()
-                    this.getListAnnual()                 
+                    this.getListAnnual()
                 })
                 .catch(error => {
                     swal.error(error.data)
