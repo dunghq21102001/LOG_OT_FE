@@ -20,7 +20,7 @@
         </template>
         <template #item-operation="item">
           <div class="operation-wrapper">
-            <button class="view-btn" @click="goTo(item.userName)"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+            <button class="view-btn" @click="goTo(item.userName, item.id)"><font-awesome-icon icon="fa-solid fa-eye" /></button>
             <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
                 icon="fa-solid fa-pen-to-square" /></button>
             <!-- <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button> -->
@@ -553,8 +553,8 @@ export default {
         allowanceId: []
       }
     },
-    goTo(userName) {
-      this.$router.push({ name: 'emp-information', params: { username: userName } })
+    goTo(userName, id) {
+      this.$router.push({ name: 'emp-information', params: { username: userName, id: id } })
     },
     setTheme() {
       let curr = this.themeStore.getTheme

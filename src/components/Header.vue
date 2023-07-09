@@ -38,10 +38,10 @@
                 <Transition name="profile">
                     <div v-show="isShowProfile"
                         class="absolute top-[100%] left-[-20%] w-[120%] flex flex-col bg-white shadow-lg z-10 text-[14px]">
-                        <span v-for="item in profileMenu" @click="goTo(item.routeName)"
+                        <!-- <span v-for="item in profileMenu" @click="goTo(item.routeName)"
                             class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
                             {{ $t(item.name) }}
-                        </span>
+                        </span> -->
                         <span @click="logout" class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
                             {{ $t('logout') }}
                         </span>

@@ -12,13 +12,13 @@
                         <span>Name:&nbsp</span>
                         <span>{{ currentEmp?.fullname }}</span>
                     </div>
-                    <div class="flex mb-1">
+                    <!-- <div class="flex mb-1">
                         <span>Role:&nbsp</span>
                         <span>Dev</span>
-                    </div>
+                    </div> -->
                     <div class="flex mb-1">
                         <span>Department:&nbsp</span>
-                        <span>Office IT</span>
+                        <span>{{ departmentName }}</span>
                     </div>
                     <div class="flex mb-1">
                         <span>EmployeeID:&nbsp</span>
@@ -55,15 +55,24 @@ export default {
         return {
             empList: service.profileEmpMenu(),
             currentRoute: 'emp-information',
-            currentEmp: null
+            currentEmp: null,
+            departmentName: ''
         }
     },
     created() {
         this.fetchDetailEmp()
+        this.getDepartment()
     },
     methods: {
         onChangeRoute(routeName) {
             this.currentRoute = routeName
+        },
+        getDepartment() {
+            API.getDepartmentByUser(this.$route.params.username)
+                .then(res => {
+                    this.departmentName = res.data.name
+                })
+                .catch(err => swal.error(err))
         },
         fetchDetailEmp() {
             API.getDetailEmployee(this.$route.params.username)

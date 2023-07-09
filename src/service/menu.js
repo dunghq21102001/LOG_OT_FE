@@ -32,10 +32,6 @@ export default class menu {
                                 routeName: 'dependent-list'
                             },
                             {
-                                childName: 'Chấm công',
-                                routeName: 'attendance-employee'
-                            },
-                            {
                                 childName: 'Phòng ban',
                                 routeName: 'department',
                             },
@@ -153,10 +149,10 @@ export default class menu {
                 name: 'degree',
                 routeName: 'emp-degree',
             },
-            {
-                name: 'allowance',
-                routeName: 'emp-allowance',
-            },
+            // {
+            //     name: 'allowance',
+            //     routeName: 'emp-allowance',
+            // },
             {
                 name: 'department',
                 routeName: 'emp-department',

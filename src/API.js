@@ -53,7 +53,7 @@ export default class API {
     }
 
     //api of employee
-    static getRuleAttendance() {}
+    static getRuleAttendance() { }
     static getAttendanceEmployeeList(page) {
         return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee?pg=${page}`)
     }
@@ -122,6 +122,9 @@ export default class API {
     }
     static createOTLog(data) {
         return axios.post(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/CreateOvertimeLog`, data)
+    }
+    static updateOTLog(idOTRequest, status, cancelReason) {
+        return axios.put(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/UpdateStatusOvertimeLogRequest?idOTRequest=${idOTRequest}&status=${status}&cancelReason=${cancelReason}`)
     }
 
 
@@ -290,5 +293,16 @@ export default class API {
 
     static getAttendanceByFilter(fromDate, toDate) {
         return axios.get(`${this.BASE_URL_V1}/Attendance/Filter?FromDate=${fromDate}&ToDate=${toDate}&pg=1`)
+    }
+
+    //api for employee detail
+    static getListDegreeByUserId(id, page) {
+        return axios.get(`${this.BASE_URL_V1}/Degree/GetListByUserId/${page}?userId=${id}`)
+    }
+    static getDepartmentByUser(userName) {
+        return axios.get(`${this.BASE_URL_V1}/Department/GetByUser?Username=${userName}`)
+    }
+    static getSkillByEmployeeId(id) {
+        return axios.get(`${this.BASE_URL_V1}/SkillEmployee/GetSkillEmployeeId/${id}`)
     }
 }

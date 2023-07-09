@@ -295,7 +295,7 @@ const router = createRouter({
       beforeEnter: checkValidRole,
       children: [
         {
-          path: 'emp-information/:username',
+          path: 'emp-information/:username/:id',
           name: 'emp-information',
           component: EmpInformation,
           meta: {
@@ -305,7 +305,7 @@ const router = createRouter({
           beforeEnter: checkValidRole
         },
         {
-          path: 'emp-contract/:username',
+          path: 'emp-contract/:username/:id',
           name: 'emp-contract',
           component: EmpContract,
           meta: {
@@ -315,7 +315,7 @@ const router = createRouter({
           beforeEnter: checkValidRole
         },
         {
-          path: 'emp-degree/:username',
+          path: 'emp-degree/:username/:id',
           name: 'emp-degree',
           component: EmpDegree,
           meta: {
@@ -324,18 +324,18 @@ const router = createRouter({
           },
           beforeEnter: checkValidRole
         },
+        // {
+        //   path: 'emp-allowance/:username/:id',
+        //   name: 'emp-allowance',
+        //   component: EmpAllowance,
+        //   meta: {
+        //     middleware: checkAuth,
+        //     requiredRole: 'Manager'
+        //   },
+        //   beforeEnter: checkValidRole
+        // },
         {
-          path: 'emp-allowance/:username',
-          name: 'emp-allowance',
-          component: EmpAllowance,
-          meta: {
-            middleware: checkAuth,
-            requiredRole: 'Manager'
-          },
-          beforeEnter: checkValidRole
-        },
-        {
-          path: 'emp-department/:username',
+          path: 'emp-department/:username/:id',
           name: 'emp-department',
           component: EmpDepartment,
           beforeEnter: checkValidRole,
@@ -345,7 +345,7 @@ const router = createRouter({
           },
         },
         {
-          path: 'emp-skill/:username',
+          path: 'emp-skill/:username/:id',
           name: 'emp-skill',
           component: EmpSkill,
           meta: {
@@ -355,7 +355,7 @@ const router = createRouter({
           beforeEnter: checkValidRole
         },
         {
-          path: 'emp-experience/:username',
+          path: 'emp-experience/:username/:id',
           name: 'emp-experience',
           component: EmpExperience,
           meta: {
@@ -365,7 +365,7 @@ const router = createRouter({
           beforeEnter: checkValidRole
         },
         {
-          path: 'emp-dependant/:username',
+          path: 'emp-dependant/:username/:id',
           name: 'emp-dependant',
           component: EmpDependant,
           meta: {

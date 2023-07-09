@@ -57,10 +57,9 @@
                     </div>
                 </div>
                 <div class="w-[86%] mx-auto flex justify-end">
-                    <button class="cancel-btn" @click="cancelAll"><font-awesome-icon icon="fa-solid fa-xmark" /></button>
-                    <button v-if="isUpdate" class="edit-btn">Chỉnh sửa</button>
-                    <button v-if="isCreate" @click="actionCreate" class="btn-primary"><font-awesome-icon
-                            icon="fa-solid fa-plus" /></button>
+                    <button class="cancel-btn" @click="cancelAll">Huỷ</button>
+                    <button v-if="isUpdate" @click="actionUpdate" class="edit-btn">Chỉnh sửa</button>
+                    <button v-if="isCreate" @click="actionCreate" class="btn-primary">Tạo mới</button>
                 </div>
             </div>
         </div>
@@ -80,6 +79,7 @@ export default {
             isShow: false,
             isCreate: false,
             isUpdate: false,
+            id: '',
             overtimeLog: {
                 date: '2023-01-01T00:00:00.070Z',
                 hours: 1,
@@ -133,6 +133,9 @@ export default {
             this.isShow = true
             this.isCreate = true
         },
+        actionUpdate() {
+            // API.updateOTLog(this.id, this.overtimeLog.)
+        },
         actionCreate() {
             API.createOTLog(this.overtimeLog)
                 .then(res => {
@@ -148,6 +151,7 @@ export default {
             this.isCreate = false
             this.isShow = false
             this.isUpdate = false
+            this.id = ''
             this.overtimeLog = {
                 date: '2023-01-01T00:00:00.070Z',
                 hours: 1,
@@ -160,6 +164,7 @@ export default {
             this.overtimeLog.date = item.date
             this.overtimeLog.employeeId = item.applicationUser.id
             this.overtimeLog.hours = item.hours
+            this.id = item.id
          },
     }
 }
