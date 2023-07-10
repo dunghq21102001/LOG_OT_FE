@@ -80,6 +80,7 @@ export default {
             isCreate: false,
             isUpdate: false,
             id: '',
+            page: 1,
             overtimeLog: {
                 date: '2023-01-01T00:00:00.070Z',
                 hours: 1,
@@ -108,7 +109,7 @@ export default {
     },
     methods: {
         getList() {
-            API.getOverTimeLogList()
+            API.getOverTimeLogList(this.page)
                 .then(res => {
                     this.list = res.data.items
                 })

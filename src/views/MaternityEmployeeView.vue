@@ -29,13 +29,13 @@
                     </div>
                     <div class="box-input w-[88%] lg:w-[40%]">
                         <label for="denyReason">Lý do từ chối</label>
-                        <input type="text" id="denyReason" v-model="denyReason"
-                            class="input-cus dark:bg-gray-900 dark:text-white  ">
+                        <input type="text" id="denyReason" v-model="denyReason" :disabled="isAllowInput"
+                            class="input-cus dark:bg-gray-900 dark:text-white" :class="isAllowInput ? 'cursor-not-allowed' : ''">
                     </div>
                 </div>
                 <div class="box-input w-[88%]">
                     <label for="acceptanceType">Acceptance Type</label>
-                    <select class="select-cus" v-model="acceptanceType" name="" id="">
+                    <select class="select-cus" v-model="acceptanceType" @change="checkType" name="" id="">
                         <option v-for="acc in acceptanceTypeList" :value="acc.value">{{ acc.display }}</option>
                     </select>
                 </div>
@@ -79,6 +79,7 @@ export default {
             page: 1,
             empList: [],
             acceptanceTypeList: [],
+            isAllowInput: true,
             isShowSelected: false,
             selectedEmp: 'Chọn nhân viên',
             selectedEmpId: '',
@@ -152,6 +153,10 @@ export default {
 
             const currEmp = this.empList.find(em => em.id == this.selectedEmpId)
             this.selectedEmp = currEmp.userName
+        },
+        checkType() {
+            if(this.acceptanceType == '2') this.isAllowInput = false
+            else this.isAllowInput = true
         },
         deleteM(id) {
             swal.confirm('Bạn có chắc chắn muốn xoá?').then(result => {

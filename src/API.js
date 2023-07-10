@@ -117,8 +117,8 @@ export default class API {
 
 
     //OvertimeLog
-    static getOverTimeLogList() {
-        return axios.get(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/GetOvertimeLog`)
+    static getOverTimeLogList(page) {
+        return axios.get(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/GetOvertimeLog?pg=${page}`)
     }
     static createOTLog(data) {
         return axios.post(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/CreateOvertimeLog`, data)
