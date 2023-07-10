@@ -123,8 +123,11 @@ export default class API {
     static createOTLog(data) {
         return axios.post(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/CreateOvertimeLog`, data)
     }
-    static updateOTLog(idOTRequest, status, cancelReason) {
-        return axios.put(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/UpdateStatusOvertimeLogRequest?idOTRequest=${idOTRequest}&status=${status}&cancelReason=${cancelReason}`)
+    // static updateOTLog(idOTRequest, status, cancelReason) {
+    //     return axios.put(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/UpdateStatusOvertimeLogRequest?idOTRequest=${idOTRequest}&status=${status}&cancelReason=${cancelReason}`)
+    // }
+    static deleteLogOT(id) {
+        return axios.put(`${this.BASE_URL_V1}/${this.OVERTIMELOG}/DeleteOvertimeLog/${id}`)
     }
 
 
@@ -154,6 +157,9 @@ export default class API {
     }
     static insuranceType() {
         return axios.get(`${this.BASE_URL_V1}/api/Enum/InsuranceType`)
+    }
+    static logStatus() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/LogStatus`)
     }
 
     static getListEmployeeContract(page) {
@@ -305,4 +311,13 @@ export default class API {
     static getSkillByEmployeeId(id) {
         return axios.get(`${this.BASE_URL_V1}/SkillEmployee/GetSkillEmployeeId/${id}`)
     }
-}
+    static getRegulations() {
+        return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/AttendantRegulations`)
+    }
+    static getListCurrentDay() {
+        return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/GetAttendanceCurrentDay`)
+    }
+    static chamCong() {
+        return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/Create`)
+    }
+}   

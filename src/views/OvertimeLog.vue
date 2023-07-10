@@ -26,8 +26,8 @@
                 </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
-                                icon="fa-solid fa-pen-to-square" /></button>
+                        <button class="delete-btn" @click="showUpdate(item)"><font-awesome-icon
+                                :icon="['fas', 'trash']" /></button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -47,6 +47,21 @@
                                 Họ và tên: {{ emp.fullname }} | Email: {{ emp.email }}
                             </option>
                         </select>
+                    </div>
+                </div>
+                <div v-show="isUpdate" class="w-full flex justify-center">
+                    <div class="box-input w-[88%]">
+                        <label for="acceptanceType">Acceptance Type</label>
+                        <select class="select-cus" v-model="selectedStatus" @change="checkType" name="" id="">
+                            <option v-for="acc in logStatus" :value="acc.value">{{ acc.display }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full flex justify-center">
+                    <div class="box-input w-[88%]">
+                        <label for="denyReason">Lý do từ chối</label>
+                        <input type="text" id="denyReason" v-model="cancelReason" :disabled="isAllowInput"
+                            class="input-cus dark:bg-gray-900 dark:text-white" :class="isAllowInput ? 'cursor-not-allowed' : ''">
                     </div>
                 </div>
                 <div class="w-full flex justify-center">
@@ -76,9 +91,13 @@ export default {
             list: [],
             employeeList: [],
             employeePage: 1,
+            selectedStatus: '',
             isShow: false,
             isCreate: false,
             isUpdate: false,
+            logStatus: [],
+            isAllowInput: true,
+            cancelReason: '',
             id: '',
             page: 1,
             overtimeLog: {
@@ -87,11 +106,13 @@ export default {
                 employeeId: ''
             },
             headers: [
-                { text: "Tên tài khoản", value: "userName", width: 200 },
-                { text: "Họ và Tên", value: "fullname", width: 200 },
-                { text: "Email", value: "email", width: 200 },
+                // { text: "Tên tài khoản", value: "userName", width: 200 },
+                // { text: "Họ và Tên", value: "fullname", width: 200 },
+                // { text: "Email", value: "email", width: 200 },
                 { text: "Ngày đăng ký OT", value: "date", width: 200 },
                 { text: "Số giờ OT", value: "hours", width: 200 },
+                { text: "Trạng thái", value: "status", width: 200 },
+                { text: "Lý do huỷ", value: "cancelReason", width: 200 },
                 { text: "Hành động", value: "operation", width: 400 },
             ]
         }
@@ -99,6 +120,7 @@ export default {
     created() {
         this.getList()
         this.getEmployeeList()
+        this.getEnum()
     },
     computed: {
         formattedDatetime() {
@@ -122,6 +144,17 @@ export default {
                 })
                 .catch(err => swal.error(err))
         },
+        getEnum() {
+            API.logStatus()
+                .then(res => {
+                    this.logStatus = res.data
+                })
+                .catch(err => swal.error(err))
+        },
+        checkType() {
+            if(this.selectedStatus == '3') this.isAllowInput = false
+            else this.isAllowInput = true
+        },
         updateDatetime(event) {
             const selectedDatetime = event.target.value
             const date = new Date(selectedDatetime)
@@ -135,7 +168,11 @@ export default {
             this.isCreate = true
         },
         actionUpdate() {
-            // API.updateOTLog(this.id, this.overtimeLog.)
+            API.updateOTLog(this.id, this.selectedStatus, this.cancelReason)
+            .then(res => {
+                swal.success('Chỉnh sửa thành công')
+            })
+            .catch(err => swal.error(err))
         },
         actionCreate() {
             API.createOTLog(this.overtimeLog)
@@ -160,13 +197,24 @@ export default {
             }
         },
         showUpdate(item) {
-            this.isShow = true
-            this.isUpdate = true
-            this.overtimeLog.date = item.date
-            this.overtimeLog.employeeId = item.applicationUser.id
-            this.overtimeLog.hours = item.hours
-            this.id = item.id
-         },
+            // this.isShow = true
+            // this.isUpdate = true
+            // this.overtimeLog.date = item.date
+            // this.overtimeLog.employeeId = item.applicationUser.id
+            // this.overtimeLog.hours = item.hours
+            // this.id = item.id
+            // this.selectedStatus = item.status
+            swal.confirm('Bạn có chắc chắn muốn xoá?').then(result => {
+                if(result.value) {
+                    API.deleteLogOT(item.id)
+                    .then(res => {
+                        swal.success('Xoá thành công')
+                        this.getList()
+                    })
+                    .catch(err => swal.error(err))
+                }
+            })
+        },
     }
 }
 </script>

@@ -7,7 +7,7 @@
                     <label class="border-b-2 border-black dark:border-white" for="date">{{ $t('choose start ot date')
                     }}</label>
                     <input v-model="fromDate" type="datetime-local" id="date"
-                        class="mx-4 dark:bg-[#292e32] bg-gray-100 px-2 py-1">
+                        class="mx-4 dark:bg-[#292e32] bg-gray-100 px -2 py-1">
                 </div>
                 <div class="my-5">
                     <label class="border-b-2 border-black dark:border-white" for="date">{{ $t('choose end ot date')
@@ -27,6 +27,14 @@
             </div>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
+                <template #item-timeWork="item">
+                    {{ convertTime(item.timeWork) }} Tiếng
+                    <!-- {{ item.timeWork }} -->
+                </template>
+                <template #item-overTime="item">
+                    {{ convertTime(item.oveTime) }} Tiếng
+                    <!-- {{ item.timeWork }} -->
+                </template>
                 <template #item-operation="item">
                     <!-- <div class="operation-wrapper">
                         <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
@@ -135,6 +143,10 @@ export default {
     },
 
     methods: {
+        convertTime(time) {
+            if(time == null || time == undefined || time == NaN) return 0
+            else return Number.parseFloat(time).toFixed(3)
+        },  
         // resetFormCreate() {
         //     this.name = '',
         //         this.description = ''
