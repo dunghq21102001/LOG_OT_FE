@@ -35,6 +35,7 @@ import coefficient from '../views/CoefficientView.vue'
 import annualWorkingDay from '../views/AnnualWorkingDayView.vue'
 import attendanceManager from '../views/AttendanceManagerView.vue'
 import AcceptRequest from '../views/AcceptRequest.vue'
+import ConfirmEmail from '../views/ConfirmEmail.vue'
 import LeaveLog from '../views/LeaveLog.vue'
 
 const router = createRouter({
@@ -261,6 +262,15 @@ const router = createRouter({
         requiredRole: 'Employee'
       },
       beforeEnter: checkValidRole
+    },
+    {
+      path: '/ConfirmEmail',
+      name: 'confirm-email',
+      component: ConfirmEmail,
+      meta: {
+        // middleware: checkAuth,
+        // requiredRole: 'Employee'
+      }
     },
     {
       path: '/departmentAllowance',
