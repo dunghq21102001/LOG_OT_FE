@@ -15,6 +15,9 @@ export default class API {
     static login(loginData) {
         return axios.post(`${this.BASE_URL_V1}/login`, loginData)
     }
+    static confirmEmail(id, code) {
+        return axios.get(`${this.BASE_URL_V1}/confirmEmail?userId=${id}&code=${code}`)
+    }
 
 
     // department get List

@@ -33,8 +33,8 @@
                                 <span v-for="child in item.children"
                                     @click="onChangeRoute(child.childName, child.routeName)"
                                     :class="currentRoute == child.childName ? 'bg-[#6376b3] dark:bg-[#3c3e46]' : ''"
-                                    class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer pl-10 text-left sm:text-[14px] md:text-[18px]">
-                                    - {{ child.childName }}
+                                    class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer pl-10 text-left sm:text-[14px] md:text-[18px] mb-1">
+                                    {{ child.childName }}
                                 </span>
                             </div>
                         </Transition>
@@ -69,8 +69,8 @@
                                 <span v-for="child in item.children"
                                     @click="onChangeRoute(child.childName, child.routeName)"
                                     :class="currentRoute == child.childName ? 'bg-[#6376b3] dark:bg-[#3c3e46]' : ''"
-                                    class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer pl-10 text-left sm:text-[14px] md:text-[18px]">
-                                    - {{ child.childName }}
+                                    class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer pl-10 text-left sm:text-[14px] md:text-[18px] my-5">
+                                    {{ child.childName }}
                                 </span>
                             </div>
                         </Transition>
