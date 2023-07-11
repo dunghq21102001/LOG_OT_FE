@@ -4,7 +4,7 @@
         <HeaderCommon v-if="currentRoute != 'login' && currentRoute != 'confirm-email'" />
         <SideBar v-if="currentRoute != 'login' && currentRoute != 'confirm-email'" />
         <RouterView class="min-h-screen p-5 dark:bg-[#212529] dark:text-white"
-            :class="currentRoute == 'login' ? '' : 'mt-5 sm:mr-[30px]' || currentRoute == 'confirm-email' ? '' : 'mt-5 sm:mr-[30px]'
+            :class="currentRoute == 'login' ? '' : 'mt-5 sm:mr-[30px]' && currentRoute == 'confirm-email' ? '' : 'mt-5 sm:mr-[30px]'
                 && systemStore.getExpandSideBar ? 'sm:ml-[32%] md:ml-[20%]' : 'ml-[6%]'" />
         <ScrollToTop v-if="currentRoute != 'login'" class="hidden sm:block" />
     </div>
