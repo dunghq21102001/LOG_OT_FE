@@ -26,13 +26,16 @@
                 <a href="" class="text-white absolute top-0 right-0 mt-2">Quên mật khẩu?</a>
             </div>
         </div>
+        <Loading v-if="isLoading" />
     </div>
 </template>
 <script>
 import API from '../API'
+import Loading from '../components/Loading.vue'
 import { useAuthStore } from '../stores/auth'
 import swal from '../utilities/swal2'
 export default {
+    components: { Loading },
     setup() {
         const authStore = useAuthStore()
         return { authStore }
@@ -43,7 +46,8 @@ export default {
             user: { username: "", password: "" },
             savePassword: false,
             tmpUsername: '',
-            tmpPassword: ''
+            tmpPassword: '',
+            isLoading: false
         }
     },
     created() {
@@ -55,9 +59,11 @@ export default {
     },
     methods: {
         login() {
+            this.isLoading = true
             const loginData = { Username: this.user.username, Password: this.user.password }
             API.login(loginData)
                 .then(res => {
+                    this.isLoading = false
                     const data = JSON.stringify(res.data)
                     sessionStorage.setItem('auth', data)
                     sessionStorage.setItem('token', res.data.token)
@@ -74,6 +80,7 @@ export default {
                     else return this.$router.push({ name: "home" })
                 })
                 .catch(error => {
+                    this.isLoading = false
                     if (error.response.data) swal.error(error.response.data, 3500)
                     else swal.error(error)
                 })

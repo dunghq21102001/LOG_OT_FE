@@ -102,6 +102,14 @@ export default class menu {
                             {
                                 childName: 'Chấm công',
                                 routeName: 'attendance-employee'
+                            },
+                            {
+                                childName: 'Nhận yêu cầu',
+                                routeName: 'accept-request'
+                            },
+                            {
+                                childName: 'Xin nghỉ',
+                                routeName: 'leave-log-emp'
                             }
                         ]
                     }

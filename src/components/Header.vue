@@ -8,6 +8,25 @@
         <div class="w-full sm:w-3/5 md:w-2/5 lg:w-1/5 flex flex-wrap items-center justify-around">
             <font-awesome-icon class="block sm:hidden w-3" @click="isShowMobileMenu = !isShowMobileMenu"
                 :icon="isShowMobileMenu ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" />
+            <div class="relative">
+                <font-awesome-icon :icon="['fas', 'bell']" @click="isShowNoti = !isShowNoti" class="hover-custom" />
+                <!-- v-click-outside-element="closeNoti" -->
+                <div
+                    class="absolute w-[20px] h-[20px] rounded-full bg-red-500 text-white text-[10px] leading-[20px] text-center top-[-10px] right-[-10px]">
+                    {{ totalUnread }}</div>
+                <div v-show="isShowNoti"
+                    class="absolute w-[90vw] md:w-[30vw] lg:w-[40vw] max-h-[80vh] overflow-y-scroll bg-white shadow-xl left-[-22vw] lg:left-[-30vw] top-[150%] z-20 p-4">
+                    <div @click="readingNoti(noti.id)" v-for="noti in notiList" class="my-2 p-2 cursor-pointer"
+                        :class="noti.isRead == false ? 'bg-[#dcdcdc]' : ''">
+                        <p class="font-bold text-[14px]"><font-awesome-icon v-show="!noti.isRead" icon="fa-solid fa-circle"
+                                class="text-red-500 text-[6px] translate-y-[-3px]" /> {{ noti.title }}</p>
+                        <p class="text-[12px]">{{ noti.description }}</p>
+                    </div>
+                    <p @click="loadMore"
+                        class="font-bold text-center text-[16px] text-red-400 cursor-pointer hover:text-red-300"
+                        v-if="hasMorePages">Load More</p>
+                </div>
+            </div>
             <!-- <div class="w-[50px] relative">
                 <country-flag class="cursor-pointer" v-click-outside-element="close" @click="showLang"
                     :country="currentLang == 'vnm' ? 'vn' : 'us'" size='normal' />
@@ -54,9 +73,17 @@
             </Transition>
         </div>
     </div>
+    <div @click.self="cancelReading" v-show="isReadingNoti" class="fog-l">
+        <div class="bg-white p-5 rounded-md">
+            <p>Người nhận: {{ selectedNoti?.applicationUser?.fullname }}</p>
+            <p class="font-bold text-[20px]">{{ selectedNoti?.title }}</p>
+            <p class="text-[14px]">{{ selectedNoti?.description }}</p>
+        </div>
+    </div>
     <Loading v-if="isLoading" />
 </template>
 <script>
+import API from '../API'
 import { useLanguageStore } from '../stores/lang'
 import { useThemeStore } from '../stores/theme'
 import { useSystemStore } from '../stores/system'
@@ -66,6 +93,7 @@ import { useDark, useToggle } from '@vueuse/core'
 import menu from '../service/menu'
 import Loading from './Loading.vue'
 import SideBarMobile from './SideBarMobile.vue'
+import swal from '../utilities/swal2'
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 export default {
@@ -82,6 +110,13 @@ export default {
     data() {
         return {
             currentLang: '',
+            notiList: [],
+            notiPage: 1,
+            selectedNoti: null,
+            hasMorePages: false,
+            totalUnread: 0,
+            isShowNoti: false,
+            isReadingNoti: false,
             listLang: [
                 { id: 1, name: 'Tiếng Việt', code: 'vnm', value: 'vi' },
                 { id: 2, name: 'Tiếng Anh', code: 'us', value: 'us' }
@@ -97,6 +132,14 @@ export default {
     },
     created() {
         this.getCurrentLanguage()
+        this.getNoti()
+
+        API.checkIfHaveNoti()
+            .then(res => {
+                this.totalUnread = res.data.number
+                if (res.data.isHaveNoti == true) return swal.info(`Bạn có ${res.data.number} thông báo mới! Hãy đọc ngay `, 5000)
+            })
+            .catch(err => console.log(err))
     },
     methods: {
         getCurrentLanguage() {
@@ -106,6 +149,22 @@ export default {
                     else this.currentLang = 'us'
                 }
             })
+        },
+        getNoti() {
+            API.getNotification(this.notiPage)
+                .then(res => {
+                    this.notiList.push(...res.data.items)
+                    this.hasMorePages = res.data.hasNextPage
+                })
+                .catch(err => console.log(err))
+        },
+        getNotiRefresh() {
+            API.getNotification(this.notiPage)
+                .then(res => {
+                    this.notiList = res.data.items
+                    this.hasMorePages = res.data.hasNextPage
+                })
+                .catch(err => swal.error(err))
         },
         expandSideBar() {
             this.systemStore.setExpandSideBar()
@@ -118,6 +177,17 @@ export default {
         },
         close() {
             this.isShowLang = false
+        },
+        cancelReading() {
+            this.isReadingNoti = false
+            this.selectedNoti = null
+            this.notiPage = 1
+            this.getNotiRefresh()
+            API.checkIfHaveNoti()
+                .then(res => {
+                    this.totalUnread = res.data.number
+                })
+                .catch(err => swal.error(err))
         },
         closeProfile() {
             this.isShowProfile = false
@@ -152,6 +222,26 @@ export default {
         },
         goTo(route) {
             this.$router.push({ name: route })
+        },
+        closeNoti() {
+            this.isShowNoti = false
+        },
+        loadMore() {
+            this.notiPage++
+            this.getNoti()
+        },
+        readingNoti(id) {
+            this.isLoading = true
+            API.getNotiById(id)
+                .then(res => {
+                    this.selectedNoti = res.data
+                    this.isReadingNoti = true
+                    this.isLoading = false
+                })
+                .catch(err => {
+                    this.isLoading = false
+                    swal.error(err)
+                })
         }
     }
 }

@@ -34,6 +34,23 @@ class swal {
             }
         })
     }
+    static info(message, time = 3000) {
+        swal2.fire({
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: time,
+            width: '600px',
+            icon: 'info',
+            timerProgressBar: true,
+            title: message,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', swal2.stopTimer)
+                toast.addEventListener('mouseleave', swal2.resumeTimer)
+                toast.addEventListener('click', swal2.close)
+            }
+        })
+    }
     static confirm(mess = '') {
         return swal2.fire({
             text: `${mess}`,

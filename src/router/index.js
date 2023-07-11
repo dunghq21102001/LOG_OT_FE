@@ -34,6 +34,8 @@ import checkValidRole from '../middleware/checkValidRole'
 import coefficient from '../views/CoefficientView.vue'
 import annualWorkingDay from '../views/AnnualWorkingDayView.vue'
 import attendanceManager from '../views/AttendanceManagerView.vue'
+import AcceptRequest from '../views/AcceptRequest.vue'
+import LeaveLog from '../views/LeaveLog.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -237,7 +239,26 @@ const router = createRouter({
       meta: {
         middleware: checkAuth,
         requiredRole: 'Employee'
-
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/leave-log-emp',
+      name: 'leave-log-emp',
+      component: LeaveLog,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Employee'
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/request',
+      name: 'accept-request',
+      component: AcceptRequest,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Employee'
       },
       beforeEnter: checkValidRole
     },

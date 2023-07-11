@@ -1,7 +1,8 @@
 import axios from "axios"
 
 export default class API {
-    static BASE_URL_V1 = 'https://localhost:5001'
+    // static BASE_URL_V1 = 'https://localhost:5001'
+    static BASE_URL_V1 = 'https://hrmanagerfpt.azurewebsites.net/'
     static ALLOWANCE = 'allowance'
     static EMPLOYEE = 'Employee'
     static POSITION = 'Position'
@@ -189,6 +190,9 @@ export default class API {
     static getListEmployeeContractStatus() {
         return axios.get(`${this.BASE_URL_V1}/api/Enum/EmployeeContractStatus`)
     }
+    static getLeaveShift() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/LeaveShift`)
+    }
 
     static updateEmployeeContract(data) {
         return axios.put(`${this.BASE_URL_V1}/EmployeeContract/Update`, data)
@@ -319,5 +323,31 @@ export default class API {
     }
     static chamCong() {
         return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/Create`)
+    }
+    static getOTLogByEmp(page) {
+        return axios.get(`${this.BASE_URL_V1}/Emp/GetOvertimeLog?page=${page}`)
+    }
+    static updateStatusOTLogByEmp(data) {
+        return axios.put(`${this.BASE_URL_V1}/Emp/UpdateStatusOvertimeLogRequest`, data)
+    }
+    static getLeaveLogList() {
+        return axios.get(`${this.BASE_URL_V1}/Emp/LeaveLog`)
+    }
+    static createLeaveLog(data) {
+        return axios.post(`${this.BASE_URL_V1}/Emp/CreateLeaveLog`, data)
+    }
+    static deleteLeaveLog(id) {
+        return axios.put(`${this.BASE_URL_V1}/Emp/DeleteLeaveLog?id=${id}`)
+    }
+
+    //noti
+    static getNotification(page = 1) {
+        return axios.get(`${this.BASE_URL_V1}/Notification/GetNotificationByUserId?page=${page}`)
+    }
+    static checkIfHaveNoti() {
+        return axios.get(`${this.BASE_URL_V1}/Notification/IsHaveNotificate`)
+    }
+    static getNotiById(id) {
+        return axios.get(`${this.BASE_URL_V1}/Notification/GetNotificationById?id=${id}`)
     }
 }   

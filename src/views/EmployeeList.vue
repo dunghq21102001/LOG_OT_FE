@@ -20,7 +20,8 @@
         </template>
         <template #item-operation="item">
           <div class="operation-wrapper">
-            <button class="view-btn" @click="goTo(item.userName, item.id)"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+            <button class="view-btn" @click="goTo(item.userName, item.id)"><font-awesome-icon
+                icon="fa-solid fa-eye" /></button>
             <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
                 icon="fa-solid fa-pen-to-square" /></button>
             <!-- <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button> -->
@@ -176,11 +177,15 @@
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="contractCode">Mã hợp đồng</label>
             <input type="text" id="contractCode" v-model="contract.contractCode"
-              class="input-cus dark:bg-gray-900 dark:text-white  ">
+              class="input-cus dark:bg-gray-900 dark:text-white">
           </div>
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="file">File</label>
-            <input type="text" id="file" v-model="contract.file" class="input-cus dark:bg-gray-900 dark:text-white  ">
+            <!-- <input type="text" id="file" v-model="contract.file" class="input-cus dark:bg-gray-900 dark:text-white  "> -->
+            <div class="w-full flex items-center justify-around">
+              <input type="file" ref="pdfFile" accept="application/pdf">
+              <button @click="uploadPDF" class="btn-primary w-[50px]">Lưu</button>
+            </div>
           </div>
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="job">Công việc</label>
@@ -231,18 +236,23 @@
         </div>
       </div>
     </div>
+    <Loading v-if="isLoading" />
   </div>
 </template>
   
 <script>
 import { useLanguageStore } from '../stores/lang';
 import API from '../API'
+import Loading from '../components/Loading.vue'
 import functionCustom from '../utilities/functionCustom'
 import { useThemeStore } from '../stores/theme';
 import swal from '../utilities/swal2';
 import { storage } from '../firebase'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 export default {
+  components: {
+    Loading
+  },
   setup() {
     const langStore = useLanguageStore()
     const themeStore = useThemeStore()
@@ -257,6 +267,7 @@ export default {
       isShow: false,
       isCreate: false,
       isUpdate: false,
+      isLoading: false,
       isShowInsuranceAmount: false,
       positionList: [],
       contractList: [],
@@ -393,6 +404,7 @@ export default {
         .catch(err => swal.error(err))
     },
     uploadImage() {
+      this.isLoading = true
       const currentTime = new Date();
       const uniqueFileName = 'image_' + currentTime.getTime() + '.jpg';
       const storageRef = ref(storage, 'images/' + uniqueFileName);
@@ -405,10 +417,32 @@ export default {
         .then(downloadURL => {
           this.currentEmp.image = downloadURL;
           swal.success('Tải ảnh lên thành công');
+          this.isLoading = false
         })
         .catch(error => {
           swal.error('Lỗi khi tải ảnh lên:', error)
+          this.isLoading = false
         });
+    },
+    uploadPDF() {
+      this.isLoading = true
+      const currentTime = new Date();
+      const uniqueFileName = 'pdf_' + currentTime.getTime() + '.pdf';
+      const storageRef = ref(storage, 'pdfs/' + uniqueFileName);
+
+      uploadBytes(storageRef, this.$refs.pdfFile.files[0])
+        .then(snapshot => {
+          return getDownloadURL(snapshot.ref);
+        })
+        .then(downloadURL => {
+          this.isLoading = false
+          this.contract.file = downloadURL
+          swal.success('Tải file PDF lên thành công');
+        })
+        .catch(error => {
+          this.isLoading = false
+          swal.error('Lỗi khi tải file PDF lên:', error)
+        })
     },
     showUpdate(item) {
       this.currentEmp.userName = item.userName
@@ -455,6 +489,7 @@ export default {
         .catch(err => swal.error(err.response.data))
     },
     actionCreate() {
+      this.isLoading = true
       const data = {
         positionId: this.selectedPosition,
         fullName: this.currentEmp.fullName,
@@ -494,18 +529,21 @@ export default {
           this.getList()
           swal.success('Tạo người dùng mới thành công')
           this.cancelAll()
+          this.isLoading = false
+
         })
         .catch(err => {
-          console.log(err);
+          this.isLoading = false
           if (err.response.data.errors?.newEmp) {
-            swal.error(err.response.data.errors.newEmp[0])
+            return swal.error(err.response.data.errors.newEmp[0])
           }
-          const listErr = err.response.data.join('\n')
-          swal.error(listErr, 3000)
+          if (Array.isArray(err.response.data)) {
+            const listErr = err.response.data.join('\n')
+            return swal.error(listErr, 3000)
+          } else {
+            return swal.error(err.response.data)
+          }
         })
-
-
-
     },
     convertDate(date) {
       return functionCustom.convertDate(date)

@@ -49,12 +49,20 @@
 import API from '../API'
 import swal from '../utilities/swal2'
 import functionCustom from '../utilities/functionCustom'
+import { useThemeStore } from '../stores/theme'
 export default {
+    setup() {
+        const themeStore = useThemeStore()
+        return { themeStore }
+    },
     data() {
         return {
             list: [],
             regu: null,
+            notiPage: 1,
             page: 1,
+            noti: [],
+            currentTheme: "",
             empList: [],
             acceptanceTypeList: [],
             isShowSelected: false,
@@ -73,6 +81,13 @@ export default {
     created() {
         this.getList()
         this.getQuyDinh()
+        // this.getNoti()
+        this.setTheme()
+    },
+    watch: {
+        'themeStore.getTheme': function (val) {
+            this.currentTheme == 'light-theme' ? this.currentTheme = 'dark-theme' : this.currentTheme = 'light-theme'
+        }
     },
     methods: {
         getQuyDinh() {
@@ -84,10 +99,25 @@ export default {
                     swal.error(err)
                 })
         },
+        async getNoti() {
+            await API.getNotification(this.notiPage)
+                .then(res => {
+                    this.noti = res.data.items
+                    let finalNoti = []
+                    this.noti.map(item => {
+                        finalNoti.push(item.description)
+                    })
+                    const notification = finalNoti.join('\n')
+                    swal.info(notification, 8000)
+                })
+                .catch(err => swal.error(err))
+        },
         getList() {
             API.getListCurrentDay()
                 .then(res => {
                     this.list = res.data
+                    if (Array.isArray(this.list)) return
+                    else this.list = []
                 })
                 .catch(err => swal.error(err))
         },
@@ -95,7 +125,8 @@ export default {
             return functionCustom.convertDate(date)
         },
         convertTime(time) {
-            return time.toFixed(3)
+            if (time == null || time == NaN || time == undefined) return 0
+            else return time.toFixed(3)
         },
         chamCong() {
             API.chamCong()
@@ -106,6 +137,10 @@ export default {
                 .catch(err => {
                     swal.error(err.response.data)
                 })
+        },
+        setTheme() {
+            let curr = this.themeStore.getTheme
+            this.currentTheme = curr == 'auto' ? 'dark-theme' : 'light-theme'
         }
     }
 }

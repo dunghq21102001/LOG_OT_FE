@@ -9,7 +9,7 @@
             flex
             justify-center
             items-center
-            z-10
+            z-[99]
           ">
         <button type="button" class="
             inline-flex

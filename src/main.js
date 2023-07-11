@@ -18,11 +18,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import Vue3EasyDataTable from 'vue3-easy-data-table'
 // import 'vue3-easy-data-table/dist/style.css'
 import '../node_modules/vue3-easy-data-table/dist/style.css'
-import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle } from '@fortawesome/free-solid-svg-icons'
 
 const app = createApp(App)
 
-library.add(faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage)
+library.add(faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle)
 
 
 const axiosInstance = axios.create({
