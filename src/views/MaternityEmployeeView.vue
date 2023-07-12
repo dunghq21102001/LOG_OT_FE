@@ -174,9 +174,9 @@ export default {
             const data = {
                 applicationUserId: this.selectedEmpId,
                 image: this.imageUrl,
-                birthDay: this.birthDay,
+                birthDay: this.birthDay != '' ? this.birthDay : null,
                 acceptanceType: this.acceptanceType,
-                denyReason: this.denyReason
+                denyReason: this.denyReason != '' ? this.denyReason : null
             }
             API.createMaternityEmployee(data)
                 .then(res => {

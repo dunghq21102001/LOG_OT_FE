@@ -86,6 +86,15 @@ export default class API {
     static getDetailEmployee(username) {
         return axios.get(`${this.BASE_URL_V1}/${this.EMPLOYEE}/GetDetailEmployee?username=${username}`)
     }
+    static updateEmail(data) {
+        return axios.put(`${this.BASE_URL_V1}/Employee/UpdateEmail`, data)
+    }
+    static quit(id) {
+        return axios.put(`${this.BASE_URL_V1}/Employee/Quit?userId=${id}`)
+    }
+    static updateMaternity(id) {
+        return axios.put(`${this.BASE_URL_V1}/Employee/UpdateMaternity?userId=${id}`)
+    }
 
 
     // Position

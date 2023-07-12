@@ -21,6 +21,7 @@ export default {
             API.confirmEmail(searchParams.get('userId'), searchParams.get('code'))
                 .then(res => {
                     console.log(res);
+                    swal.success(res.data, 5000)
                 })
                 .catch(err => {
                     swal.error(err.response.data, 4000)

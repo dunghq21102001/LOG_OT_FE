@@ -139,18 +139,6 @@
               </option>
             </select>
           </div>
-          <!-- <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="contract">Hợp đồng</label>
-            <select type="text" id="contract" v-model="selectedContract"
-              class="select-cus dark:bg-gray-900 dark:text-white  ">
-              <option class="flex flex-col p-10" v-for="c in contractList" :value="c?.id" :key="c?.id">
-                Lương cơ bản: {{ c.basicSalary }} -
-                Ngày bắt đầu: {{ c.startDate }} -
-                Ngày kết thúc: {{ c.endDate }} -
-                Loại hợp đồng: {{ c.contractType }}
-              </option>
-            </select>
-          </div> -->
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="">Vai trò</label>
             <select class="select-cus" v-model="currentEmp.role" name="" id="">
@@ -293,6 +281,8 @@ export default {
         { text: "Hành động", value: "operation", width: 500 },
       ],
       imgTmp: null,
+      tmpEmail: '',
+      tmpMaternity: false,
       currentEmp: {
         userName: '',
         fullName: '',
@@ -313,6 +303,7 @@ export default {
         endDate: '',
         basicSalary: 0
       },
+      id: '',
       currentTheme: "",
       contract: {
         username: '',
@@ -445,6 +436,10 @@ export default {
         })
     },
     showUpdate(item) {
+      this.tmpMaternity = item.isMaternity
+      this.tmpEmail = item.email
+
+      this.id = item.id
       this.currentEmp.userName = item.userName
       this.currentEmp.fullName = item.fullname
       this.currentEmp.genderType = item.genderType
@@ -464,6 +459,21 @@ export default {
       this.isUpdate = true
     },
     actionUpdate() {
+      this.isLoading = true
+      if (this.tmpEmail != this.currentEmp.email) {
+        const dataEmail = {
+          userId: this.id,
+          newEmail: this.currentEmp.email
+        }
+        API.updateEmail(dataEmail)
+          .then(res => { })
+          .catch(err => swal.error('Không thể chỉnh sửa email thành công, vui lòng kiểm tra lại'))
+      }
+      if (this.tmpMaternity != JSON.parse(this.currentEmp.isMaternity)) {
+        API.updateMaternity(this.id)
+          .then(res => { })
+          .catch(err => swal.error('Không thể chỉnh sửa thai sản thành công, vui lòng kiểm tra lại'))
+      }
       const data = {
         positionId: this.selectedPosition,
         fullName: this.currentEmp.fullName,
@@ -475,18 +485,22 @@ export default {
         bankAccountName: this.currentEmp.bankAccountName,
         bankName: this.currentEmp.bankName,
         username: this.currentEmp.userName,
-        email: this.currentEmp.email,
-        isMaternity: this.currentEmp.isMaternity ? true : false,
+        // email: this.currentEmp.email,
+        // isMaternity: this.currentEmp.isMaternity ? true : false,
         image: this.currentEmp.image,
         phoneNumber: this.currentEmp.phoneNumber
       }
       API.updateEmployee(data)
         .then(res => {
+          this.isLoading = false
           swal.success('Cập nhật thông tin thành công!')
           this.getList()
           this.cancelAll()
         })
-        .catch(err => swal.error(err.response.data))
+        .catch(err => {
+          this.isLoading = false
+          swal.error(err.response.data)
+        })
     },
     actionCreate() {
       this.isLoading = true
@@ -590,6 +604,7 @@ export default {
         insuranceAmount: 0,
         allowanceId: []
       }
+      this.id = ''
     },
     goTo(userName, id) {
       this.$router.push({ name: 'emp-information', params: { username: userName, id: id } })
