@@ -37,6 +37,7 @@ import attendanceManager from '../views/AttendanceManagerView.vue'
 import AcceptRequest from '../views/AcceptRequest.vue'
 import ConfirmEmail from '../views/ConfirmEmail.vue'
 import LeaveLog from '../views/LeaveLog.vue'
+import ChangePassword from '../views/ChangePassword.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,6 +67,14 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+      meta: {
+        // middleware: checkAuth,
+      }
+    },
+    {
+      path: '/changePassword',
+      name: 'changePassword',
+      component: ChangePassword,
       meta: {
         // middleware: checkAuth,
       }

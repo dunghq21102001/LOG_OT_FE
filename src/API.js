@@ -19,6 +19,10 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/confirmEmail?userId=${id}&code=${code}`)
     }
 
+    //change pass
+    static ChangePassword(data) {
+        return axios.put(`${this.BASE_URL_V1}/Account/ChangePassword`, data)
+    }
 
     // department get List
     static getListDepartment() {
@@ -56,6 +60,10 @@ export default class API {
         return axios.delete(`${this.BASE_URL_V1}/${this.DEPENDENT}/DeleteDegree/${id}`)
     }
 
+    static getDependentListByUser(id) {
+        return axios.get(`${this.BASE_URL_V1}/Dependent/GetListDependantByUser?userId=${id}&pg=1`)
+    }
+
     //api of employee
     static getRuleAttendance() { }
     static getAttendanceEmployeeList(page) {
@@ -71,6 +79,10 @@ export default class API {
     }
     static createEmployeeContract(data) {
         return axios.post(`${this.BASE_URL_V1}/${this.CONTRACT}/Create`, data)
+    }
+
+    static getListEmployeeContractByUsername(username) {
+        return axios.get(`${this.BASE_URL_V1}/EmployeeContract/GetListByEmployee?username=${username}&pg=1`)
     }
 
     //employee

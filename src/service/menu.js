@@ -121,29 +121,29 @@ export default class menu {
     static profileMenu() {
         return [
             {
-                name: 'profile',
-                routeName: 'empinfo',
+                name: 'changePassword',
+                routeName: 'changePassword'
             },
-            {
-                name: 'payroll',
-                routeName: 'payroll',
-            },
-            {
-                name: 'request ot',
-                routeName: 'request-ot',
-            },
-            {
-                name: 'request off',
-                routeName: 'request-off',
-            },
-            {
-                name: 'Danh sách nhân viên',
-                routeName: 'hrempmanagement',
-            },
-            {
-                name: 'Employee View',
-                routeName: 'emp-information',
-            }       
+            // {
+            //     name: 'payroll',
+            //     routeName: 'payroll',
+            // },
+            // {
+            //     name: 'request ot',
+            //     routeName: 'request-ot',
+            // },
+            // {
+            //     name: 'request off',
+            //     routeName: 'request-off',
+            // },
+            // {
+            //     name: 'Danh sách nhân viên',
+            //     routeName: 'hrempmanagement',
+            // },
+            // {
+            //     name: 'Employee View',
+            //     routeName: 'emp-information',
+            // }       
         ]
     }
 
@@ -169,10 +169,10 @@ export default class menu {
                 name: 'skill',
                 routeName: 'emp-skill',
             },
-            {
-                name: 'experience',
-                routeName: 'emp-experience',
-            },
+            // {
+            //     name: 'experience',
+            //     routeName: 'emp-experience',
+            // },
             {
                 name: 'contract',
                 routeName: 'emp-contract',
