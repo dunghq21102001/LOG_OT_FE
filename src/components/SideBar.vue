@@ -1,7 +1,7 @@
 <template>
     <div class="sm:block hidden text-center bg-[#405189] dark:bg-[#212529] h-screen fixed top-0 left-0 transition-all z-50"
-        :class="systemStore.getExpandSideBar ? 'sm:w-[30%] md:w-[20%] xl:w-[15%]' : 'w-[6%]'">
-        <span v-show="systemStore.getExpandSideBar" class="font-bold text-white">VELZON</span>
+        :class="systemStore.getExpandSideBar ? 'sm:w-[30%] md:w-[20%] xl:w-[20%]' : 'w-[6%]'">
+        <span v-show="systemStore.getExpandSideBar" class="font-bold text-white">TechGenius</span>
 
         <ul>
             <li v-if="auth?.listRoles?.[0] == 'Manager'" v-for="menu in menuList"

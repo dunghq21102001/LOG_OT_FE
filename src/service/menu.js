@@ -121,7 +121,7 @@ export default class menu {
     static profileMenu() {
         return [
             {
-                name: 'changePassword',
+                name: 'Thay đổi mật khẩu',
                 routeName: 'changePassword'
             },
             // {
@@ -150,11 +150,11 @@ export default class menu {
     static profileEmpMenu() {
         return [
             {
-                name: 'information',
+                name: 'Information',
                 routeName: 'emp-information',
             },
             {
-                name: 'degree',
+                name: 'Degree',
                 routeName: 'emp-degree',
             },
             // {
@@ -162,11 +162,11 @@ export default class menu {
             //     routeName: 'emp-allowance',
             // },
             {
-                name: 'department',
+                name: 'Department',
                 routeName: 'emp-department',
             },
             {
-                name: 'skill',
+                name: 'Skill',
                 routeName: 'emp-skill',
             },
             // {
@@ -174,11 +174,11 @@ export default class menu {
             //     routeName: 'emp-experience',
             // },
             {
-                name: 'contract',
+                name: 'Contract',
                 routeName: 'emp-contract',
             },
             {
-                name: 'dependant',
+                name: 'Dependant',
                 routeName: 'emp-dependant',
             }
         ]

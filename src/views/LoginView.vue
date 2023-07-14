@@ -1,5 +1,8 @@
 <template>
     <div class="wrapper-login-page w-full h-[100vh] bg-no-repeat">
+        <div class="top-0 left-0">
+                <img src="../assets/images/Logo.png" alt="logo" class="w-[15%]">
+        </div>
         <div class="wrapper-login w-[95%] sm:w-[400px]">
             <h2 class="text-2xl sm:text-3xl">{{ $t("title-login") }}</h2>
             <form class="content-login">
@@ -155,7 +158,7 @@ export default {
 
 .box-input-login input:focus~label,
 .box-input-login input:valid~label {
-    top: -20px;
+    top: -25px;
     left: 0;
     color: #03e9f4;
     font-size: 12px;
