@@ -304,6 +304,35 @@ export default class API {
         return axios.post(`${this.BASE_URL_V1}/Config/WorkDay/Update`, data)
     }
 
+    static getListRegionalMinimumWage() {
+        return axios.get(`${this.BASE_URL_V1}/Config/RegionalMinimumWage`)
+    }
+
+    static getListRegionType() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/RegionType`)
+    }
+
+    static updateRegionalMinimumWage(data) {
+        return axios.put(`${this.BASE_URL_V1}/Config/RegionalMinimumWage/Update`, data)
+    }
+
+    //config default
+
+    static getConfigDefault() {
+        return axios.get(`${this.BASE_URL_V1}/Config/Default`)
+    }
+
+    static updateConfigDefault(data) {
+        return axios.put(`${this.BASE_URL_V1}/Config/Default/Update`, data)
+    }
+
+    //taxIncome
+
+    static getConfigTaxIncome() {
+        return axios.get(`${this.BASE_URL_V1}/Config/TaxIncome`)
+    }
+
+
     //config wifi
     static getAddressConnecting() {
         return axios.get(`${this.BASE_URL_V1}/ConfigWifi/GetAddressConnecting`)

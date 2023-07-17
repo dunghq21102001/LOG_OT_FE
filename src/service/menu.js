@@ -88,12 +88,24 @@ export default class menu {
                         isShowExpand: false,
                         children: [
                             {
+                                childName: 'Mặc định',
+                                routeName: 'configDefault',
+                            },
+                            {
                                 childName: 'Cấu hình wifi',
                                 routeName: 'config-wifi',
                             },
                             {
                                 childName: 'Cấu hình ca làm',
                                 routeName: 'configWorkDay',
+                            },
+                            {
+                                childName: 'Mức lương tối thiểu theo vùng',
+                                routeName: 'regionalMinimumWage',
+                            },
+                            {
+                                childName: 'Thuế thu nhập',
+                                routeName: 'configTaxIncome',
                             },
                         ]
                     },
