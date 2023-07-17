@@ -13,7 +13,8 @@
                 </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+                        <button @click="showDetail(item)" class="view-btn"><font-awesome-icon
+                                icon="fa-solid fa-eye" /></button>
                         <button @click="updateEmployeeContractForm(item.id)" class="edit-btn"><font-awesome-icon
                                 icon="fa-solid fa-pen-to-square" /></button>
                         <button @click="deleteEmployeeContract(item.id)" class="delete-btn"><font-awesome-icon
@@ -44,8 +45,12 @@
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>File:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
-                            v-model="file" placeholder="Nhập file">
+                        <!-- <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
+                            v-model="file" placeholder="Nhập file"> -->
+                        <div class="w-full flex items-center justify-around">
+                            <input type="file" ref="pdfFile" accept="application/pdf">
+                            <button @click="uploadPDF" class="btn-primary w-[50px]">Lưu</button>
+                        </div>
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Start Date:</span></label>
@@ -67,11 +72,11 @@
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
                             v-model="basicSalary" placeholder="Nhập lương cơ bản">
                     </div>
-                    <div class="flex p-1 sm:p-2">
+                    <!-- <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Khấu trừ (%):</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
                             v-model="percentDeduction" placeholder="Nhập phần trăm khấu trừ">
-                    </div>
+                    </div> -->
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Loại lương:</span></label>
                         <select v-model="salaryTypeSelected"
@@ -176,11 +181,11 @@
                             <option v-for="option in options6" :value="option.value">{{ option.display }}</option>
                         </select>
                     </div>
-                    <div class="flex p-1 sm:p-2">
+                    <!-- <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Khấu trừ (%):</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
                             v-model="percentDeduction" placeholder="Nhập phần trăm khấu trừ">
-                    </div>
+                    </div> -->
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Loại lương:</span></label>
                         <select v-model="salaryTypeSelected"
@@ -234,31 +239,72 @@
                 </div>
             </div>
         </div>
+        <div @click.self="isShowDetail = false" v-show="isShowDetail" class="fog-l">
+            <div class="w-[50%] rounded-md bg-white">
+                <h1 class="text-center text-[29px] mt-5 font-bold">Chi tiết hợp đồng</h1>
+                <div class="w-full flex justify-between px-5 my-6 items-start">
+                    <div class="w-[45%]">
+                        <p class="my-2"> <span class="font-bold">Nhân viên: </span>{{ itemDetail?.applicationUser?.fullname
+                        }}</p>
+                        <p class="my-2"> <span class="font-bold">Email: </span>{{ itemDetail?.applicationUser?.email }}</p>
+                        <p class="my-2"> <span class="font-bold">Lương cơ bản: </span>{{
+                            convertVnd(itemDetail?.basicSalary) }}</p>
+                        <p class="my-2"> <span class="font-bold">Mã hợp đồng: </span>{{ itemDetail?.contractCode }}</p>
+                        <p class="my-2"> <span class="font-bold">Loại hợp đồng: </span>{{ itemDetail?.contractType }}
+                        </p>
+                        <p class="my-2"> <span class="font-bold">File: </span>{{ itemDetail?.file }}</p>
+                        <p class="my-2"> <span class="font-bold">Tiền bảo hiểm: </span>{{
+                            convertVnd(itemDetail?.insuranceAmount) }}</p>
+                        <p class="my-2"> <span class="font-bold">Loại bảo hiểm: </span>{{ itemDetail?.insuranceType }}</p>
+                    </div>
+                    <div class="w-[45%]">
+                        <p class="my-2"> <span class="font-bold">Công việc: </span>{{ itemDetail?.job }}</p>
+                        <p class="my-2"> <span class="font-bold">Trạng thái: </span>{{ itemDetail?.status }}</p>
+                        <p class="my-2"> <span class="font-bold">Loại lương: </span>{{ itemDetail?.salaryType }}</p>
+                        <p class="my-2"> <span class="font-bold">Ngày bắt đầu: </span>{{ itemDetail?.startDate }}</p>
+                        <p class="my-2"> <span class="font-bold">Ngày kết thúc: </span>{{ itemDetail?.endDate }}</p>
+                        <!-- <p class="my-2"> <span class="font-bold">Khấu trừ %: </span>{{ itemDetail?.percentDeduction }}</p> -->
+                        <p class="my-2"> <span class="font-bold">Thuế cá nhân: </span>{{
+                            itemDetail?.isPersonalTaxDeduction == true ? 'Có' : 'Không' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
+import Loading from '../components/Loading.vue'
 import API from '../API';
 import functionCustom from '../utilities/functionCustom'
+import swal from '../utilities/swal2';
+import { storage } from '../firebase'
+
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 export default {
+    components: {
+        Loading
+    },
     data() {
         return {
+            isLoading: false,
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
                 //{ text: "Username", value: "applicationUser", width: 140, },
-                { text: "ContractCode", value: "contractCode", width: 140, },
-                { text: "File", value: "file", width: 140, },
-                { text: "StartDate", value: "startDate", width: 140, },
-                { text: "EndDate", value: "endDate", width: 140, },
-                { text: "Job", value: "job", width: 140, },
-                { text: "BasicSalary", value: "basicSalary", width: 140, },
-                { text: "Status", value: "status", width: 140, },
-                { text: "PercentDeduction", value: "percentDeduction", width: 140, },
-                { text: "SalaryType", value: "salaryType", width: 140, },
-                { text: "ContractType", value: "contractType", width: 140, },
-                { text: "IsPersonalTaxDeduction", value: "isPersonalTaxDeduction", width: 140, },
-                { text: "InsuranceType", value: "insuranceType", width: 140, },
-                { text: "InsuranceAmount", value: "insuranceAmount", width: 140, },
-                { text: "Action", value: "operation", width: 300 },
+                { text: "Mã hợp đồng", value: "contractCode", width: 140, },
+                // { text: "File", value: "file", width: 140, },
+                { text: "Ngày bắt đầu", value: "startDate", width: 140, },
+                { text: "Ngày kết thúc", value: "endDate", width: 140, },
+                { text: "Công việc", value: "job", width: 140, },
+                { text: "Lương cơ bản", value: "basicSalary", width: 140, },
+                { text: "Trạng thái", value: "status", width: 140, },
+                // { text: "PercentDeduction", value: "percentDeduction", width: 140, },
+                { text: "Loại lương", value: "salaryType", width: 140, },
+                { text: "Loại hợp đồng", value: "contractType", width: 140, },
+                // { text: "IsPersonalTaxDeduction", value: "isPersonalTaxDeduction", width: 140, },
+                // { text: "InsuranceType", value: "insuranceType", width: 140, },
+                // { text: "InsuranceAmount", value: "insuranceAmount", width: 140, },
+                { text: "Hành động", value: "operation", width: 300 },
             ],
             items: [],
             options: [],
@@ -271,6 +317,7 @@ export default {
             options5: [],
             options6: [],
             id: '',
+            isShowDetail: false,
             isShow: false,
             isShow2: false,
             username: '',
@@ -280,7 +327,7 @@ export default {
             endDate: '',
             job: '',
             basicSalary: '',
-            percentDeduction: '',
+            // percentDeduction: '',
             salaryTypeSelected: '',
             contractTypeSelected: '',
             isPersonalTaxDeductionSelected: '',
@@ -288,6 +335,7 @@ export default {
             insuranceAmount: '',
             allowanceSelected: '',
             statusSelected: '',
+            itemDetail: null
         }
     },
 
@@ -300,7 +348,7 @@ export default {
                 this.endDate = '',
                 this.job = '',
                 this.basicSalary = '',
-                this.percentDeduction = '',
+                // this.percentDeduction = '',
                 this.salaryTypeSelected = '',
                 this.contractTypeSelected = '',
                 this.isPersonalTaxDeductionSelected = '',
@@ -313,6 +361,10 @@ export default {
             this.resetFormCreate()
             this.isShow = true
         },
+        showDetail(item) {
+            this.itemDetail = item
+            this.isShowDetail = true
+        },
         updateEmployeeContractForm(id) {
             this.isShow2 = true
             const currentEmployeeContract = this.items.find(item => item.id == id)
@@ -324,7 +376,7 @@ export default {
                 this.job = currentEmployeeContract.job,
                 this.basicSalary = currentEmployeeContract.basicSalary,
                 this.statusSelected = this.options6.find(option => option.display == currentEmployeeContract.status).value,
-                this.percentDeduction = currentEmployeeContract.percentDeduction,
+                // this.percentDeduction = currentEmployeeContract.percentDeduction,
                 this.salaryTypeSelected = this.options.find(option => option.display == currentEmployeeContract.salaryType).value,
                 this.contractTypeSelected = this.options2.find(option => option.display == currentEmployeeContract.contractType).value,
                 this.isPersonalTaxDeductionSelected = this.options3.find(option => option.value == currentEmployeeContract.isPersonalTaxDeduction).value,
@@ -340,7 +392,7 @@ export default {
                 endDate: this.endDate,
                 job: this.job,
                 status: this.statusSelected,
-                percentDeduction: this.percentDeduction,
+                // percentDeduction: this.percentDeduction,
                 salaryType: this.salaryTypeSelected,
                 contractType: this.contractTypeSelected,
                 isPersonalTaxDeduction: this.isPersonalTaxDeductionSelected,
@@ -358,6 +410,26 @@ export default {
                     swal.error(error.data)
                 });
         },
+        uploadPDF() {
+            this.isLoading = true
+            const currentTime = new Date();
+            const uniqueFileName = 'pdf_' + currentTime.getTime() + '.pdf';
+            const storageRef = ref(storage, 'pdfs/' + uniqueFileName);
+
+            uploadBytes(storageRef, this.$refs.pdfFile.files[0])
+                .then(snapshot => {
+                    return getDownloadURL(snapshot.ref);
+                })
+                .then(downloadURL => {
+                    this.isLoading = false
+                    this.file = downloadURL
+                    swal.success('Tải file PDF lên thành công');
+                })
+                .catch(error => {
+                    this.isLoading = false
+                    swal.error('Lỗi khi tải file PDF lên:', error)
+                })
+        },
         deleteEmployeeContract(id) {
             swal.confirm('Bạn có chắc chắn xóa hợp đồng không?').then((result) => {
                 if (result.value) {
@@ -367,7 +439,7 @@ export default {
                             swal.success(responsive.data.result)
                         })
                         .catch(error => {
-                            swal.error(error.data.message)
+                            swal.error('Không thể xóa hợp đồng đã hết hạn hoặc đang còn hạn!')
                         })
                 }
             })
@@ -379,8 +451,10 @@ export default {
             this.isShow2 = false
         },
         getListEmployeeContract() {
+            this.isLoading = true
             API.getListEmployeeContract(1)
                 .then(response => {
+                    this.isLoading = false
                     this.items = response.data.items.map(item => {
                         return {
                             id: item.id,
@@ -393,7 +467,7 @@ export default {
                             job: item.job,
                             basicSalary: item.basicSalary,
                             status: item.status,
-                            percentDeduction: item.percentDeduction,
+                            // percentDeduction: item.percentDeduction,
                             salaryType: item.salaryType,
                             contractType: item.contractType,
                             isPersonalTaxDeduction: item.isPersonalTaxDeduction,
@@ -403,10 +477,12 @@ export default {
                     })
                 })
                 .catch(error => {
+                    this.isLoading = false
                     swal.error(error)
                 });
         },
         convertVnd(price) {
+            if (price == null || price == '' || price == NaN) return 0
             return functionCustom.convertVND(price)
         },
         createEmployeeContract() {
@@ -418,7 +494,7 @@ export default {
                 endDate: this.endDate,
                 job: this.job,
                 basicSalary: this.basicSalary,
-                percentDeduction: this.percentDeduction,
+                // percentDeduction: this.percentDeduction,
                 salaryType: this.salaryTypeSelected,
                 contractType: this.contractTypeSelected,
                 isPersonalTaxDeduction: this.isPersonalTaxDeductionSelected,
@@ -434,7 +510,8 @@ export default {
                     this.getListEmployeeContract()
                 })
                 .catch(error => {
-                    swal.error(error.data)
+                    if (Array.isArray(error.data)) return swal.error(error.data[0])
+                    else swal.error('Đã xảy ra lỗi, vui lòng thử lại hoặc liên hệ với quản lý')
                 });
         },
         getListSalaryType() {

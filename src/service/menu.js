@@ -24,7 +24,7 @@ export default class menu {
                                 routeName: 'maternity-employee'
                             },
                             {
-                                childName: 'Nhật ký làm thêm',
+                                childName: 'Tăng ca',
                                 routeName: 'overtime-log'
                             },
                             {
@@ -52,16 +52,20 @@ export default class menu {
                                 routeName: 'employeeContract',
                             },
                             {
-                                childName: 'Quản lí thời gian làm việc',
-                                routeName: 'configWorkDay',
-                            },
-                            {
                                 childName: 'Phụ cấp theo phòng ban',
                                 routeName: 'departmentAllowance',
                             },
                             {
+                                childName: 'Quản lý lương',
+                                routeName: 'payslip',
+                            },
+                            {
                                 childName: 'Hệ số lương',
                                 routeName: 'coefficient',
+                            },
+                            {
+                                childName: 'Báo cáo',
+                                routeName: 'job-report',
                             },
                             {
                                 childName: 'Ngày làm việc hàng năm',
@@ -75,11 +79,18 @@ export default class menu {
                     },
                     {
                         iconName: 'managementItem',
-                        itemName: 'Apps',
+                        itemName: 'Cấu hình',
                         isShow: false,
                         isShowExpand: false,
                         children: [
-                            
+                            {
+                                childName: 'Cấu hình wifi',
+                                routeName: 'config-wifi',
+                            },
+                            {
+                                childName: 'Cấu hình ca làm',
+                                routeName: 'configWorkDay',
+                            },
                         ]
                     },
                 ]
@@ -150,11 +161,11 @@ export default class menu {
     static profileEmpMenu() {
         return [
             {
-                name: 'Information',
+                name: 'Thông tin',
                 routeName: 'emp-information',
             },
             {
-                name: 'Degree',
+                name: 'Bằng cấp',
                 routeName: 'emp-degree',
             },
             // {
@@ -162,23 +173,23 @@ export default class menu {
             //     routeName: 'emp-allowance',
             // },
             {
-                name: 'Department',
+                name: 'Phòng ban',
                 routeName: 'emp-department',
             },
-            {
-                name: 'Skill',
-                routeName: 'emp-skill',
-            },
+            // {
+            //     name: 'Skill',
+            //     routeName: 'emp-skill',
+            // },
             // {
             //     name: 'experience',
             //     routeName: 'emp-experience',
             // },
             {
-                name: 'Contract',
+                name: 'Hợp đồng',
                 routeName: 'emp-contract',
             },
             {
-                name: 'Dependant',
+                name: 'Phụ thuộc',
                 routeName: 'emp-dependant',
             }
         ]

@@ -11,10 +11,16 @@
 </template>
 <script>
 import API from '../../API'
+import { useAuthStore } from '../../stores/auth'
 import swal from '../../utilities/swal2'
 export default {
+    setup() {
+        const authStore = useAuthStore()
+        return { authStore }
+    },
     data() {
         return {
+            auth: this.authStore.getAuth,
             list: [],
             page: 1,
             department: null,
@@ -31,11 +37,19 @@ export default {
     },
     methods: {
         getList() {
-            API.getDepartmentByUser(this.$route.params.username)
-                .then(res => {
-                    this.department = res.data
-                })
-                .catch(err => swal.error(err))
+            if (this.auth.listRoles?.[0] == 'Employee') {
+                API.getDepartmentForEmp()
+                    .then(res => {
+                        this.department = res.data.position.department
+                    })
+                    .catch(err => swal.error(err))
+            } else {
+                API.getDepartmentByUser(this.$route.params.username)
+                    .then(res => {
+                        this.department = res.data
+                    })
+                    .catch(err => swal.error(err))
+            }
         }
     }
 }

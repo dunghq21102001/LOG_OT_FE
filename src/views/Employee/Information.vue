@@ -4,15 +4,15 @@
             <div class="w-1/2">
                 <div class="mb-4">
                     <div class="flex justify-center font-bold text-base mb-2">
-                        <span>General information</span>
+                        <span>Thông tin chung</span>
                     </div>
                     <div class="flex justify-start flex-col">
                         <div class="flex p-1">
-                            <label for="fullname" class="w-[29%]">Full Name:&nbsp</label>
+                            <label for="fullname" class="w-[29%]">Họ và tên:&nbsp</label>
                             <input id="fullname" type="text" :value="currentEmp?.fullname" class="w-[71%]" disabled />
                         </div>
                         <div class="flex p-1">
-                            <label for="gender" class="w-[29%]">Gender:&nbsp</label>
+                            <label for="gender" class="w-[29%]">Giới tính:&nbsp</label>
                             <div class="pr-1 sm:pr-6 flex items-center">
                                 <label for="male" class="pr-1 sm:pr-2">Nam</label>
                                 <input type="radio" id="male" value="2" v-model="gender">
@@ -27,11 +27,11 @@
                             </div>
                         </div>
                         <div class="flex p-1">
-                            <label for="address" class="w-[29%]">Address:&nbsp</label>
+                            <label for="address" class="w-[29%]">Địa chỉ:&nbsp</label>
                             <input id="address" type="text" :value="currentEmp?.address" class="w-[71%]" />
                         </div>
                         <div class="flex p-1">
-                            <label for="image" class="w-[29%]">Image:&nbsp</label>
+                            <label for="image" class="w-[29%]">Ảnh:&nbsp</label>
                             <div class="flex flex-col items-start mt-4 w-[71%]">
                                 <div
                                     class="w-20 h-20 rounded-lg border-[1px] border-[#ccc] border-solid mb-2 flex items-center justify-center">
@@ -46,15 +46,15 @@
                             </div>
                         </div>
                         <div class="flex p-1">
-                            <label for="identitynumber" class="w-[29%]">Identity Number:&nbsp</label>
+                            <label for="identitynumber" class="w-[29%]">CCCD:&nbsp</label>
                             <input id="identitynumber" type="text" :value="identityNumber" disabled class="w-[71%]" />
                         </div>
                         <div class="flex p-1">
-                            <label for="birthday" class="w-[29%]">Birthday:&nbsp</label>
+                            <label for="birthday" class="w-[29%]">Sinh nhật:&nbsp</label>
                             <input v-model="birthday" type="datetime-local" id="birthday" class="w-[50%] bg-slate-400" />
                         </div>
                         <div class="flex p-1">
-                            <label for="maternity" class="w-[29%]">Maternity:&nbsp</label>
+                            <label for="maternity" class="w-[29%]">Mang thai:&nbsp</label>
                             <div class="pr-1 sm:pr-6 flex items-center">
                                 <label for="maternityYes" class="pr-1 sm:pr-2">Yes</label>
                                 <input type="radio" id="maternityYes" value="true" v-model="maternity">
@@ -79,7 +79,7 @@
                             </div>
                         </div> -->
                         <div class="flex p-1">
-                            <label for="workStatus" class="w-[29%]">Work Status:&nbsp</label>
+                            <label for="workStatus" class="w-[29%]">Trạng thái làm việc:&nbsp</label>
                             <div class="pr-1 sm:pr-6 flex items-center">
                                 <label for="workStatusYes" class="pr-1 sm:pr-2">Yes</label>
                                 <input type="radio" id="workStatusYes" value="1" v-model="workStatus">
@@ -95,11 +95,11 @@
             <div class="w-1/2">
                 <div class="mb-4">
                     <div class="flex justify-center font-bold text-base mb-2">
-                        <span>Security</span>
+                        <span>Bảo mật</span>
                     </div>
                     <div class="flex justify-start flex-col">
                         <div class="flex p-1">
-                            <label for="username" class="w-[29%]">Username:&nbsp</label>
+                            <label for="username" class="w-[29%]">Tên tài khoản:&nbsp</label>
                             <input id="username" type="text" :value="username" disabled class="w-[71%]" />
                         </div>
                         <!-- <div class="flex p-1">
@@ -139,7 +139,7 @@
                             <input id="concurrencyStamp" type="text" :value="concurrencyStamp" disabled class="w-[71%]" />
                         </div> -->
                         <div class="flex p-1">
-                            <label for="phoneNumber" class="w-[29%]">Phone Number:&nbsp</label>
+                            <label for="phoneNumber" class="w-[29%]">Số điện thoại:&nbsp</label>
                             <input id="phoneNumber" type="text" :value="phoneNumber" disabled class="w-[71%]" />
                         </div>
                         <!-- <div class="flex p-1">
@@ -190,19 +190,19 @@
                 </div>
                 <div class="mb-4">
                     <div class="flex justify-center font-bold text-base mb-2">
-                        <span>Banking information</span>
+                        <span>Thôgn tin ngân hàng</span>
                     </div>
                     <div class="flex justify-start flex-col">
                         <div class="flex p-1">
-                            <label for="bankname" class="w-[29%]">Bank Name:&nbsp</label>
+                            <label for="bankname" class="w-[29%]">Tên ngân hàng:&nbsp</label>
                             <input id="bankname" type="text" :value="bankingName" disabled class="w-[71%]" />
                         </div>
                         <div class="flex p-1">
-                            <label for="bankaccountname" class="w-[29%]">Bank account Name:&nbsp</label>
+                            <label for="bankaccountname" class="w-[29%]">Tên tài khoản:&nbsp</label>
                             <input id="bankaccountname" type="text" :value="bankAccountName" disabled class="w-[71%]" />
                         </div>
                         <div class="flex p-1">
-                            <label for="bankaccountnumber" class="w-[29%]">Bank account Number:&nbsp</label>
+                            <label for="bankaccountnumber" class="w-[29%]">Số tài khoản:&nbsp</label>
                             <input id="bankaccountnumber" type="text" :value="bankAccountNumber" disabled class="w-[71%]" />
                         </div>
                     </div>
@@ -213,10 +213,16 @@
 </template>
 <script>
 import API from '../../API'
+import { useAuthStore } from '../../stores/auth'
 import swal from '../../utilities/swal2'
 export default {
+    setup() {
+        const authStore = useAuthStore()
+        return { authStore }
+    },
     data() {
         return {
+            auth: this.authStore.getAuth,
             currentEmp: null,
             gender: 0,
             imageFile: null,
@@ -266,35 +272,67 @@ export default {
             this.imageFileBase = event.target.files[0]
         },
         fetchDetailEmp() {
-            API.getDetailEmployee(this.$route.params.username)
-                .then(res => {
-                    this.currentEmp = res.data
-                    this.gender = this.currentEmp?.genderType
-                    this.birthday = this.currentEmp?.birthDay
-                    this.workStatus = this.currentEmp?.workStatus
-                    this.bankingName = this.currentEmp?.bankName
-                    this.bankAccountName = this.currentEmp?.bankAccountName
-                    this.bankAccountNumber = this.currentEmp?.bankAccountNumber
-                    this.username = this.currentEmp?.userName
-                    this.normalizedUsername = this.currentEmp?.normalizedUserName
-                    this.email = this.currentEmp?.email
-                    this.normalizedEmail = this.currentEmp?.normalizedEmail
-                    this.emailConfirmed = this.currentEmp?.emailConfirmed
-                    this.passwordHash = this.currentEmp?.passwordHash
-                    this.securityStamp = this.currentEmp?.securityStamp
-                    this.maternity = this.currentEmp?.isMaternity
-                    this.concurrencyStamp = this.currentEmp?.concurrencyStamp
-                    this.phoneNumber = this.currentEmp?.phoneNumber
-                    this.phoneNumberConfirmed = this.currentEmp?.phoneNumberConfirmed
-                    this.twoFactorEnabled = this.currentEmp?.twoFactorEnabled
-                    this.lockoutEnd = this.currentEmp?.lockoutEnd
-                    this.lockoutEnabled = this.currentEmp?.lockoutEnabled
-                    this.accessFailedCount = this.currentEmp?.accessFailedCount
-                    this.identityNumber = this.currentEmp?.identityNumber
-                    this.image = this.currentEmp?.image
-                    this.imageBase = this.currentEmp?.imageBase
-                })
-                .catch(err => swal.error(err))
+            if (this.auth.listRoles?.[0] == 'Employee') {
+                return API.getInfo()
+                    .then(res => {
+                        this.currentEmp = res.data
+                        this.gender = this.currentEmp?.genderType
+                        this.birthday = this.currentEmp?.birthDay
+                        this.workStatus = this.currentEmp?.workStatus
+                        this.bankingName = this.currentEmp?.bankName
+                        this.bankAccountName = this.currentEmp?.bankAccountName
+                        this.bankAccountNumber = this.currentEmp?.bankAccountNumber
+                        this.username = this.currentEmp?.userName
+                        this.normalizedUsername = this.currentEmp?.normalizedUserName
+                        this.email = this.currentEmp?.email
+                        this.normalizedEmail = this.currentEmp?.normalizedEmail
+                        this.emailConfirmed = this.currentEmp?.emailConfirmed
+                        this.passwordHash = this.currentEmp?.passwordHash
+                        this.securityStamp = this.currentEmp?.securityStamp
+                        this.maternity = this.currentEmp?.isMaternity
+                        this.concurrencyStamp = this.currentEmp?.concurrencyStamp
+                        this.phoneNumber = this.currentEmp?.phoneNumber
+                        this.phoneNumberConfirmed = this.currentEmp?.phoneNumberConfirmed
+                        this.twoFactorEnabled = this.currentEmp?.twoFactorEnabled
+                        this.lockoutEnd = this.currentEmp?.lockoutEnd
+                        this.lockoutEnabled = this.currentEmp?.lockoutEnabled
+                        this.accessFailedCount = this.currentEmp?.accessFailedCount
+                        this.identityNumber = this.currentEmp?.identityNumber
+                        this.image = this.currentEmp?.image
+                        this.imageBase = this.currentEmp?.imageBase
+                    })
+                    .catch(err => swal.error(err))
+            } else {
+                API.getDetailEmployee(this.$route.params.username)
+                    .then(res => {
+                        this.currentEmp = res.data
+                        this.gender = this.currentEmp?.genderType
+                        this.birthday = this.currentEmp?.birthDay
+                        this.workStatus = this.currentEmp?.workStatus
+                        this.bankingName = this.currentEmp?.bankName
+                        this.bankAccountName = this.currentEmp?.bankAccountName
+                        this.bankAccountNumber = this.currentEmp?.bankAccountNumber
+                        this.username = this.currentEmp?.userName
+                        this.normalizedUsername = this.currentEmp?.normalizedUserName
+                        this.email = this.currentEmp?.email
+                        this.normalizedEmail = this.currentEmp?.normalizedEmail
+                        this.emailConfirmed = this.currentEmp?.emailConfirmed
+                        this.passwordHash = this.currentEmp?.passwordHash
+                        this.securityStamp = this.currentEmp?.securityStamp
+                        this.maternity = this.currentEmp?.isMaternity
+                        this.concurrencyStamp = this.currentEmp?.concurrencyStamp
+                        this.phoneNumber = this.currentEmp?.phoneNumber
+                        this.phoneNumberConfirmed = this.currentEmp?.phoneNumberConfirmed
+                        this.twoFactorEnabled = this.currentEmp?.twoFactorEnabled
+                        this.lockoutEnd = this.currentEmp?.lockoutEnd
+                        this.lockoutEnabled = this.currentEmp?.lockoutEnabled
+                        this.accessFailedCount = this.currentEmp?.accessFailedCount
+                        this.identityNumber = this.currentEmp?.identityNumber
+                        this.image = this.currentEmp?.image
+                        this.imageBase = this.currentEmp?.imageBase
+                    })
+                    .catch(err => swal.error(err))
+            }
         }
     }
 }

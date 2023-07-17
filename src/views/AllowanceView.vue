@@ -5,6 +5,11 @@
                 mới</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
+                <template #item-amount="item">
+                    <div>
+                        {{ convertVND(item.amount) }}
+                    </div>
+                </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
@@ -119,17 +124,18 @@
 </template>
 <script>
 import API from '../API';
+import functionCustom from '../utilities/functionCustom';
 
 export default {
     data() {
         return {
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
-                { text: "Tên phòng ban", value: "name", width: 140, },
-                { text: "z", value: "allowanceType", width: 140, },
-                { text: "a", value: "amount", width: 140, },
-                { text: "d", value: "eligibility_Criteria", width: 140, },
-                { text: "q", value: "requirements", width: 200, },
+                { text: "Tên phụ cấp", value: "name", width: 140, },
+                { text: "Loại phụ cấp", value: "allowanceType", width: 140, },
+                { text: "Số tiền", value: "amount", width: 140, },
+                { text: "Tiêu chuẩn", value: "eligibility_Criteria", width: 140, },
+                { text: "Yêu cầu", value: "requirements", width: 200, },
                 { text: "Action", value: "operation", width: 300 },
             ],
             items: [],
@@ -186,6 +192,9 @@ export default {
                 .catch(error => {
                     swal.error(error.data.message)
                 });
+        },
+        convertVND(price) {
+            return functionCustom.convertVND(price)
         },
         deleteAllowance(id) {
             swal.confirm('Bạn có chắc chắn xóa phụ cấp không?').then((result) => {
@@ -282,4 +291,5 @@ export default {
 
 .custom-btn:active {
     transform: translate(0em, 0.2em);
-}</style>
+}
+</style>

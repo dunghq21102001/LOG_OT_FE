@@ -13,6 +13,7 @@ import Dependent from '../views/DependentView.vue'
 import AttendanceEmployee from '../views/AttendanceEmployee.vue'
 import OvertimeLog from '../views/OvertimeLog.vue'
 import employeeView from '../views/EmployeeView.vue'
+import PayslipView from '../views/PayslipView.vue'
 import EmpInformation from '../views/Employee/Information.vue'
 import EmpDegree from '../views/Employee/Degree.vue'
 import EmpContract from '../views/Employee/Contract.vue'
@@ -30,6 +31,8 @@ import employeeContract from '../views/EmployeeContractView.vue'
 import configWorkDay from '../views/ConfigDayView.vue'
 import departmentAllowance from '../views/DepartmentAllowanceView.vue'
 import permissionDenied from '../views/NotHavePermission.vue'
+import JobReport from '../views/JobReport.vue'
+import configWifi from '../views/ConfigWifi.vue'
 import checkValidRole from '../middleware/checkValidRole'
 import coefficient from '../views/CoefficientView.vue'
 import annualWorkingDay from '../views/AnnualWorkingDayView.vue'
@@ -41,7 +44,8 @@ import ChangePassword from '../views/ChangePassword.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  scrollBehavior() {
+  scrollBehavior(to, from, savedPosition) {
+    // Cuộn lên đầu trang
     return { x: 0, y: 0 }
   },
   routes: [
@@ -199,6 +203,36 @@ const router = createRouter({
       beforeEnter: checkValidRole
     },
     {
+      path: '/config-wifi',
+      name: 'config-wifi',
+      component: configWifi,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/job-report',
+      name: 'job-report',
+      component: JobReport,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/payslip',
+      name: 'payslip',
+      component: PayslipView,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+      },
+      beforeEnter: checkValidRole
+    },
+    {
       path: '/level',
       name: 'level',
       component: level,
@@ -330,9 +364,9 @@ const router = createRouter({
       component: employeeView,
       meta: {
         middleware: checkAuth,
-        requiredRole: 'Manager'
+        // requiredRole: 'Manager'
       },
-      beforeEnter: checkValidRole,
+      // beforeEnter: checkValidRole,
       children: [
         {
           path: 'emp-information/:username/:id',
@@ -340,9 +374,9 @@ const router = createRouter({
           component: EmpInformation,
           meta: {
             middleware: checkAuth,
-            requiredRole: 'Manager'
+            // requiredRole: 'Manager'
           },
-          beforeEnter: checkValidRole
+          // beforeEnter: checkValidRole
         },
         {
           path: 'emp-contract/:username/:id',
@@ -350,9 +384,9 @@ const router = createRouter({
           component: EmpContract,
           meta: {
             middleware: checkAuth,
-            requiredRole: 'Manager'
+            // requiredRole: 'Manager'
           },
-          beforeEnter: checkValidRole
+          // beforeEnter: checkValidRole
         },
         {
           path: 'emp-degree/:username/:id',
@@ -360,9 +394,9 @@ const router = createRouter({
           component: EmpDegree,
           meta: {
             middleware: checkAuth,
-            requiredRole: 'Manager'
+            // requiredRole: 'Manager'
           },
-          beforeEnter: checkValidRole
+          // beforeEnter: checkValidRole
         },
         // {
         //   path: 'emp-allowance/:username/:id',
@@ -378,10 +412,10 @@ const router = createRouter({
           path: 'emp-department/:username/:id',
           name: 'emp-department',
           component: EmpDepartment,
-          beforeEnter: checkValidRole,
+          // beforeEnter: checkValidRole,
           meta: {
             middleware: checkAuth,
-            requiredRole: 'Manager'
+            // requiredRole: 'Manager'
           },
         },
         {
@@ -390,9 +424,9 @@ const router = createRouter({
           component: EmpSkill,
           meta: {
             middleware: checkAuth,
-            requiredRole: 'Manager'
+            // requiredRole: 'Manager'
           },
-          beforeEnter: checkValidRole
+          // beforeEnter: checkValidRole
         },
         {
           path: 'emp-experience/:username/:id',
@@ -400,9 +434,9 @@ const router = createRouter({
           component: EmpExperience,
           meta: {
             middleware: checkAuth,
-            requiredRole: 'Manager'
+            // requiredRole: 'Manager'
           },
-          beforeEnter: checkValidRole
+          // beforeEnter: checkValidRole
         },
         {
           path: 'emp-dependant/:username/:id',
@@ -410,9 +444,9 @@ const router = createRouter({
           component: EmpDependant,
           meta: {
             middleware: checkAuth,
-            requiredRole: 'Manager'
+            // requiredRole: 'Manager'
           },
-          beforeEnter: checkValidRole
+          // beforeEnter: checkValidRole
         },
       ]
     },
