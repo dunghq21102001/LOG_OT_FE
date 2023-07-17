@@ -137,12 +137,8 @@
           </div>
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="allowance">Phụ cấp</label>
-            <select type="text" id="allowance" v-model="selectedAllowance"
-              class="select-cus dark:bg-gray-900 dark:text-white  ">
-              <option v-for="a in allowanceList" :value="a?.id" :key="a?.id">
-                {{ a?.name }}
-              </option>
-            </select>
+            <MutiSelect :options="allowanceList" v-model="selectedAllowance" />
+
           </div>
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="">Vai trò</label>
@@ -184,11 +180,11 @@
             <label for="job">Công việc</label>
             <input type="text" id="job" v-model="contract.job" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
-          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+          <!-- <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="perD">Khấu trừ %</label>
             <input type="number" id="perD" v-model="contract.percentDeduction"
               class="input-cus dark:bg-gray-900 dark:text-white  ">
-          </div>
+          </div> -->
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="salaryType">Loại lương</label>
             <select class="select-cus" v-model="contract.salaryType" name="" id="">
@@ -202,7 +198,7 @@
             </select>
           </div>
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="tax">Thuế cá nhân</label>
+            <label for="tax">Giảm trừ gia cảnh bản thâ</label>
             <div class="w-full mt-[10px]">
               <input type="radio" id="yes" value="true" v-model="contract.isPersonalTaxDeduction">
               <label class="mr-10" for="yes">Có</label>
@@ -236,6 +232,7 @@
 <script>
 import { useLanguageStore } from '../stores/lang';
 import API from '../API'
+import MutiSelect from '../components/MutiSelect.vue';
 import Loading from '../components/Loading.vue'
 import functionCustom from '../utilities/functionCustom'
 import { useThemeStore } from '../stores/theme';
@@ -244,7 +241,8 @@ import { storage } from '../firebase'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 export default {
   components: {
-    Loading
+    Loading,
+    MutiSelect
   },
   setup() {
     const langStore = useLanguageStore()
@@ -269,7 +267,7 @@ export default {
       insuranceTypeList: [],
       contractTypeList: [],
       selectedPosition: null,
-      selectedAllowance: null,
+      selectedAllowance: [],
       selectedContract: null,
       headers: [
         { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left"},
@@ -284,7 +282,7 @@ export default {
         { text: "Địa chỉ", value: "address", width: 200 },
         { text: "Tình trạng", value: "workStatus", width: 200 },
         // { text: "Kinh nghiệm", value: "experiences", width: 200 },
-        { text: "Hành động", value: "operation", width: 500 },
+        { text: "Hành động", value: "operation", width: 300 },
       ],
       imgTmp: null,
       tmpEmail: '',
@@ -316,7 +314,7 @@ export default {
         contractCode: '',
         file: '',
         job: '',
-        percentDeduction: 0,
+        // percentDeduction: 0,
         salaryType: 1,
         contractType: 1,
         isPersonalTaxDeduction: true,
@@ -509,6 +507,15 @@ export default {
         })
     },
     actionCreate() {
+      if (!/^\d{12}$/.test(this.currentEmp.identityNumber)) {
+        return swal.error("CCCD phải nhập đúng 12 số!");
+      }
+      if (!/^\d{10}$/.test(this.currentEmp.phoneNumber)) {
+        return swal.error("phoneNumber phải nhập đúng 10 số và đúng định dạng!");
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.currentEmp.email)) {
+        return swal.error("email không hợp lệ!");
+      }
       this.isLoading = true
       const data = {
         positionId: this.selectedPosition,
@@ -532,17 +539,17 @@ export default {
         endDate: this.currentEmp.endDate,
         job: this.contract.job,
         basicSalary: this.currentEmp.basicSalary,
-        percentDeduction: this.contract.percentDeduction,
+        // percentDeduction: this.contract.percentDeduction,
         salaryType: this.contract.salaryType,
         contractType: this.contract.contractType,
         isPersonalTaxDeduction: this.contract.isPersonalTaxDeduction ? true : false,
         insuranceType: this.contract.insuranceType,
         insuranceAmount: this.contract.insuranceAmount,
-        allowanceId: [this.selectedAllowance]
+        allowanceId: this.selectedAllowance
       }
 
       this.contract.username = this.currentEmp.userName
-      this.contract.allowanceId = [this.selectedAllowance]
+      this.contract.allowanceId = this.selectedAllowance
 
       API.createEmployee(data)
         .then(res => {
@@ -602,7 +609,7 @@ export default {
         contractCode: '',
         file: '',
         job: '',
-        percentDeduction: 0,
+        // percentDeduction: 0,
         salaryType: 1,
         contractType: 1,
         isPersonalTaxDeduction: true,

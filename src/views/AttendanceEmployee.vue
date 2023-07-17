@@ -1,6 +1,8 @@
 <template>
     <div class="bg-white">
-        <button class="btn-primary my-3" @click="chamCong">Chấm công</button>
+        <div class="w-[90%] mx-auto">
+            <button class="btn-primary my-3 mx-auto text-[30px]" @click="chamCong">Chấm công</button>
+        </div>
         <div class="w-[90%] mx-auto mt-10">
             <h1>{{ regu?.title }}</h1>
             <h1> _ {{ regu?.morning }}</h1>
@@ -42,15 +44,19 @@
 
             </EasyDataTable>
         </div>
-
+        <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
+import Loading from '../components/Loading.vue'
 import API from '../API'
 import swal from '../utilities/swal2'
 import functionCustom from '../utilities/functionCustom'
 import { useThemeStore } from '../stores/theme'
 export default {
+    components: {
+        Loading
+    },
     setup() {
         const themeStore = useThemeStore()
         return { themeStore }
@@ -58,6 +64,7 @@ export default {
     data() {
         return {
             list: [],
+            isLoading: false,
             regu: null,
             notiPage: 1,
             page: 1,
@@ -119,7 +126,10 @@ export default {
                     if (Array.isArray(this.list)) return
                     else this.list = []
                 })
-                .catch(err => swal.error(err))
+                .catch(err => {
+                    if (err.response?.data) return swal.info(err.response?.data)
+                    else swal.info('Bạn chưa thực hiện chấm công ngày hôm nay')
+                })
         },
         convertDate(date) {
             return functionCustom.convertDate(date)
@@ -129,12 +139,15 @@ export default {
             else return time.toFixed(3)
         },
         chamCong() {
+            this.isLoading = true
             API.chamCong()
                 .then(res => {
                     swal.success('Chấm công thành công')
                     this.getList()
+                    this.isLoading = false
                 })
                 .catch(err => {
+                    this.isLoading = false
                     swal.error(err.response.data)
                 })
         },

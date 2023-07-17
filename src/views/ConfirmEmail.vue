@@ -15,7 +15,7 @@ export default {
     },
     methods: {
         confirmEmail() {
-            const url = 'http://localhost:5173/' + this.$route.fullPath
+            const url = API.BASE_URL_V1 + this.$route.fullPath
             const tempUrl = new URL(url)
             const searchParams = new URLSearchParams(tempUrl.search)
             API.confirmEmail(searchParams.get('userId'), searchParams.get('code'))

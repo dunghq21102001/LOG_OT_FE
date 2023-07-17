@@ -30,7 +30,7 @@ export default {
         getList() {
             API.getListDegreeByUserId(this.$route.params.id, this.page)
                 .then(res => {
-                    console.log(res);
+                    this.list = res.data.result.items
                 })
                 .catch(err => swal.error(err))
         }

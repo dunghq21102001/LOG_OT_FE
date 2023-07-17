@@ -1,7 +1,7 @@
 <template>
-    <div class="sm:block hidden text-center bg-[#405189] dark:bg-[#212529] h-screen fixed top-0 left-0 transition-all z-50"
+    <div class="sm:block hidden text-center bg-[#405189] dark:bg-[#212529] h-screen fixed top-0 left-0 transition-all z-50 overflow-y-scroll"
         :class="systemStore.getExpandSideBar ? 'sm:w-[30%] md:w-[20%] xl:w-[20%]' : 'w-[6%]'">
-        <span v-show="systemStore.getExpandSideBar" class="font-bold text-white">TechGenius</span>
+        <span v-show="systemStore.getExpandSideBar" class="font-bold text-white text-[30px]">TechGenius</span>
 
         <ul>
             <li v-if="auth?.listRoles?.[0] == 'Manager'" v-for="menu in menuList"
@@ -69,7 +69,7 @@
                                 <span v-for="child in item.children"
                                     @click="onChangeRoute(child.childName, child.routeName)"
                                     :class="currentRoute == child.childName ? 'bg-[#6376b3] dark:bg-[#3c3e46]' : ''"
-                                    class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer pl-10 text-left sm:text-[14px] md:text-[18px] my-5">
+                                    class="hover:bg-[#6376b3] dark:hover:bg-[#3c3e46] w-full text-white cursor-pointer pl-10 text-left sm:text-[14px] md:text-[18px] my-2">
                                     {{ child.childName }}
                                 </span>
                             </div>

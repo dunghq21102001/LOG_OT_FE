@@ -5,6 +5,11 @@
                 mới</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
+                <template #item-amount="item">
+                    <div>
+                        {{ convertVND(item.amount) }}
+                    </div>
+                </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
@@ -119,6 +124,7 @@
 </template>
 <script>
 import API from '../API';
+import functionCustom from '../utilities/functionCustom';
 
 export default {
     data() {
@@ -186,6 +192,9 @@ export default {
                 .catch(error => {
                     swal.error(error.data.message)
                 });
+        },
+        convertVND(price) {
+            return functionCustom.convertVND(price)
         },
         deleteAllowance(id) {
             swal.confirm('Bạn có chắc chắn xóa phụ cấp không?').then((result) => {
@@ -282,4 +291,5 @@ export default {
 
 .custom-btn:active {
     transform: translate(0em, 0.2em);
-}</style>
+}
+</style>

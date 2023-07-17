@@ -11,6 +11,7 @@ import axios from 'axios';
 import App from './App.vue'
 import API from './API'
 import router from './router'
+import ExportExcel from '../node_modules/vue-3-export-excel/index'
 import i18n from './utilities/i18n'
 import vueClickOutsideElement from 'vue-click-outside-element'
 import CountryFlag from 'vue-country-flag-next'
@@ -18,11 +19,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import Vue3EasyDataTable from 'vue3-easy-data-table'
 // import 'vue3-easy-data-table/dist/style.css'
 import '../node_modules/vue3-easy-data-table/dist/style.css'
-import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 const app = createApp(App)
 
-library.add(faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle)
+library.add(faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle, faCircleXmark)
 
 
 const axiosInstance = axios.create({
@@ -48,5 +49,6 @@ app.use(createPinia())
 app.use(router)
 app.use(i18n)
 app.use(vueClickOutsideElement)
+app.use(ExportExcel)
 
 app.mount('#app')

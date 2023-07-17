@@ -98,20 +98,25 @@
                 </div>
             </div>
         </div>
+        <Loading v-show="isLoading"/>
     </div>
 </template>
 <script>
 import API from '../API';
 import swal from '../utilities/swal2';
-
+import Loading from '../components/Loading.vue'
 export default {
+    components: {
+        Loading
+    },
     data() {
         return {
+            isLoading: false,
             headers: [
-                { text: "Tên trình độ", value: "normal", width: 140, },
-                { text: "Tên trình độ", value: "saturday", width: 140, },
-                { text: "Tên trình độ", value: "sunday", width: 140, },
-                { text: "Tên trình độ", value: "holiday", width: 140, },
+                { text: "Ngày thường", value: "normal", width: 140, },
+                { text: "Thứ 7", value: "saturday", width: 140, },
+                { text: "Chủ nhật", value: "sunday", width: 140, },
+                { text: "Ngày lễ", value: "holiday", width: 140, },
                 { text: "Action", value: "operation", width: 300 },
             ],
             items: [],
@@ -147,7 +152,8 @@ export default {
             this.sundaySelected = this.options.find(option => option.display == currentConfigDay.sunday).value,
             this.holidaySelected = this.options.find(option => option.display == currentConfigDay.holiday).value          
         },
-        updateConfigDayButton() {          
+        updateConfigDayButton() {     
+            this.isLoading = true     
             const data = {          
                 normal: this.normalSelected,
                 saturday: this.saturdaySelected,
@@ -155,13 +161,15 @@ export default {
                 holiday: this.holidaySelected
             }           
             API.updateConfigDay(data)
-                .then(response => {                
+                .then(response => {      
+                    this.isLoading = false          
                     // swal.success(response.data)
                     swal.success('Cập nhật thành công')
                     this.exit2()
                     this.getListConfigDay()
                 })
                 .catch(error => {
+                    this.isLoading = false
                     swal.error(error)
                 });
         },

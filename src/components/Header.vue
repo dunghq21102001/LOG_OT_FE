@@ -1,5 +1,6 @@
 <template>
-    <div class="bg-[#f5f2f2] md:w-full w-full flex justify-between p-4 dark:bg-[#292e32] dark:text-[#ced4da]">
+    <div
+        class="bg-[#f5f2f2] md:w-full w-full flex justify-between p-4 dark:bg-[#292e32] dark:text-[#ced4da] sticky top-0 right-0 z-[50]">
         <div class="sm:flex hidden w-2/5 items-center ml-[20px]"
             :class="systemStore.getExpandSideBar ? 'justify-center' : 'justify-start'">
             <font-awesome-icon @click="expandSideBar" class="ml-16 cursor-pointer hover-custom"
@@ -15,9 +16,13 @@
                     class="absolute w-[20px] h-[20px] rounded-full bg-red-500 text-white text-[10px] leading-[20px] text-center top-[-10px] right-[-10px]">
                     {{ totalUnread }}</div>
                 <div v-show="isShowNoti"
-                    class="absolute w-[90vw] md:w-[30vw] lg:w-[40vw] max-h-[80vh] overflow-y-scroll bg-white shadow-xl left-[-22vw] lg:left-[-30vw] top-[150%] z-20 p-4">
-                    <div @click="readingNoti(noti.id)" v-for="noti in notiList" class="my-2 p-2 cursor-pointer"
-                        :class="noti.isRead == false ? 'bg-[#dcdcdc]' : ''">
+                    class="absolute dark:bg-[#292e32] text-white w-[90vw] md:w-[30vw] lg:w-[40vw] max-h-[80vh] overflow-y-scroll bg-white shadow-xl left-[-22vw] lg:left-[-30vw] top-[150%] z-20 px-2 pb-2 pt-9">
+                    <button @click="isShowNoti = false" class="absolute right-[8px] top-[11px]">
+                        <font-awesome-icon icon="fa-solid fa-circle-xmark" class="text-black dark:text-white text-[20px]" />
+                    </button>
+                    <div @click="readingNoti(noti.id)" v-for="noti in notiList"
+                        class="my-2 p-2 cursor-pointer text-black dark:text-white"
+                        :class="noti.isRead == false ? 'bg-[#dcdcdc] dark:bg-[#515151] ' : ''">
                         <p class="font-bold text-[14px]"><font-awesome-icon v-show="!noti.isRead" icon="fa-solid fa-circle"
                                 class="text-red-500 text-[6px] translate-y-[-3px]" /> {{ noti.title }}</p>
                         <p class="text-[12px]">{{ noti.description }}</p>
@@ -57,6 +62,10 @@
                 <Transition name="profile">
                     <div v-show="isShowProfile"
                         class="absolute top-[100%] left-[-20%] w-[120%] flex flex-col bg-white shadow-lg z-10 text-[14px]">
+                        <span @click="gotoProfile"
+                            class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
+                            Thông tin cá nhân
+                        </span>
                         <span v-for="item in profileMenu" @click="goTo(item.routeName)"
                             class="hover:bg-[#dbd9d9] cursor-pointer px-2 py-4 my-1 dark:text-black">
                             {{ $t(item.name) }}
@@ -151,12 +160,20 @@ export default {
             })
         },
         getNoti() {
+            this.isLoading = true
             API.getNotification(this.notiPage)
                 .then(res => {
+                    this.isLoading = false
                     this.notiList.push(...res.data.items)
                     this.hasMorePages = res.data.hasNextPage
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    this.isLoading = false
+                    console.log(err)
+                })
+        },
+        gotoProfile() {
+            this.$router.push({ name: 'emp-information', params: { username: this.auth?.username, id: this.auth?.userId } })
         },
         getNotiRefresh() {
             API.getNotification(this.notiPage)
@@ -179,15 +196,20 @@ export default {
             this.isShowLang = false
         },
         cancelReading() {
+            this.isLoading = true
             this.isReadingNoti = false
             this.selectedNoti = null
             this.notiPage = 1
             this.getNotiRefresh()
             API.checkIfHaveNoti()
                 .then(res => {
+                    this.isLoading = false
                     this.totalUnread = res.data.number
                 })
-                .catch(err => swal.error(err))
+                .catch(err => {
+                    swal.error(err)
+                    this.isLoading = false
+                })
         },
         closeProfile() {
             this.isShowProfile = false

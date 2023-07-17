@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper-login-page w-full h-[100vh] bg-no-repeat">
         <div class="top-0 left-0">
-                <img src="../assets/images/Logo.png" alt="logo" class="w-[15%]">
+            <img src="../assets/images/Logo.png" alt="logo" class="w-[15%]">
         </div>
         <div class="wrapper-login w-[95%] sm:w-[400px]">
             <h2 class="text-2xl sm:text-3xl">{{ $t("title-login") }}</h2>
@@ -26,10 +26,23 @@
                 <a class="cursor-pointer" @click="login">ĐĂNG NHẬP</a>
             </form>
             <div class="relative">
-                <a href="" class="text-white absolute top-0 right-0 mt-2">Quên mật khẩu?</a>
+                <a @click="isShowForget = true" class="text-white absolute top-0 right-0 mt-2 cursor-pointer">Quên mật
+                    khẩu?</a>
             </div>
         </div>
-        <Loading v-if="isLoading" />
+        <div @click.self="isShowForget = false" v-show="isShowForget" class="fog-l">
+            <div class="bg-white p-5 rounded-lg">
+                <div class="box-input w-[86%]">
+                    <label for="bankAccount">Vui lòng nhập email để lấy lại mật khẩu</label>
+                    <p v-if="emailError" style="color: red;">{{ emailError }}</p>
+                    <input type="text" id="bankAccount" @input="validateEmail" v-model="email"
+                        placeholder="abcdef@gmail.com" class="input-cus dark:bg-gray-900 dark:text-white">
+                    <button @click="getPass" class="btn-primary">Lấy lại mật khẩu</button>
+                </div>
+            </div>
+        </div>
+        <Loading v-if="isLoading" class="z-99"/>
+
     </div>
 </template>
 <script>
@@ -50,7 +63,10 @@ export default {
             savePassword: false,
             tmpUsername: '',
             tmpPassword: '',
-            isLoading: false
+            isLoading: false,
+            isShowForget: false,
+            email: '',
+            emailError: ''
         }
     },
     created() {
@@ -86,6 +102,36 @@ export default {
                     this.isLoading = false
                     if (error.response.data) swal.error(error.response.data, 3500)
                     else swal.error(error)
+                })
+        },
+        validateEmail() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (this.email === "") {
+                this.emailError = "Vui lòng nhập email!";
+            } else if (!emailRegex.test(this.email)) {
+                this.emailError = "Email không hợp lệ!";
+            } else {
+                this.emailError = "";
+            }
+        },
+        getPass() {
+            if(this.email.trim() == '') return swal.error('Bạn phải nhập email để tiến hành lấy lại mật khẩu mới')
+            this.isLoading = true
+            const url = API.BASE_URL_V1 + this.$route.fullPath
+            const tempUrl = new URL(url)
+            axios.post(`${API.BASE_URL_V1}/ForgotPassword?email=${this.email}`, {
+                headers: {
+                    'Reference': tempUrl.href
+                }
+            })
+                .then(res => {
+                    this.isLoading = false
+                    console.log(res);
+                })
+                .catch(err => {
+                    this.isLoading = false
+                    swal.error(err.response?.data)
                 })
         },
         handleChangeUsername(value) {

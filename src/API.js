@@ -1,8 +1,8 @@
 import axios from "axios"
 
 export default class API {
-    // static BASE_URL_V1 = 'https://localhost:5001'
-    static BASE_URL_V1 = 'https://hrmanagerfpt.azurewebsites.net/'
+    static BASE_URL_V1 = 'https://localhost:5001'
+    // static BASE_URL_V1 = 'https://hrmanagerfpt.azurewebsites.net/'
     static ALLOWANCE = 'allowance'
     static EMPLOYEE = 'Employee'
     static POSITION = 'Position'
@@ -11,6 +11,11 @@ export default class API {
     static DEPENDENT = 'Dependent'
     static CONTRACT = 'EmployeeContract'
 
+
+    //dashboard
+    static getDashboard() {
+        return axios.get(`${this.BASE_URL_V1}/api/Dashboard`)
+    }
     // auth
     static login(loginData) {
         return axios.post(`${this.BASE_URL_V1}/login`, loginData)
@@ -64,6 +69,20 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/Dependent/GetListDependantByUser?userId=${id}&pg=1`)
     }
 
+    //payslip
+    static getListPayslip(page) {
+        return axios.get(`${this.BASE_URL_V1}/Payslip/GetListPayslip?pg=${page}`)
+    }
+    static createPayslip() {
+        return axios.post(`${this.BASE_URL_V1}/Payslip/Create`)
+    }
+    static getPayslipMore(userId, month, year) {
+        return axios.get(`${this.BASE_URL_V1}/Payslip/GetListPayslipByUserOrMonthOrBoth?userId=${userId}&month=${month}&year=${year}`)
+    }
+    static getDetailPayslip(id) {
+        return axios.get(`${this.BASE_URL_V1}/Payslip/GetDetailPayslip?id=${id}`)
+    }
+
     //api of employee
     static getRuleAttendance() { }
     static getAttendanceEmployeeList(page) {
@@ -106,6 +125,18 @@ export default class API {
     }
     static updateMaternity(id) {
         return axios.put(`${this.BASE_URL_V1}/Employee/UpdateMaternity?userId=${id}`)
+    }
+    static getInfo() {
+        return axios.get(`${this.BASE_URL_V1}/Emp/Infor`)
+    }
+    static getDepartmentForEmp() {
+        return axios.get(`${this.BASE_URL_V1}/Emp/Department`)
+    }
+    static getListContractForEmp() {
+        return axios.get(`${this.BASE_URL_V1}/Emp/ListContract`)
+    }
+    static getDependanceForEmp() {
+        return axios.get(`${this.BASE_URL_V1}/Emp/DependanceFilter`)
     }
 
 
@@ -271,6 +302,34 @@ export default class API {
 
     static updateConfigDay(data) {
         return axios.post(`${this.BASE_URL_V1}/Config/WorkDay/Update`, data)
+    }
+
+    //config wifi
+    static getAddressConnecting() {
+        return axios.get(`${this.BASE_URL_V1}/ConfigWifi/GetAddressConnecting`)
+    }
+    static getListWifi(page = 1) {
+        return axios.get(`${this.BASE_URL_V1}/ConfigWifi/GetListNetWork/page?page=${page}`)
+    }
+    static createWifi(name, ip) {
+        return axios.post(`${this.BASE_URL_V1}/ConfigWifi/CreateNetwork?ip=${ip}&name=${name}`)
+    }
+    static updateWifi(id, name, ip) {
+        return axios.put(`${this.BASE_URL_V1}/ConfigWifi/UpdateNetwork?name=${name}&ip=${ip}&id=${id}`)
+    }
+    static deleteWifi(id) {
+        return axios.delete(`${this.BASE_URL_V1}/ConfigWifi/DeleteNetwork/${id}`)
+    }
+
+    //job report
+    static getListJobReport(page) {
+        return axios.get(`${this.BASE_URL_V1}/JobReport/GetListJobReport/${page}`)
+    }
+    static getDetailJobReport(id) {
+        return axios.get(`${this.BASE_URL_V1}/JobReport/GetJobReportDetailById/${id}`)
+    }
+    static exportFileJobReport(id) {
+        return axios.get(`${this.BASE_URL_V1}/JobReport/ExportExcelFile/${id}`)
     }
 
     //departmentallowance

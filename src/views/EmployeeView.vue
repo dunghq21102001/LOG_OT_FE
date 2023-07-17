@@ -9,19 +9,19 @@
                             class="w-[100px] h-[100px] block mx-auto rounded-full object-cover justify-center content-center" />
                     </div>
                     <div class="flex mb-1">
-                        <span>Name:&nbsp</span>
+                        <span>Tên:&nbsp</span>
                         <span>{{ currentEmp?.fullname }}</span>
                     </div>
-                    <!-- <div class="flex mb-1">
-                        <span>Role:&nbsp</span>
-                        <span>Dev</span>
-                    </div> -->
                     <div class="flex mb-1">
-                        <span>Department:&nbsp</span>
+                        <span>Vai trò:&nbsp</span>
+                        <span>{{ auth.listRoles?.[0] }}</span>
+                    </div>
+                    <div class="flex mb-1">
+                        <span>Phòng ban:&nbsp</span>
                         <span>{{ departmentName }}</span>
                     </div>
                     <div class="flex mb-1">
-                        <span>EmployeeID:&nbsp</span>
+                        <span>ID:&nbsp</span>
                         <p class="truncate" :title="currentEmp?.id">{{ currentEmp?.id }}</p>
                     </div>
                 </div>
@@ -44,19 +44,31 @@
                 </div>
             </div>
         </div>
+        <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
+import Loading from '../components/Loading.vue'
 import service from '../service/menu'
 import API from '../API'
 import swal from '../utilities/swal2'
+import { useAuthStore } from '../stores/auth'
 export default {
+    components: {
+        Loading
+    },
+    setup() {
+        const authStore = useAuthStore()
+        return { authStore }
+    },
     data() {
         return {
+            isLoading: false,
             empList: service.profileEmpMenu(),
             currentRoute: 'emp-information',
             currentEmp: null,
-            departmentName: ''
+            departmentName: '',
+            auth: this.authStore.getAuth
         }
     },
     created() {
@@ -68,38 +80,44 @@ export default {
             this.currentRoute = routeName
         },
         getDepartment() {
-            API.getDepartmentByUser(this.$route.params.username)
-                .then(res => {
-                    this.departmentName = res.data.name
-                })
-                .catch(err => swal.error(err))
+            if (this.auth.listRoles?.[0] == 'Employee') {
+                API.getDepartmentForEmp()
+                    .then(res => {
+                        this.departmentName = res.data.position.department.name
+                    })
+                    .catch(err => swal.error(err))
+            } else {
+                API.getDepartmentByUser(this.$route.params.username)
+                    .then(res => {
+                        this.departmentName = res.data.name
+                    })
+                    .catch(err => swal.error(err))
+            }
         },
         fetchDetailEmp() {
-            API.getDetailEmployee(this.$route.params.username)
-                .then(res => {
-                    this.currentEmp = res.data
-                    // this.gender = this.currentEmp?.genderType
-                    // this.birthday = this.currentEmp?.birthDay
-                    // this.workStatus = this.currentEmp?.workStatus
-                    // this.bankingName = this.currentEmp?.bankName
-                    // this.bankAccountName = this.currentEmp?.bankAccountName
-                    // this.bankAccountNumber = this.currentEmp?.bankAccountNumber
-                    // this.username = this.currentEmp?.userName
-                    // this.normalizedUsername = this.currentEmp?.normalizedUserName
-                    // this.email = this.currentEmp?.email
-                    // this.normalizedEmail = this.currentEmp?.normalizedEmail
-                    // this.emailConfirmed = this.currentEmp?.emailConfirmed
-                    // this.passwordHash = this.currentEmp?.passwordHash
-                    // this.securityStamp = this.currentEmp?.securityStamp
-                    // this.concurrencyStamp = this.currentEmp?.concurrencyStamp
-                    // this.phoneNumber = this.currentEmp?.phoneNumber
-                    // this.phoneNumberConfirmed = this.currentEmp?.phoneNumberConfirmed
-                    // this.twoFactorEnabled = this.currentEmp?.twoFactorEnabled
-                    // this.lockoutEnd = this.currentEmp?.lockoutEnd
-                    // this.lockoutEnabled = this.currentEmp?.lockoutEnabled
-                    // this.accessFailedCount = this.currentEmp?.accessFailedCount
-                })
-                .catch(err => swal.error(err))
+            if (this.auth.listRoles?.[0] == 'Employee') {
+                this.isLoading = true
+                return API.getInfo()
+                    .then(res => {
+                        this.currentEmp = res.data
+                        this.isLoading = false
+                    })
+                    .catch(err => {
+                        swal.error(err)
+                        this.isLoading = false
+                    })
+            } else {
+                this.isLoading = true
+                API.getDetailEmployee(this.$route.params.username)
+                    .then(res => {
+                        this.isLoading = false
+                        this.currentEmp = res.data
+                    })
+                    .catch(err => {
+                        swal.error(err)
+                        this.isLoading = false
+                    })
+            }
         }
     }
 }
