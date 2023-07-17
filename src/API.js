@@ -174,6 +174,11 @@ export default class API {
     }
 
     //enums
+
+    static workStatus() {
+        return axios.get(`${this.BASE_URL_V1}/api/Enum/WorkStatus`)
+    }
+
     static salaryType() {
         return axios.get(`${this.BASE_URL_V1}/api/Enum/SalaryType`)
     }

@@ -127,8 +127,6 @@ export default {
             this.subsidizeIdSelected = currentDepartmentAllowance.subsidizeId.toLowerCase(),
             this.departmentIdSelected = currentDepartmentAllowance.departmentId.toLowerCase(),
             this.id = currentDepartmentAllowance.id
-            console.log(this.subsidizeIdSelected);
-            console.log(this.departmentIdSelected);
         },
         updateDepartmentAllowance() {          
             const data = {       

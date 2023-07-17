@@ -8,6 +8,11 @@
     <div class="w-[90%] mx-auto mt-10">
       <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"
         body-text-direction="center">
+        <template #item-workStatus="item">
+          <div :class="item.workStatus == '1' ? 'bg-green-500 text-white' : 'bg-red-800-500 text-white'">
+            {{ item.workStatus == '1'? 'StillWork' : 'Quit' }}
+          </div>
+        </template>
         <template #item-birthDay="item">
           <div>
             {{ convertDate(item.birthDay) }}
@@ -267,8 +272,8 @@ export default {
       selectedAllowance: null,
       selectedContract: null,
       headers: [
-        { text: "Tên tài khoản", value: "userName", width: 200 },
-        { text: "Họ và Tên", value: "fullname", width: 200 },
+        { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left"},
+        { text: "Họ và Tên", value: "fullname", width: 200, fixed: "left" },
         { text: "Giới tính", value: "genderType", width: 200 },
         { text: "Email", value: "email", width: 200 },
         { text: "Số điện thoại", value: "phoneNumber", width: 200 },
@@ -277,6 +282,7 @@ export default {
         // { text: "Tên tài khoản ngân hàng", value: "bankAccountName", width: 200 },
         // { text: "Số tài khoản ngân hàng", value: "bankAccountNumber", width: 200 },
         { text: "Địa chỉ", value: "address", width: 200 },
+        { text: "Tình trạng", value: "workStatus", width: 200 },
         // { text: "Kinh nghiệm", value: "experiences", width: 200 },
         { text: "Hành động", value: "operation", width: 500 },
       ],
