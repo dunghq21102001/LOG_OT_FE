@@ -282,7 +282,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/departmentAllowance',
+      path: '/departmentSubsidize',
       name: 'departmentAllowance',
       component: departmentAllowance,
       meta: {

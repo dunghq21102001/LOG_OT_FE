@@ -70,6 +70,10 @@ export default class menu {
                             {
                                 childName: 'Quản lí chấm công',
                                 routeName: 'attendanceManager',
+                            },
+                            {
+                                childName: 'Trợ cấp',
+                                routeName: 'subsidize',
                             }
                         ]
                     },

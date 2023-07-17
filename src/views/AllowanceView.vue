@@ -125,11 +125,11 @@ export default {
         return {
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
-                { text: "Tên phòng ban", value: "name", width: 140, },
-                { text: "z", value: "allowanceType", width: 140, },
-                { text: "a", value: "amount", width: 140, },
-                { text: "d", value: "eligibility_Criteria", width: 140, },
-                { text: "q", value: "requirements", width: 200, },
+                { text: "Tên phụ cấp", value: "name", width: 140, },
+                { text: "Loại phụ cấp", value: "allowanceType", width: 140, },
+                { text: "Số tiền", value: "amount", width: 140, },
+                { text: "Tiêu chuẩn", value: "eligibility_Criteria", width: 140, },
+                { text: "Yêu cầu", value: "requirements", width: 200, },
                 { text: "Action", value: "operation", width: 300 },
             ],
             items: [],

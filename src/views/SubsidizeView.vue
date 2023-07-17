@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="bg-white w-full p-3">
-            <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">{{ $t('create department')}}</button>
+            <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo trợ cấp</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
                 <template #item-operation="item">
@@ -19,24 +19,29 @@
                 class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
                 <div
                     class="w-full h-10 sm:h-10 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
-                    Tạo phòng ban
+                    Tạo trợ cấp
                 </div>
                 <div
                     class="w-full px-1 sm:sx-2 grid items-center text-xs sm:text-base justify-center p-1 sm:p-2 mt-1 sm:mt-2">
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên trợ cấp:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
-                            v-model="name" placeholder="Nhập tên phòng ban">
+                            v-model="name" placeholder="Nhập tên trợ cấp">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả phòng ban:</span></label>
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trợ cấp:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập mô tả phòng ban">
+                            type="text" v-model="description" placeholder="Nhập mô tả trợ cấp">
+                    </div>
+                    <div class="flex p-1 sm:p-2">
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Số tiền:</span></label>
+                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
+                            type="number" v-model="amount" placeholder="Nhập số tiền">
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
                         <button type="submit" @click="createDepartment"
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
-                            Tạo phòng ban
+                            Tạo trợ cấp
                         </button>
                         <button @click="exit" type="exit" class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
                             Hủy tạo
@@ -51,28 +56,32 @@
                 class="w-[95%] sm:w-1/2 xl:w-1/2 bg-white absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-2xl pb-4 xl:pb-6">
                 <div
                     class="w-full h-10 sm:h-10 text-center bg-red-400 text-white font-bold rounded-t-2xl text-sm sm:text-3xl flex justify-center items-center sm">
-                    Chỉnh sửa phòng ban
+                    Chỉnh sửa trợ cấp
                 </div>
                 <div
                     class="w-full px-1 sm:sx-2 grid items-center text-xs sm:text-base justify-center p-1 sm:p-2 mt-1 sm:mt-2">
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên phòng ban:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px]"><span>Tên trợ cấp:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
-                            v-model="name" placeholder="Nhập mã nhân viên">
+                            v-model="name" placeholder="Nhập tên trợ cấp">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả:</span></label>
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trợ cấp:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập tên nhân viên">
+                            type="text" v-model="description" placeholder="Nhập mô tả trợ cấp">
+                    </div>
+                    <div class="flex p-1 sm:p-2">
+                        <label for="empname" class="w-[100px] sm:w-[130px]"><span>Số tiền:</span></label>
+                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
+                            type="number" v-model="amount" placeholder="Nhập số tiền">
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
                         <button type="submit" @click="updateDepartmentButton"
                             class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl mr-4 sm:mr-8">
-                            chỉnh sửa phòng ban
+                            Chỉnh sửa trợ cấp
                         </button>
-                        <button @click="exit2" type="exit"
-                            class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
-                            Hủy
+                        <button @click="exit2" type="exit" class="bg-red-400 text-white p-1 sm:p-2 rounded-md sm:rounded-xl">
+                            Hủy chỉnh sửa
                         </button>
                     </div>
                 </div>
@@ -87,9 +96,9 @@ export default {
     data() {
         return {
             headers: [
-                { text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
-                { text: "Tên phòng ban", value: "name", width: 140, },
-                { text: "Mô tả phòng ban", value: "description", width: 200, },
+                { text: "Tên trợ cấp", value: "name", width: 100, fixed: "left", },
+                { text: "Mô tả", value: "description", width: 140, },
+                { text: "Số tiền", value: "amount", width: 200, },
                 { text: "Action", value: "operation", width: 120 },
             ],
             items: [],
@@ -97,53 +106,56 @@ export default {
             isShow2: false,
             name: '',
             id: '',
-            description: ''
+            description: '',
+            amount:''
         }
     },
 
     methods: {
         resetFormCreate(){
             this.name = '',   
-            this.description = ''    
+            this.description = '',
+            this.amount = '' 
         },
         createDepartmentForm() {
             this.isShow = true
         },
         updateDepartmentForm(id) {
             this.isShow2 = true
-            const currentDepartment = this.items.find(item => item.id == id)
+            const currentSubsidize = this.items.find(item => item.id == id)
 
-            this.name = currentDepartment.name
-            this.id = currentDepartment.id
-            this.description = currentDepartment.description
-
+            this.name = currentSubsidize.name
+            this.id = currentSubsidize.id
+            this.description = currentSubsidize.description
+            this.amount = currentSubsidize.amount
         },
         updateDepartmentButton() {
             const data = {
                 id: this.id,
                 name: this.name,
-                description: this.description
+                description: this.description,
+                amount: this.amount
             }
-            API.updateDepartment(data)
+            API.updateSubsidize(data)
                 .then(response => {
                     swal.success(response.data)
                     this.exit2()
-                    this.getListDepartment()
+                    this.getListSubsidize()
                 })
                 .catch(error => {
                     swal.error(error)
                 });
         },
         deleteDepartment(id) {
-            swal.confirm('Bạn có chắc chắn xóa phòng ban không?').then((result) => {
+            swal.confirm('Bạn có chắc chắn xóa trợ cấp không?').then((result) => {
                 if (result.value) {
-                    API.deleteDepartment(id)
-                        .then(responsive => {
-                            this.getListDepartment()
-                            swal.success(responsive.data)
+                    API.deleteSubsidize(id)
+                        .then(response => {
+                            this.getListSubsidize()
+                            swal.success(response.data)
                         })
                         .catch(error => {
-                            swal.error(error)
+                            swal.error(error.response.data)
                         })
                 }
             })
@@ -157,8 +169,8 @@ export default {
         handleImageChange(event) {
             this.imageFile = event.target.files[0]
         },
-        getListDepartment() {
-            API.getListDepartment()
+        getListSubsidize() {
+            API.getListSubsidize()
                 .then(response => {
                     this.items = response.data.items
                 })
@@ -170,13 +182,14 @@ export default {
             const data = {
                 name: this.name,
                 description: this.description,
+                amount: this.amount
             }
-            API.createDepartment(data)
+            API.createSubsidize(data)
                 .then(response => {
                     swal.success(response.data)
                     this.exit()
                     this.resetFormCreate()
-                    this.getListDepartment()
+                    this.getListSubsidize()
                 })
                 .catch(error => {
                     swal.error(error)
@@ -184,7 +197,7 @@ export default {
         },
     },
     created() {
-        this.getListDepartment();
+        this.getListSubsidize();
     },
     computed: {
         imageUrl() {

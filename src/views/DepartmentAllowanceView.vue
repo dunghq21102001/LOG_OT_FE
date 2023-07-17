@@ -219,7 +219,6 @@ export default {
                     this.exit()
                     this.resetFormCreate()
                     this.getListDepartmentAllowance()
-                    console.log(response)
                 })
                 .catch(error => {
                     swal.error(error.data)

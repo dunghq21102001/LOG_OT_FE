@@ -290,6 +290,17 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/Subsidize`)
     }
 
+    static createSubsidize(data) {
+        return axios.post(`${this.BASE_URL_V1}/Subsidize/Create`, data)
+    }
+
+    static updateSubsidize(data) {
+        return axios.put(`${this.BASE_URL_V1}/Subsidize/Update`, data)
+    }
+
+    static deleteSubsidize(id) {
+        return axios.delete(`${this.BASE_URL_V1}/Subsidize/Delete?id=${id}`)
+    }
     //Coefficient
     static getListCoefficient() {
         return axios.get(`${this.BASE_URL_V1}/Coefficient`)
