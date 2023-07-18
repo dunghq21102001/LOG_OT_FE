@@ -80,6 +80,10 @@ export default class menu {
                         isShowExpand: false,
                         children: [
                             {
+                                childName: 'Mặc định',
+                                routeName: 'configDefault',
+                            },
+                            {
                                 childName: 'Wifi',
                                 routeName: 'config-wifi',
                             },
@@ -90,6 +94,14 @@ export default class menu {
                             {
                                 childName: 'Hệ số lương',
                                 routeName: 'coefficient',
+                            },
+                            {
+                                childName: 'Mức lương tối thiểu theo vùng',
+                                routeName: 'regionalMinimumWage',
+                            },
+                            {
+                                childName: 'Thuế thu nhập',
+                                routeName: 'configTaxIncome',
                             },
                         ]
                     },
@@ -102,7 +114,7 @@ export default class menu {
                             {
                                 childName: 'Công việc',
                                 routeName: 'job-report',
-                            }
+                            },   
                         ]
                     },
                 ]

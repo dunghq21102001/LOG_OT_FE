@@ -279,7 +279,7 @@ export default {
       selectedAllowance: [],
       selectedContract: null,
       headers: [
-        { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left" },
+        { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left"},
         { text: "Họ và Tên", value: "fullname", width: 200 },
         { text: "Giới tính", value: "genderType", width: 200 },
         { text: "Email", value: "email", width: 200 },

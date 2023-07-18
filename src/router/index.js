@@ -41,6 +41,10 @@ import AcceptRequest from '../views/AcceptRequest.vue'
 import ConfirmEmail from '../views/ConfirmEmail.vue'
 import LeaveLog from '../views/LeaveLog.vue'
 import ChangePassword from '../views/ChangePassword.vue'
+import regionalMinimumWage from '../views/RegionalMinimumWage.vue'
+import configDefault from '../views/ConfigDefaultView.vue'
+import taxIncome from '../views/TaxIncomeView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -354,6 +358,30 @@ const router = createRouter({
       path: '/attendanceManager',
       name: 'attendanceManager',
       component: attendanceManager,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/regionalMinimumWage',
+      name: 'regionalMinimumWage',
+      component: regionalMinimumWage,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/configDefault',
+      name: 'configDefault',
+      component: configDefault,
+      meta: {
+        middleware: checkAuth
+      }
+    },
+    {
+      path: '/configTaxIncome',
+      name: 'configTaxIncome',
+      component: taxIncome,
       meta: {
         middleware: checkAuth
       }
