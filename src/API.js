@@ -358,6 +358,9 @@ export default class API {
     static deleteWifi(id) {
         return axios.delete(`${this.BASE_URL_V1}/ConfigWifi/DeleteNetwork/${id}`)
     }
+    static getOnlyIP() {
+        return axios.get('https://api-bdc.net/data/client-info')
+    }
 
     //job report
     static getListJobReport(page) {
@@ -475,6 +478,12 @@ export default class API {
     }
     static deleteLeaveLog(id) {
         return axios.put(`${this.BASE_URL_V1}/Emp/DeleteLeaveLog?id=${id}`)
+    }
+    static getPayslipForEmp(page) {
+        return axios.get(`${this.BASE_URL_V1}/Emp/GetListPayslip?pg=${page}`)
+    } 
+    static getPayslipDetailForEmp(id) {
+        return axios.get(`${this.BASE_URL_V1}/Emp/GetDetailPayslip?id=${id}`)
     }
 
     //noti

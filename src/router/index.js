@@ -20,6 +20,7 @@ import EmpContract from '../views/Employee/Contract.vue'
 import EmpAllowance from '../views/Employee/Allowance.vue'
 import EmployeeList from '../views/EmployeeList.vue'
 import EmpDepartment from '../views/Employee/Department.vue'
+import PaySlipForEmp from '../views/PayslipForEmp.vue'
 import EmpSkill from '../views/Employee/Skill.vue'
 import EmpDependant from '../views/Employee/Dependant.vue'
 import EmpExperience from '../views/Employee/Experience.vue'
@@ -284,6 +285,16 @@ const router = createRouter({
       path: '/AttendanceEmployee',
       name: 'attendance-employee',
       component: AttendanceEmployee,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Employee'
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/payslip-employee',
+      name: 'payslip-employee',
+      component: PaySlipForEmp,
       meta: {
         middleware: checkAuth,
         requiredRole: 'Employee'

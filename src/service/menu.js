@@ -139,6 +139,10 @@ export default class menu {
                                 routeName: 'attendance-employee'
                             },
                             {
+                                childName: 'Bảng lương',
+                                routeName: 'payslip-employee'
+                            },
+                            {
                                 childName: 'Nhận yêu cầu',
                                 routeName: 'accept-request'
                             },

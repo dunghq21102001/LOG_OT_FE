@@ -214,7 +214,7 @@
                 </div>
             </div>
             <!-- V -->
-            <div class="col-span-12 lg:col-span-6 w-full mx-auto rounded-md bg-white shadow-lg p-4">
+            <!-- <div class="col-span-12 lg:col-span-6 w-full mx-auto rounded-md bg-white shadow-lg p-4">
                 <div class="text-[#7b9fd8] text-[20px]">V. Chi tiết thuế thu thập cá nhân (VND)</div>
                 <table class="w-full">
                     <thead>
@@ -245,7 +245,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
         </div>
         <Loading v-show="isLoading" />
     </div>
@@ -272,12 +272,12 @@ export default {
     },
     created() {
         this.getList()
-        this.getConfigTaxIncome()
+        // this.getConfigTaxIncome()
     },
     methods: {
         getList() {
             this.isLoading = true
-            API.getListPayslip(this.page)
+            API.getPayslipForEmp(this.page)
                 .then(res => {
                     this.isLoading = false
                     this.list = res.data.items
@@ -287,18 +287,18 @@ export default {
                     swal.error('Không thể lấy danh sách, vui lòng thử lại!')
                 })
         },
-        getConfigTaxIncome() {
-            API.getConfigTaxIncome()
-                .then(response => {
-                    this.items = response.data
-                })
-                .catch(error => {
-                    swal.error(error)
-                });
-        },
+        // getConfigTaxIncome() {
+        //     API.getConfigTaxIncome()
+        //         .then(response => {
+        //             this.items = response.data
+        //         })
+        //         .catch(error => {
+        //             swal.error(error)
+        //         });
+        // },
         getDetail(item) {
             this.isLoading = true
-            API.getDetailPayslip(item.id)
+            API.getPayslipDetailForEmp(item.id)
                 .then(res => {
                     this.isShowDetail = true
                     this.isLoading = false
