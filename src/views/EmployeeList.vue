@@ -9,8 +9,8 @@
       <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"
         body-text-direction="center">
         <template #item-workStatus="item">
-          <div :class="item.workStatus == '1' ? 'bg-green-500 text-white' : 'bg-red-800-500 text-white'">
-            {{ item.workStatus == '1'? 'StillWork' : 'Quit' }}
+          <div :class="item.workStatus == '1' ? 'bg-green-500 text-white' : 'bg-red-800 text-white'">
+            {{ item.workStatus == '1' ? 'StillWork' : 'Quit' }}
           </div>
         </template>
         <template #item-birthDay="item">
@@ -24,11 +24,20 @@
           </div>
         </template>
         <template #item-operation="item">
-          <div class="operation-wrapper">
+          <div class="operation-wrapper flex justify-center">
             <button class="view-btn" @click="goTo(item.userName, item.id)"><font-awesome-icon
                 icon="fa-solid fa-eye" /></button>
             <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
                 icon="fa-solid fa-pen-to-square" /></button>
+            <div>
+              <button @click="unlockAcc(item.id)" v-if="lockoutEnd && new Date(lockoutEnd) > new Date()"
+                class="btn-primary">
+                <font-awesome-icon :icon="['fas', 'lock-open']" />
+              </button>
+              <button v-else @click="logAcc(item.id)" class="danger-btn">
+                <font-awesome-icon icon="fa-solid fa-lock" />
+              </button>
+            </div>
             <!-- <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button> -->
           </div>
         </template>
@@ -140,13 +149,13 @@
             <MutiSelect :options="allowanceList" v-model="selectedAllowance" />
 
           </div>
-          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+          <!-- <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="">Vai trò</label>
             <select class="select-cus" v-model="currentEmp.role" name="" id="">
               <option value="Employee">Employee</option>
               <option value="Manager">Manager</option>
             </select>
-          </div>
+          </div> -->
           <div class="box-input w-[86%] lg:w-[40%] items-center">
             <img v-if="imgTmp" :src="imgTmp" class="w-[200px] h-[200px] block mx-auto rounded-full object-cover"
               alt="Selected Image">
@@ -270,8 +279,8 @@ export default {
       selectedAllowance: [],
       selectedContract: null,
       headers: [
-        { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left"},
-        { text: "Họ và Tên", value: "fullname", width: 200, fixed: "left" },
+        { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left" },
+        { text: "Họ và Tên", value: "fullname", width: 200 },
         { text: "Giới tính", value: "genderType", width: 200 },
         { text: "Email", value: "email", width: 200 },
         { text: "Số điện thoại", value: "phoneNumber", width: 200 },
@@ -282,7 +291,7 @@ export default {
         { text: "Địa chỉ", value: "address", width: 200 },
         { text: "Tình trạng", value: "workStatus", width: 200 },
         // { text: "Kinh nghiệm", value: "experiences", width: 200 },
-        { text: "Hành động", value: "operation", width: 300 },
+        { text: "Hành động", value: "operation", width: 400 },
       ],
       imgTmp: null,
       tmpEmail: '',
@@ -302,7 +311,7 @@ export default {
         image: 'https://placehold.co/600x400',
         identityNumber: '',
         isMaternity: false,
-        role: 'Employee',
+        // role: 'Employee',
         startDate: '',
         endDate: '',
         basicSalary: 0
@@ -352,11 +361,16 @@ export default {
   },
   methods: {
     getList() {
+      this.isLoading = true
       API.getListEmployee(this.page)
         .then(res => {
+          this.isLoading = false
           this.list = res.data.items
         })
-        .catch(err => swal.error(err))
+        .catch(err => {
+          swal.error(err)
+          this.isLoading = false
+        })
     },
     getAllowanceList() {
       API.getListAllowance(this.allowancePage)
@@ -532,7 +546,7 @@ export default {
         isMaternity: this.currentEmp.isMaternity,
         image: this.currentEmp.image,
         phoneNumber: this.currentEmp.phoneNumber,
-        role: this.currentEmp.role,
+        // role: this.currentEmp.role,
         contractCode: this.contract.contractCode,
         file: this.contract.file,
         startDate: this.currentEmp.startDate,
@@ -600,7 +614,7 @@ export default {
         image: 'https://placehold.co/600x400',
         identityNumber: '',
         isMaternity: false,
-        role: 'Employee',
+        // role: 'Employee',
         startDate: '',
         endDate: '',
         basicSalary: 0
@@ -640,6 +654,32 @@ export default {
     },
     isInputEmpty(field) {
       return field === '';
+    },
+    unlockAcc(id) {
+      this.isLoading = true
+      API.unlockAcc(id)
+        .then(res => {
+          this.isLoading = false
+          this.getList()
+          swal.success(res.data)
+        })
+        .catch(err => {
+          this.isLoading = false
+          swal.error(err)
+        })
+    },
+    logAcc(id) {
+      this.isLoading = true
+      API.lockAcc(id)
+        .then(res => {
+          this.isLoading = false
+          this.getList()
+          swal.success(res.data)
+        })
+        .catch(err => {
+          this.isLoading = false
+          swal.error(err)
+        })
     }
   }
 }

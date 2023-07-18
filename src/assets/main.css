@@ -120,6 +120,22 @@
   transition: ease-in .2s;
 }
 
+.danger-btn {
+  background-color: rgb(145, 0, 0);
+  border-radius: 20px;
+  padding: 4px 10px;
+  color: #fff;
+  border: 1px solid rgb(145, 0, 0);
+  margin: 10px;
+  min-width: 50px;
+}
+
+.danger-btn:hover {
+  background-color: #fff;
+  color: rgb(145, 0, 0);
+  transition: ease-in .2s;
+}
+
 .cancel-btn {
   background-color: #fff;
   border-radius: 20px;

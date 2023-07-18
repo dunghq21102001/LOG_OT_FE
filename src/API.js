@@ -1,8 +1,8 @@
 import axios from "axios"
 
 export default class API {
-    static BASE_URL_V1 = 'https://localhost:5001'
-    // static BASE_URL_V1 = 'https://hrmanagerfpt.azurewebsites.net/'
+    // static BASE_URL_V1 = 'https://localhost:5001'
+    static BASE_URL_V1 = 'https://hrmanagerfpt.azurewebsites.net/'
     static ALLOWANCE = 'allowance'
     static EMPLOYEE = 'Employee'
     static POSITION = 'Position'
@@ -22,6 +22,12 @@ export default class API {
     }
     static confirmEmail(id, code) {
         return axios.get(`${this.BASE_URL_V1}/confirmEmail?userId=${id}&code=${code}`)
+    }
+    static lockAcc(id) {
+        return axios.put(`${this.BASE_URL_V1}/Employee/LockAccount?userId=${id}`)
+    }
+    static unlockAcc(id) {
+        return axios.put(`${this.BASE_URL_V1}/Employee/UnlockAccount?userId=${id}`)
     }
 
     //change pass

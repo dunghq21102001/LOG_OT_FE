@@ -7,7 +7,7 @@ export default class menu {
                 items: [
                     {
                         iconName: 'dashboardIcon',
-                        itemName: 'Dashboards',
+                        itemName: 'Quản lý',
                         isShow: true,
                         isShowExpand: false,
                         children: [
@@ -60,14 +60,6 @@ export default class menu {
                                 routeName: 'payslip',
                             },
                             {
-                                childName: 'Hệ số lương',
-                                routeName: 'coefficient',
-                            },
-                            {
-                                childName: 'Báo cáo',
-                                routeName: 'job-report',
-                            },
-                            {
                                 childName: 'Ngày làm việc hàng năm',
                                 routeName: 'annualWorkingDay',
                             },
@@ -88,13 +80,29 @@ export default class menu {
                         isShowExpand: false,
                         children: [
                             {
-                                childName: 'Cấu hình wifi',
+                                childName: 'Wifi',
                                 routeName: 'config-wifi',
                             },
                             {
-                                childName: 'Cấu hình ca làm',
+                                childName: 'Ca làm',
                                 routeName: 'configWorkDay',
                             },
+                            {
+                                childName: 'Hệ số lương',
+                                routeName: 'coefficient',
+                            },
+                        ]
+                    },
+                    {
+                        iconName: 'reportItem',
+                        itemName: 'Báo cáo',
+                        isShow: false,
+                        isShowExpand: false,
+                        children: [
+                            {
+                                childName: 'Công việc',
+                                routeName: 'job-report',
+                            }
                         ]
                     },
                 ]
