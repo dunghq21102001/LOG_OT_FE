@@ -3,16 +3,42 @@
         <div class="bg-white w-full p-3">
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
+                <template #item-muc_chiu_thue_From="item">
+                    <div>
+                        {{ convertVND(item.muc_chiu_thue_From) }}
+                    </div>
+                </template>
+                <template #item-muc_chiu_thue_To="item">
+                    <div>
+                        {{ convertVND(item.muc_chiu_thue_To) }}
+                    </div>
+                </template>
+                <template #item-he_so_tru="item">
+                    <div>
+                        {{ convertVND(item.he_so_tru) }}
+                    </div>
+                </template>
+                <template #item-thue_suat="item">
+                    <div>
+                        {{ item.thue_suat }} %
+                    </div>
+                </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
-                        <button @click="updateCoefficientForm(item)" class="edit-btn"><font-awesome-icon
+                        <button @click="showForm" class="edit-btn"><font-awesome-icon
                                 icon="fa-solid fa-pen-to-square" /></button>
                         <!-- <button @click="deleteAllowance(item.id)" class="delete-btn"><font-awesome-icon
                                 :icon="['fas', 'trash']" /></button> -->
                     </div>
                 </template>
             </EasyDataTable>
+        </div>
+        <div v-show="isShowForm" @click.self="isShowForm = false" class="fog-l">
+            <div class="bg-white rounded-sm p-5 flex items-center">
+                <input type="file" ref="fileInput" />
+                <button @click="uploadFile" class="btn-primary">Upload</button>
+            </div>
         </div>
         <div v-show="isShow2" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
             @click.self="isShow2 = false">
@@ -53,6 +79,8 @@
 </template>
 <script>
 import API from '../API';
+import functionCustom from '../utilities/functionCustom';
+import swal from '../utilities/swal2';
 
 export default {
     data() {
@@ -68,6 +96,7 @@ export default {
             options: [],
             isShow: false,
             isShow2: false,
+            isShowForm: false,
             currentCoefficient: {
                 id: '',
                 regionTypeSelected: '',
@@ -77,28 +106,24 @@ export default {
     },
 
     methods: {
-        // updateCoefficientForm(item) {
-        //     this.isShow2 = true
-        //     this.currentCoefficient.id = item.id
-        //     this.currentCoefficient.regionTypeSelected = item.regionType
-        //     this.currentCoefficient.amount = item.amount
-        // },
-        // updateCoefficientButton() {
-        //     const data = {
-        //         id: this.currentCoefficient.id,
-        //         regionType: this.currentCoefficient.regionTypeSelected,
-        //         amount: this.currentCoefficient.amount
-        //     }
-        //     API.updateRegionalMinimumWage(data)
-        //         .then(response => {
-        //             swal.success(response.data)
-        //             this.exit2()
-        //             this.getListCoefficient()
-        //         })
-        //         .catch(error => {
-        //             swal.error("Cập nhật thất bại!")
-        //         });
-        // },
+        showForm() {
+            this.isShowForm = true
+        },
+        uploadFile() {
+            const file = this.$refs.fileInput.files[0]
+            const formData = new FormData()
+            formData.append('file', file)
+            this.sendFormData(formData)
+        },
+        sendFormData(formData) {
+            API.updateTaxIncome(formData)
+                .then(res => {
+                    swal.success('Upload file excel thành công')
+                })
+                .catch(err => {
+                    swal.error(err.response.data)
+                })
+        },
         exit() {
             this.isShow = false
         },
@@ -114,6 +139,10 @@ export default {
                     swal.error(error)
                 });
         },
+        convertVND(price) {
+            if (price == null || price == NaN || price == '') return '0 VND'
+            return functionCustom.convertVND(price)
+        }
     },
     created() {
         this.getConfigTaxIncome();

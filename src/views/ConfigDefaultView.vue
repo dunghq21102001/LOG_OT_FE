@@ -7,9 +7,26 @@
                 body-text-direction="center">
                 <template #item-companyRegionType="item">
                     <div>
-                        {{ item.companyRegionType == '1' ? 'Region 1' : item.companyRegionType == '2' ? 'Region 2' : item.companyRegionType == '3' ? 'Region 3' :  'Region 4'}}
+                        {{ item.companyRegionType == '1' ? 'Region 1' : item.companyRegionType == '2' ? 'Region 2' :
+                            item.companyRegionType == '3' ? 'Region 3' : 'Region 4' }}
                     </div>
                 </template>
+                <template #item-baseSalary="item">
+                    <div>
+                        {{ convertVND(item.baseSalary) }}
+                    </div>
+                </template>
+                <template #item-personalTaxDeduction="item">
+                    <div>
+                        {{ convertVND(item.personalTaxDeduction) }}
+                    </div>
+                </template>
+                <template #item-dependentTaxDeduction="item">
+                    <div>
+                        {{ convertVND(item.dependentTaxDeduction) }}
+                    </div>
+                </template>
+
                 <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
@@ -39,22 +56,27 @@
                         </select>
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px] xl:w-[300px]"><span>Nhập lương cơ bản:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px] xl:w-[300px]"><span>Nhập lương cơ
+                                bản:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
                             v-model="currentCoefficient.baseSalary" placeholder="Nhập lương cơ bản">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px] xl:w-[300px]"><span>Nhập thuế cá nhân khấu trừ:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px] xl:w-[300px]"><span>Nhập thuế cá nhân khấu
+                                trừ:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
                             v-model="currentCoefficient.personalTaxDeduction" placeholder="Nhập thuế cá nhân khấu trừ">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px] xl:w-[300px]"><span>Nhập thuế người phụ thuộc khấu trừ:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px] xl:w-[300px]"><span>Nhập thuế người phụ thuộc khấu
+                                trừ:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
-                            v-model="currentCoefficient.dependentTaxDeduction" placeholder="Nhập thuế người phụ thuộc khấu trừ">
+                            v-model="currentCoefficient.dependentTaxDeduction"
+                            placeholder="Nhập thuế người phụ thuộc khấu trừ">
                     </div>
                     <div class="flex p-1 sm:p-2">
-                        <label for="empid" class="w-[100px] sm:w-[130px] xl:w-[300px]"><span>Nhập bảo hiểm giới hạn:</span></label>
+                        <label for="empid" class="w-[100px] sm:w-[130px] xl:w-[300px]"><span>Nhập bảo hiểm giới
+                                hạn:</span></label>
                         <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
                             v-model="currentCoefficient.insuranceLimit" placeholder="Nhập bảo hiểm giới hạn">
                     </div>
@@ -145,6 +167,10 @@ export default {
                     swal.error(error)
                 });
         },
+        convertVND(price) {
+            if (price == null || price == NaN || price == '') return '0 VND'
+            return functionCustom.convertVND(price)
+        },
         getListRegionType() {
             API.getListRegionType()
                 .then(response => {
@@ -183,5 +209,4 @@ export default {
 
 .custom-btn:active {
     transform: translate(0em, 0.2em);
-}
-</style>
+}</style>

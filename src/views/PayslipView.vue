@@ -214,26 +214,33 @@
                 </div>
             </div>
             <!-- V -->
-            <div class="col-span-12 md:col-span-6 w-full mx-auto rounded-md bg-white shadow-lg p-4">
+            <div class="col-span-12 lg:col-span-6 w-full mx-auto rounded-md bg-white shadow-lg p-4">
                 <div class="text-[#7b9fd8] text-[20px]">V. Chi tiết thuế thu thập cá nhân (VND)</div>
                 <table class="w-full">
                     <thead>
                         <tr>
-                            <th><div>Mức chịu thuế</div></th>
-                            <th><div>Thuế suất</div></th>
-                            <th><div>Tiền nộp</div></th>
+                            <th>
+                                <div>Mức chịu thuế</div>
+                            </th>
+                            <th>
+                                <div>Thuế suất</div>
+                            </th>
+                            <th>
+                                <div>Tiền nộp</div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="data in dataTableV" :key="data.r1">
+                        <tr v-for="data in items" :key="data.r1">
                             <td>
-                                <div>{{ data.r1 }}</div>
+                                <div>Từ {{ convertVND(data.muc_chiu_thue_From) }} đến {{ convertVND(muc_chiu_thue_To) }}
+                                </div>
                             </td>
                             <td>
-                                <div>{{ data.r2 }}</div>
+                                <div>{{ data.thue_suat }} %</div>
                             </td>
                             <td>
-                                <div>{{ data.r3 }}</div>
+                                <div>{{ convertVND(data.he_so_tru) }}</div>
                             </td>
                         </tr>
                     </tbody>
@@ -259,11 +266,12 @@ export default {
             isShowDetail: false,
             selectedItem: null,
             selectedId: '',
+            items: [],
             list: [],
             dataTableV: [
                 { r1: 'Đến 5 triệu VND', r2: '5%', r3: '250.000' },
                 { r1: 'Trên 5 triệu đến 10 triệu VND', r2: '10%', r3: '190.000' },
-                { r1: 'Trên 10 triệu đến 18 triệu VND', r2: '15%', r3: '0' },
+                { r1: 'Trên 10 triệu đến 18 triệu VND', r2: '15%', r3: '' },
                 { r1: 'Trên 18 triệu đến 32 triệu VND', r2: '20%', r3: '0' },
                 { r1: 'Trên 32 triệu đến 52 triệu VND', r2: '25%', r3: '0' },
                 { r1: 'Trên 52 triệu đến 80 triệu VND', r2: '30%', r3: '0' },
@@ -273,6 +281,7 @@ export default {
     },
     created() {
         this.getList()
+        this.getConfigTaxIncome()
     },
     methods: {
         getList() {
@@ -286,6 +295,15 @@ export default {
                     this.isLoading = false
                     swal.error('Không thể lấy danh sách, vui lòng thử lại!')
                 })
+        },
+        getConfigTaxIncome() {
+            API.getConfigTaxIncome()
+                .then(response => {
+                    this.items = response.data
+                })
+                .catch(error => {
+                    swal.error(error)
+                });
         },
         getDetail(item) {
             this.isLoading = true
@@ -338,7 +356,7 @@ thead {
     background-color: rgb(239, 239, 239);
 }
 
-th > div {
+th>div {
     padding: 10px 2px;
 }
 
@@ -346,4 +364,5 @@ td,
 tr,
 th {
     border: 1px solid rgb(204, 200, 200);
-}</style>
+}
+</style>

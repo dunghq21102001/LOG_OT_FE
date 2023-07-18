@@ -337,6 +337,9 @@ export default class API {
     static getConfigTaxIncome() {
         return axios.get(`${this.BASE_URL_V1}/Config/TaxIncome`)
     }
+    static updateTaxIncome(data) {
+        return axios.put(`${this.BASE_URL_V1}/Config/UpdateTaxIncome`, data)
+    }
 
 
     //config wifi
