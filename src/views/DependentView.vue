@@ -97,7 +97,7 @@ export default {
             id: '',
             acceptanceType: 1,
             headers: [
-                { text: "Tên nhân viên", value: "applicationUserId", width: 200 },
+                //{ text: "Tên nhân viên", value: "applicationUserId", width: 200 },
                 { text: "Tên", value: "name", width: 200 },
                 { text: "Sinh nhật", value: "birthDay", width: 200 },
                 { text: "Mô tả", value: "desciption", width: 200 },
