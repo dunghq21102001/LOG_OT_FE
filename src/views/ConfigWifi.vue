@@ -4,8 +4,8 @@
             <button class="btn-primary my-3 mx-auto text-[15px]" @click="showCreate">Tạo mới</button>
             <button @click="getCurrentWifi" class="btn-primary my-3 mx-auto text-[15px]">Xem wifi hiện tại</button>
         </div>
-        <div v-if="curName && curIP" class="w-[90%] mx-auto my-4">
-            <p><span class="font-bold">Tên wifi: </span>{{ curName }}</p>
+        <div v-if="curIP" class="w-[90%] mx-auto my-4">
+            <!-- <p><span class="font-bold">Tên wifi: </span>{{ curName }}</p> -->
             <p><span class="font-bold">Địa chỉ IP: </span>{{ curIP }}</p>
         </div>
         <div class="w-[90%] mx-auto mt-10">
@@ -87,10 +87,10 @@ export default {
         },
         getCurrentWifi() {
             this.isLoading = true
-            API.getAddressConnecting()
+            API.getOnlyIP()
                 .then(res => {
-                    this.curName = res.data.result.nameWifi
-                    this.curIP = res.data.result.iPv6Adderss
+                    // this.curName = res.data.result.nameWifi
+                    this.curIP = res.data.ipString
                     this.isLoading = false
                 })
                 .catch(err => {

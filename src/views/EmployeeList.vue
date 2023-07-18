@@ -32,10 +32,10 @@
             <div>
               <button @click="unlockAcc(item.id)" v-if="lockoutEnd && new Date(lockoutEnd) > new Date()"
                 class="btn-primary">
-                <font-awesome-icon :icon="['fas', 'lock-open']" />
+                <font-awesome-icon icon="fa-solid fa-lock" />
               </button>
               <button v-else @click="logAcc(item.id)" class="danger-btn">
-                <font-awesome-icon icon="fa-solid fa-lock" />
+                <font-awesome-icon :icon="['fas', 'lock-open']" />
               </button>
             </div>
             <!-- <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button> -->
@@ -311,7 +311,7 @@ export default {
         image: 'https://placehold.co/600x400',
         identityNumber: '',
         isMaternity: false,
-        // role: 'Employee',
+        role: 'Employee',
         startDate: '',
         endDate: '',
         basicSalary: 0
@@ -546,7 +546,7 @@ export default {
         isMaternity: this.currentEmp.isMaternity,
         image: this.currentEmp.image,
         phoneNumber: this.currentEmp.phoneNumber,
-        // role: this.currentEmp.role,
+        role: this.currentEmp.role,
         contractCode: this.contract.contractCode,
         file: this.contract.file,
         startDate: this.currentEmp.startDate,
@@ -614,7 +614,7 @@ export default {
         image: 'https://placehold.co/600x400',
         identityNumber: '',
         isMaternity: false,
-        // role: 'Employee',
+        role: 'Employee',
         startDate: '',
         endDate: '',
         basicSalary: 0
