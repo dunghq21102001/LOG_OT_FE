@@ -4,6 +4,9 @@
             <button @click="createDepartmentForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo trợ cấp</button>
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
+                <template #item-amount="item">
+                    {{ convertVND(item.amount) }}
+                </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button @click="updateDepartmentForm(item.id)"

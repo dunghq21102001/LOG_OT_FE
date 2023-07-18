@@ -30,6 +30,14 @@ export default class API {
         return axios.put(`${this.BASE_URL_V1}/Employee/UnlockAccount?userId=${id}`)
     }
 
+    //account
+    static getListAccount(page) {
+        return axios.get(`${this.BASE_URL_V1}/GetListManagerAccount?pg=${page}`)
+    }
+    static createAccount(data) {
+        return axios.post(`${this.BASE_URL_V1}/CreateManagerAccount`, data)
+    }
+
     //change pass
     static ChangePassword(data) {
         return axios.put(`${this.BASE_URL_V1}/Account/ChangePassword`, data)

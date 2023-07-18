@@ -16,6 +16,10 @@ export default class menu {
                                 routeName: 'home'
                             },
                             {
+                                childName: 'Tài khoản',
+                                routeName: 'account'
+                            },
+                            {
                                 childName: 'Nhân Viên',
                                 routeName: 'employee-list'
                             },

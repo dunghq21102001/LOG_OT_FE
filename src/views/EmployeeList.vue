@@ -30,12 +30,12 @@
             <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
                 icon="fa-solid fa-pen-to-square" /></button>
             <div>
-              <button @click="unlockAcc(item.id)" v-if="lockoutEnd && new Date(lockoutEnd) > new Date()"
+              <button @click="unlockAcc(item.id)" v-if="item.lockoutEnd && new Date(item.lockoutEnd) > new Date()"
                 class="btn-primary">
-                <font-awesome-icon icon="fa-solid fa-lock" />
+                <font-awesome-icon :icon="['fas', 'lock-open']" />
               </button>
               <button v-else @click="logAcc(item.id)" class="danger-btn">
-                <font-awesome-icon :icon="['fas', 'lock-open']" />
+                <font-awesome-icon icon="fa-solid fa-lock" />
               </button>
             </div>
             <!-- <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button> -->
@@ -279,7 +279,7 @@ export default {
       selectedAllowance: [],
       selectedContract: null,
       headers: [
-        { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left"},
+        { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left" },
         { text: "Họ và Tên", value: "fullname", width: 200 },
         { text: "Giới tính", value: "genderType", width: 200 },
         { text: "Email", value: "email", width: 200 },
@@ -477,6 +477,16 @@ export default {
       this.isUpdate = true
     },
     actionUpdate() {
+
+      if (!/^\d{12}$/.test(this.currentEmp.identityNumber)) {
+        return swal.error("CCCD phải nhập đúng 12 số!");
+      }
+      if (!/^\d{10}$/.test(this.currentEmp.phoneNumber)) {
+        return swal.error("phoneNumber phải nhập đúng 10 số và đúng định dạng!");
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.currentEmp.email)) {
+        return swal.error("email không hợp lệ!");
+      }
       this.isLoading = true
       if (this.tmpEmail != this.currentEmp.email) {
         const dataEmail = {
@@ -535,7 +545,7 @@ export default {
         positionId: this.selectedPosition,
         fullName: this.currentEmp.fullName,
         address: this.currentEmp.address,
-        genderType: this.currentEmp.genderType,
+        genderType: Number.parseInt(this.currentEmp.genderType),
         identityNumber: this.currentEmp.identityNumber,
         birthDay: this.currentEmp.birthDay,
         bankAccountNumber: this.currentEmp.bankAccountNumber,
@@ -543,7 +553,7 @@ export default {
         bankName: this.currentEmp.bankName,
         username: this.currentEmp.userName,
         email: this.currentEmp.email,
-        isMaternity: this.currentEmp.isMaternity,
+        isMaternity: this.currentEmp.isMaternity ? true : false,
         image: this.currentEmp.image,
         phoneNumber: this.currentEmp.phoneNumber,
         role: this.currentEmp.role,

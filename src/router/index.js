@@ -22,6 +22,7 @@ import EmployeeList from '../views/EmployeeList.vue'
 import EmpDepartment from '../views/Employee/Department.vue'
 import PaySlipForEmp from '../views/PayslipForEmp.vue'
 import EmpSkill from '../views/Employee/Skill.vue'
+import AccountView from '../views/AccountView.vue'
 import EmpDependant from '../views/Employee/Dependant.vue'
 import EmpExperience from '../views/Employee/Experience.vue'
 import subsidize from '../views/SubsidizeView.vue'
@@ -245,6 +246,16 @@ const router = createRouter({
         middleware: checkAuth,
         requiredRole: 'Manager'
 
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: AccountView,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Manager'
       },
       beforeEnter: checkValidRole
     },
