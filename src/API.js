@@ -3,6 +3,8 @@ import axios from "axios"
 export default class API {
     // static BASE_URL_V1 = 'https://localhost:5001'
     static BASE_URL_V1 = 'https://hrmanagerfpt.azurewebsites.net/'
+    // static FE_URL = 'http://localhost:5173/'
+    static FE_URL = 'https://hrm-production.netlify.app/'
     static ALLOWANCE = 'allowance'
     static EMPLOYEE = 'Employee'
     static POSITION = 'Position'
@@ -18,7 +20,11 @@ export default class API {
     }
     // auth
     static login(loginData) {
-        return axios.post(`${this.BASE_URL_V1}/login`, loginData)
+        return axios.post(`${this.BASE_URL_V1}/login`, loginData, {
+            headers: {
+                'Reference': this.FE_URL
+            }
+        })
     }
     static confirmEmail(id, code) {
         return axios.get(`${this.BASE_URL_V1}/confirmEmail?userId=${id}&code=${code}`)
@@ -150,7 +156,10 @@ export default class API {
         return axios.get(`${this.BASE_URL_V1}/Emp/ListContract`)
     }
     static getDependanceForEmp() {
-        return axios.get(`${this.BASE_URL_V1}/Emp/DependanceFilter`)
+        return axios.get(`${this.BASE_URL_V1}/Emp/ListDependent`)
+    }
+    static searchEmployee(name, page) {
+        return axios.get(`${this.BASE_URL_V1}/Employee/Search?Keyword=${name}&pg=${page}`)
     }
 
 
@@ -424,8 +433,8 @@ export default class API {
     }
 
     //annual
-    static getListAnnual() {
-        return axios.get(`${this.BASE_URL_V1}/Annual`)
+    static getListAnnual(page) {
+        return axios.get(`${this.BASE_URL_V1}/Annual?pg=${page}`)
     }
 
     static createAnnual(data) {
@@ -441,8 +450,8 @@ export default class API {
     }
 
     //attendace manager
-    static getAttendanceManager() {
-        return axios.get(`${this.BASE_URL_V1}/Attendance`)
+    static getAttendanceManager(page) {
+        return axios.get(`${this.BASE_URL_V1}/Attendance?pg=${page}`)
     }
 
     static getAttendanceByUsername(data) {
@@ -489,9 +498,12 @@ export default class API {
     }
     static getPayslipForEmp(page) {
         return axios.get(`${this.BASE_URL_V1}/Emp/GetListPayslip?pg=${page}`)
-    } 
+    }
     static getPayslipDetailForEmp(id) {
         return axios.get(`${this.BASE_URL_V1}/Emp/GetDetailPayslip?id=${id}`)
+    }
+    static createDependentForEmp(data) {
+        return axios.post(`${this.BASE_URL_V1}/Emp/DependentCreate`, data)
     }
 
     //noti

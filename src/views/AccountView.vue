@@ -1,9 +1,9 @@
 <template>
     <div class="bg-white">
-        <form @submit.prevent="search" class="w-[100%] sm:w-[70%] lg:w-[30%] relative">
+        <!-- <form @submit.prevent="search" class="w-[100%] sm:w-[70%] lg:w-[30%] relative">
             <input type="text" class="w-full search-cus dark:bg-gray-800 dark:text-white" placeholder="search . . .">
             <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="absolute top-[50%] right-4 translate-y-[-50%]" />
-        </form>
+        </form> -->
         <button class="btn-primary my-3" @click="showCreate">Tạo mới</button>
         <div class="w-[90%] mx-auto mt-10">
             <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"

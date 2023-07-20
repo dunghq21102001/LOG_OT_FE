@@ -1,17 +1,44 @@
 <template>
     <div class="bg-white">
-        <div class="w-[90%] grid grid-cols-12 gap-3 mx-auto">
-            <div v-for="item in list" :key="item.id" @click="getDetail(item)"
-                class="col-span-12 md:col-span-6 lg:col-span-4 mx-auto rounded-md bg-gray-100 my-3 p-5 flex items-center cursor-pointer hover:bg-[#fdeaea]"
-                :class="selectedId == item.id ? 'bg-[#fdeaea]' : ''">
-                <div>
-                    <p class="font-bold">Ngày tính lương: {{ convertDate(item.paydayCal) }}</p>
-                    <p class="text-gray-400">Từ ngày: {{ convertDate(item.fromTime) }}</p>
-                    <p class="text-gray-400">Đến ngày: {{ convertDate(item.toTime) }}</p>
-                    <p class="text-gray-400">Tổng lương: {{ convertVND(item.finalSalary) }}</p>
-                </div>
-                <font-awesome-icon icon="fa-solid fa-eye" :class="selectedId == item.id ? 'text-red-500' : ''" />
-            </div>
+        <h1 v-if="list.length == 0" class="text-gray-500 text-[30px] text-center">Không có dữ liệu</h1>
+        <div class="w-[90%] mx-auto mt-10">
+            <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"
+                body-text-direction="center">
+                <template #item-fullname="item">
+                    <div>
+                        {{ item?.employeeContract?.applicationUser?.fullname }}
+                    </div>
+                </template>
+                <template #item-finalSalary="item">
+                    <div>
+                        {{ convertVND(item.finalSalary) }}
+                    </div>
+                </template>
+                <template #item-fromTime="item">
+                    <div>
+                        {{ convertDate(item.fromTime) }}
+                    </div>
+                </template>
+                <template #item-toTime="item">
+                    <div>
+                        {{ convertDate(item.toTime) }}
+                    </div>
+                </template>
+                <template #item-paydayCal="item">
+                    <div>
+                        {{ convertDate(item.paydayCal) }}
+                    </div>
+                </template>
+                <template #item-operation="item">
+                    <div class="operation-wrapper">
+                        <button class="view-btn" @click="getDetail(item)"><font-awesome-icon
+                                icon="fa-solid fa-eye" /></button>
+                        <!-- <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
+                                icon="fa-solid fa-pen-to-square" /></button> -->
+                        <!-- <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button> -->
+                    </div>
+                </template>
+            </EasyDataTable>
         </div>
 
         <div id="detailElement" v-show="isShowDetail" class="w-[90%] grid grid-cols-12 gap-3 mx-auto my-6">
@@ -118,7 +145,7 @@
                 </div>
                 <div class="text-item">
                     <div>Phụ thuộc: </div>
-                    <div class="child">{{ selectedItem?.numberOfDependent }} giờ</div>
+                    <div class="child">{{ selectedItem?.numberOfDependent }}</div>
                 </div>
                 <div class="text-item">
                     <div>Số người phụ thuộc: </div>
@@ -268,6 +295,14 @@ export default {
             selectedId: '',
             items: [],
             list: [],
+            headers: [
+                { text: "Họ và tên", value: "fullname", width: 200 },
+                { text: "Ngày tính lương", value: "paydayCal", width: 200 },
+                { text: "Từ ngày", value: "fromTime", width: 200 },
+                { text: "Đến ngày", value: "fromTime", width: 200 },
+                { text: "Lương", value: "finalSalary", width: 200 },
+                { text: "Hành động", value: "operation", width: 100 },
+            ],
         }
     },
     created() {

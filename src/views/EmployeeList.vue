@@ -1,7 +1,8 @@
 <template>
   <div class="bg-white">
-    <form @submit.prevent="search" class="w-[100%] sm:w-[70%] lg:w-[30%] relative">
-      <input type="text" class="w-full search-cus dark:bg-gray-800 dark:text-white" placeholder="search . . .">
+    <form @submit.prevent="searchEmp" class="w-[100%] sm:w-[70%] lg:w-[30%] relative">
+      <input type="text" class="w-full search-cus dark:bg-gray-800 dark:text-white" v-model="searchData"
+        placeholder="search . . .">
       <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="absolute top-[50%] right-4 translate-y-[-50%]" />
     </form>
     <button class="btn-primary my-3" @click="showCreate">Tạo mới</button>
@@ -41,6 +42,12 @@
             <!-- <button class="delete-btn"><font-awesome-icon :icon="['fas', 'trash']" /></button> -->
           </div>
         </template>
+        <template #pagination="{ prevPage, nextPage, isFirstPage, isLastPage }">
+          <button class="cursor-pointer mx-3" @click="page > 1 ? page -= 1 : page = 1"><font-awesome-icon
+              icon="fa-solid fa-chevron-left" /></button>
+          <button class="cursor-pointer mx-3" @click="page < lastPage ? page += 1 : page = 1"><font-awesome-icon
+              icon="fa-solid fa-chevron-right" /></button>
+        </template>
       </EasyDataTable>
     </div>
     <div v-show="isShow" @click.self="cancelAll" class="fog-l">
@@ -51,7 +58,7 @@
         <div class="flex flex-wrap justify-center w-full">
           <div class="box-input w-[86%] lg:w-[40%]">
             <label for="username">Tên đăng nhập</label>
-            <input type="text" id="username" v-model="currentEmp.userName"
+            <input :disabled="isUpdate" type="text" id="username" v-model="currentEmp.userName"
               class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[86%] lg:w-[40%]">
@@ -207,7 +214,7 @@
             </select>
           </div>
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="tax">Giảm trừ gia cảnh bản thâ</label>
+            <label for="tax">Giảm trừ gia cảnh bản thân</label>
             <div class="w-full mt-[10px]">
               <input type="radio" id="yes" value="true" v-model="contract.isPersonalTaxDeduction">
               <label class="mr-10" for="yes">Có</label>
@@ -262,8 +269,10 @@ export default {
     return {
       list: [],
       page: 1,
+      lastPage: 0,
       allowancePage: 1,
       contractPage: 1,
+      searchData: '',
       isShow: false,
       isCreate: false,
       isUpdate: false,
@@ -282,13 +291,13 @@ export default {
         { text: "Tên tài khoản", value: "userName", width: 200, fixed: "left" },
         { text: "Họ và Tên", value: "fullname", width: 200 },
         { text: "Giới tính", value: "genderType", width: 200 },
-        { text: "Email", value: "email", width: 200 },
+        { text: "Email", value: "email", width: 300 },
         { text: "Số điện thoại", value: "phoneNumber", width: 200 },
         { text: "Sinh nhật", value: "birthDay", width: 200 },
         // { text: "Tên ngân hàng", value: "bankName", width: 200 },
         // { text: "Tên tài khoản ngân hàng", value: "bankAccountName", width: 200 },
         // { text: "Số tài khoản ngân hàng", value: "bankAccountNumber", width: 200 },
-        { text: "Địa chỉ", value: "address", width: 200 },
+        { text: "Địa chỉ", value: "address", width: 500 },
         { text: "Tình trạng", value: "workStatus", width: 200 },
         // { text: "Kinh nghiệm", value: "experiences", width: 200 },
         { text: "Hành động", value: "operation", width: 400 },
@@ -347,6 +356,9 @@ export default {
     }
   },
   watch: {
+    'page': function (val) {
+      this.getList()
+    },
     'themeStore.getTheme': function (val) {
       this.currentTheme == 'light-theme' ? this.currentTheme = 'dark-theme' : this.currentTheme = 'light-theme'
     },
@@ -366,6 +378,7 @@ export default {
         .then(res => {
           this.isLoading = false
           this.list = res.data.items
+          this.lastPage = res.data.totalPages
         })
         .catch(err => {
           swal.error(err)
@@ -488,20 +501,7 @@ export default {
         return swal.error("email không hợp lệ!");
       }
       this.isLoading = true
-      if (this.tmpEmail != this.currentEmp.email) {
-        const dataEmail = {
-          userId: this.id,
-          newEmail: this.currentEmp.email
-        }
-        API.updateEmail(dataEmail)
-          .then(res => { })
-          .catch(err => swal.error('Không thể chỉnh sửa email thành công, vui lòng kiểm tra lại'))
-      }
-      if (this.tmpMaternity != JSON.parse(this.currentEmp.isMaternity)) {
-        API.updateMaternity(this.id)
-          .then(res => { })
-          .catch(err => swal.error('Không thể chỉnh sửa thai sản thành công, vui lòng kiểm tra lại'))
-      }
+
       const data = {
         positionId: this.selectedPosition,
         fullName: this.currentEmp.fullName,
@@ -521,7 +521,7 @@ export default {
       API.updateEmployee(data)
         .then(res => {
           this.isLoading = false
-          swal.success('Cập nhật thông tin thành công!')
+          // swal.success('Cập nhật thông tin thành công!')
           this.getList()
           this.cancelAll()
         })
@@ -529,6 +529,34 @@ export default {
           this.isLoading = false
           swal.error(err.response.data)
         })
+
+      if (this.tmpEmail != this.currentEmp.email) {
+        this.isLoading = true
+        const dataEmail = {
+          userId: this.id,
+          newEmail: this.currentEmp.email
+        }
+        API.updateEmail(dataEmail)
+          .then(res => {
+            this.isLoading = false
+          })
+          .catch(err => {
+            this.isLoading = false
+            swal.error(err.response.data)
+          })
+      }
+      if (this.tmpMaternity != JSON.parse(this.currentEmp.isMaternity)) {
+        this.isLoading = true
+        API.updateMaternity(this.id)
+          .then(res => {
+            this.isLoading = false
+          })
+          .catch(err => {
+            swal.error(err.response.data)
+            this.isLoading = false
+          })
+      }
+
     },
     actionCreate() {
       if (!/^\d{12}$/.test(this.currentEmp.identityNumber)) {
@@ -602,6 +630,27 @@ export default {
     showCreate() {
       this.isShow = true
       this.isCreate = true
+    },
+    searchEmp() {
+      this.page = 1
+      if (this.searchData.trim() != '') {
+        this.isLoading = true
+        API.searchEmployee(this.searchData, this.page)
+          .then(res => {
+            console.log(res);
+            this.isLoading = false
+            this.searchData = ''
+            this.list = res.data.defautList.items
+            this.lastPage = res.data.defautList.totalPages
+          })
+          .catch(err => {
+            this.isLoading = false
+            swal.error('Đã xảy ra lỗi, vui lòng thử lại')
+          })
+      } else {
+        this.searchData = ''
+        this.getList()
+      }
     },
     cancelAll() {
       this.isCreate = false

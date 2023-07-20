@@ -3,18 +3,27 @@
         <div class="bg-white w-full p-3">
             <button @click="createDepartmentAllowanceForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo phụ ngày
                 làm</button>
-            <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
-                body-text-direction="center">
-                <template #item-operation="item">
-                    <div class="operation-wrapper">
-                        <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
-                        <button @click="updateDepartmentAllowanceForm(item)" class="edit-btn"><font-awesome-icon
-                                icon="fa-solid fa-pen-to-square" /></button>
-                        <button @click="deleteAnnual(item.id)" class="delete-btn"><font-awesome-icon
-                                :icon="['fas', 'trash']" /></button>
-                    </div>
-                </template>
-            </EasyDataTable>
+            <div class="w-[90%] mx-auto">
+                <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme"
+                    header-text-direction="center" body-text-direction="center">
+                    <template #item-operation="item">
+                        <div class="operation-wrapper">
+                            <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+                            <button @click="updateDepartmentAllowanceForm(item)" class="edit-btn"><font-awesome-icon
+                                    icon="fa-solid fa-pen-to-square" /></button>
+                            <button @click="deleteAnnual(item.id)" class="delete-btn"><font-awesome-icon
+                                    :icon="['fas', 'trash']" /></button>
+                        </div>
+                    </template>
+                    <template #pagination="{ prevPage, nextPage, isFirstPage, isLastPage }">
+                        <button class="cursor-pointer mx-3" @click="page > 1 ? page -= 1 : page = 1"><font-awesome-icon
+                                icon="fa-solid fa-chevron-left" /></button>
+                        <button class="cursor-pointer mx-3"
+                            @click="page < lastPage ? page += 1 : page = 1"><font-awesome-icon
+                                icon="fa-solid fa-chevron-right" /></button>
+                    </template>
+                </EasyDataTable>
+            </div>
         </div>
         <div v-show="isShow" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
             @click.self="isShow = false">
@@ -84,14 +93,19 @@
                 </div>
             </div>
         </div>
+        <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
 import API from '../API';
-
+import Loading from '../components/Loading.vue'
 export default {
+    components: {
+        Loading
+    },
     data() {
         return {
+            isLoading: false,
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
                 { text: "Ngày", value: "day", width: 140, },
@@ -106,6 +120,8 @@ export default {
                 { value: false, label: 'no' },
             ],
             day: '',
+            page: 1,
+            lastPage: 1,
             isHoliday: '',
             isShow: false,
             isShow2: false,
@@ -117,7 +133,9 @@ export default {
             },
         }
     },
-
+    'page': function (val) {
+        this.getListAnnual()
+    },
     methods: {
         resetFormCreate() {
             this.day = '',
@@ -154,7 +172,7 @@ export default {
             swal.confirm('Bạn có chắc chắn ngày làm này không?').then((result) => {
                 if (result.value) {
                     API.deleteAnnual(id)
-                    .then(response => {                       
+                        .then(response => {
                             swal.success(response.data)
                             this.getListAnnual()
                         })
@@ -171,11 +189,15 @@ export default {
             this.isShow2 = false
         },
         getListAnnual() {
-            API.getListAnnual()
+            this.isLoading = true
+            API.getListAnnual(this.page)
                 .then(response => {
+                    this.isLoading = false
+                    this.lastPage = response.data.totalPages
                     this.items = response.data.items
                 })
                 .catch(error => {
+                    this.isLoading = false
                     swal.error(error)
                 });
         },
@@ -194,6 +216,11 @@ export default {
                 .catch(error => {
                     swal.error(error.data)
                 });
+        },
+    },
+    watch: {
+        'page': function (val) {
+            this.getListAnnual()
         },
     },
     created() {

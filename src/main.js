@@ -19,11 +19,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import Vue3EasyDataTable from 'vue3-easy-data-table'
 // import 'vue3-easy-data-table/dist/style.css'
 import '../node_modules/vue3-easy-data-table/dist/style.css'
-import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle, faCircleXmark, faMoneyCheckDollar, faBridge, faUser, faAddressCard, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle, faCircleXmark, faMoneyCheckDollar, faBridge, faUser, faAddressCard, faLock, faLockOpen, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 const app = createApp(App)
 
-library.add(faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle, faCircleXmark, faMoneyCheckDollar, faBridge, faUser, faAddressCard, faLock, faLockOpen)
+library.add(faUserSecret, faMagnifyingGlass, faChevronRight, faExpand, faMoon, faBell, faEye, faEyeSlash, faSortUp, faSun, faBars, faXmark, faBarsStaggered, faArrowRight, faPenToSquare, faTrash, faPlus, faImage, faCheck, faCircle, faCircleXmark, faMoneyCheckDollar, faBridge, faUser, faAddressCard, faLock, faLockOpen, faChevronLeft)
 
 
 const axiosInstance = axios.create({

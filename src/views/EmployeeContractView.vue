@@ -3,7 +3,8 @@
         <div class="bg-white w-full p-3">
             <button @click="createEmployeeContractForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo hợp đồng
                 mới</button>
-            <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
+            <div class="mx-auto w-[90%]">
+                <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
                 <template #item-basicSalary="item">
                     {{ convertVnd(item.basicSalary) }}
@@ -21,7 +22,14 @@
                                 :icon="['fas', 'trash']" /></button>
                     </div>
                 </template>
+                <template #pagination="{ prevPage, nextPage, isFirstPage, isLastPage }">
+                    <button class="cursor-pointer mx-3" @click="page > 1 ? page -= 1 : page = 1"><font-awesome-icon
+                            icon="fa-solid fa-chevron-left" /></button>
+                    <button class="cursor-pointer mx-3" @click="page < lastPage ? page += 1 : page = 1"><font-awesome-icon
+                            icon="fa-solid fa-chevron-right" /></button>
+                </template>
             </EasyDataTable>
+            </div>
         </div>
         <div v-show="isShow" class="h-screen w-screen bg-custom fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50"
             @click.self="isShow = false">
@@ -287,6 +295,8 @@ export default {
     },
     data() {
         return {
+            page: 1,
+            lastPage: 1,
             isLoading: false,
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
@@ -338,7 +348,11 @@ export default {
             itemDetail: null
         }
     },
-
+    watch: {
+        'page': function (val) {
+            this.getListEmployeeContract()
+        },
+    },
     methods: {
         resetFormCreate() {
             this.username = '',
@@ -452,9 +466,10 @@ export default {
         },
         getListEmployeeContract() {
             this.isLoading = true
-            API.getListEmployeeContract(1)
+            API.getListEmployeeContract(this.page)
                 .then(response => {
                     this.isLoading = false
+                    this.lastPage = response.data.totalPages
                     this.items = response.data.items.map(item => {
                         return {
                             id: item.id,

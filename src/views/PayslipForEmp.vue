@@ -1,5 +1,6 @@
 <template>
     <div class="bg-white">
+        <h1 v-if="list.length == 0" class="text-gray-500 text-[30px] text-center">Không có dữ liệu</h1>
         <div class="w-[90%] grid grid-cols-12 gap-3 mx-auto">
             <div v-for="item in list" :key="item.id" @click="getDetail(item)"
                 class="col-span-12 md:col-span-6 lg:col-span-4 mx-auto rounded-md bg-gray-100 my-3 p-5 flex items-center cursor-pointer hover:bg-[#fdeaea]"

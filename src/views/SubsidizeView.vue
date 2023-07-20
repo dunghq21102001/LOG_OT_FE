@@ -10,8 +10,8 @@
                 <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button @click="updateDepartmentForm(item.id)"
-                            class="mr-2 bg-green-400 px-2 rounded-lg">Edit</button>
-                        <button @click="deleteDepartment(item.id)" class="bg-red-400 px-2 rounded-lg">Delete</button>
+                            class="mr-2 edit-btn">Edit</button>
+                        <button @click="deleteDepartment(item.id)" class="delete-btn">Delete</button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -94,7 +94,7 @@
 </template>
 <script>
 import API from '../API';
-
+import functionCustom from '../utilities/functionCustom'
 export default {
     data() {
         return {
@@ -171,6 +171,9 @@ export default {
         },
         handleImageChange(event) {
             this.imageFile = event.target.files[0]
+        },
+        convertVND(price) {
+            return functionCustom.convertVND(price)
         },
         getListSubsidize() {
             API.getListSubsidize()

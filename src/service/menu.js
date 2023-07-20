@@ -64,10 +64,6 @@ export default class menu {
                                 routeName: 'payslip',
                             },
                             {
-                                childName: 'Ngày làm việc hàng năm',
-                                routeName: 'annualWorkingDay',
-                            },
-                            {
                                 childName: 'Quản lí chấm công',
                                 routeName: 'attendanceManager',
                             },
@@ -94,6 +90,10 @@ export default class menu {
                             {
                                 childName: 'Ca làm',
                                 routeName: 'configWorkDay',
+                            },
+                            {
+                                childName: 'Ngày làm việc',
+                                routeName: 'annualWorkingDay',
                             },
                             {
                                 childName: 'Hệ số lương',

@@ -118,7 +118,7 @@ export default {
         getPass() {
             if(this.email.trim() == '') return swal.error('Bạn phải nhập email để tiến hành lấy lại mật khẩu mới')
             this.isLoading = true
-            const url = API.BASE_URL_V1 + this.$route.fullPath
+            const url = API.FE_URL + this.$route.fullPath
             const tempUrl = new URL(url)
             axios.post(`${API.BASE_URL_V1}/ForgotPassword?email=${this.email}`, {
                 headers: {
