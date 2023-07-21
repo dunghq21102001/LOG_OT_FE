@@ -70,7 +70,7 @@ export default {
         return {
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },             
-                { text: "Username", value: "applicationUser.userName", width: 200, },
+                { text: "Username", value: "applicationUser.userName", width: 200, fixed: "left" },
                 { text: "Ngày", value: "day", width: 200, },
                 { text: "Thời gian bắt đầu", value: "startTime", width: 200, },
                 { text: "Thời gian kết thúc", value: "endTime", width: 200, },

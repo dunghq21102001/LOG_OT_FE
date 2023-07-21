@@ -68,7 +68,7 @@ export default {
             userId: '',
             reason: '',
             headers: [
-                { text: "Ngày nghỉ", value: "leaveDate", width: 200 },
+                { text: "Ngày nghỉ", value: "leaveDate", width: 200, fixed: "left" },
                 { text: "Ca nghỉ", value: "leaveShift", width: 200 },
                 { text: "Lý do", value: "reason", width: 200 },
                 { text: "Trạng thái", value: "status", width: 200 },

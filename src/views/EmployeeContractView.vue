@@ -305,7 +305,7 @@ export default {
             lastPage: 1,
             isLoading: false,
             headers: [
-                { text: "Mã hợp đồng", value: "contractCode", width: 140, },
+                { text: "Mã hợp đồng", value: "contractCode", width: 140, fixed: "left"},
                 { text: "Ngày bắt đầu", value: "startDate", width: 140, },
                 { text: "Ngày kết thúc", value: "endDate", width: 140, },
                 { text: "Công việc", value: "job", width: 140, },

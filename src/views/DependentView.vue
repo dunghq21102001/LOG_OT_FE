@@ -100,7 +100,7 @@ export default {
             acceptanceType: 1,
             headers: [
                 //{ text: "Tên nhân viên", value: "applicationUserId", width: 200 },
-                { text: "Tên", value: "name", width: 200 },
+                { text: "Tên", value: "name", width: 200, fixed: "left" },
                 { text: "Sinh nhật", value: "birthDay", width: 200 },
                 { text: "Mô tả", value: "desciption", width: 200 },
                 { text: "Mối quan hệ", value: "relationship", width: 200 },

@@ -297,7 +297,7 @@ export default {
             items: [],
             list: [],
             headers: [
-                { text: "Họ và tên", value: "fullname", width: 200 },
+                { text: "Họ và tên", value: "fullname", width: 200, fixed: "left" },
                 { text: "Ngày tính lương", value: "paydayCal", width: 200 },
                 { text: "Từ ngày", value: "fromTime", width: 200 },
                 { text: "Đến ngày", value: "fromTime", width: 200 },

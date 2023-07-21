@@ -109,7 +109,7 @@ export default {
                 // { text: "Tên tài khoản", value: "userName", width: 200 },
                 // { text: "Họ và Tên", value: "fullname", width: 200 },
                 // { text: "Email", value: "email", width: 200 },
-                { text: "Ngày đăng ký OT", value: "date", width: 200 },
+                { text: "Ngày đăng ký OT", value: "date", width: 200, fixed: "left" },
                 { text: "Số giờ OT", value: "hours", width: 200 },
                 { text: "Trạng thái", value: "status", width: 200 },
                 { text: "Lý do huỷ", value: "cancelReason", width: 200 },
