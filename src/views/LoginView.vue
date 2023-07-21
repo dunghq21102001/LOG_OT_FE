@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <Loading v-if="isLoading" class="z-99"/>
+        <Loading v-if="isLoading" class="z-99" />
 
     </div>
 </template>
@@ -100,6 +100,8 @@ export default {
                 })
                 .catch(error => {
                     this.isLoading = false
+                    this.tmpUsername = ''
+                    this.tmpPassword = ''
                     if (error.response.data) swal.error(error.response.data, 3500)
                     else swal.error(error)
                 })
@@ -116,7 +118,7 @@ export default {
             }
         },
         getPass() {
-            if(this.email.trim() == '') return swal.error('Bạn phải nhập email để tiến hành lấy lại mật khẩu mới')
+            if (this.email.trim() == '') return swal.error('Bạn phải nhập email để tiến hành lấy lại mật khẩu mới')
             this.isLoading = true
             const url = API.FE_URL + this.$route.fullPath
             const tempUrl = new URL(url)
@@ -135,10 +137,10 @@ export default {
                 })
         },
         handleChangeUsername(value) {
-            this.user.username = value
-            if (this.user.username == this.tmpUsername) {
+            if (value == this.tmpUsername) {
                 this.user.password = this.tmpPassword
             }
+            this.user.username = value
         }
     }
 }

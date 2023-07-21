@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white">
-        <h1 v-if="list.length == 0" class="text-gray-500 text-[30px] text-center">Không có dữ liệu</h1>
+        <!-- <h1 v-if="list.length == 0" class="text-gray-500 text-[30px] text-center">Không có dữ liệu</h1> -->
         <div class="w-[90%] mx-auto mt-10">
             <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"
                 body-text-direction="center">
@@ -136,7 +136,7 @@
                 </div>
                 <div class="text-item">
                     <div>Vùng({{ selectedItem?.regionType }}): </div>
-                    <div class="child">{{ convertVND(selectedItem?.regionMinimumWage) }} giờ</div>
+                    <div class="child">{{ convertVND(selectedItem?.regionMinimumWage) }}</div>
                 </div>
                 <p class="text-[15px] font-bold">2. Giảm trừ gia cảnh</p>
                 <div class="text-item">
@@ -221,23 +221,23 @@
                 <div class="text-[#7b9fd8] text-[20px]">IV. Người sử dụng lao động trả (VND)</div>
                 <div class="text-item font-bold">
                     <div>Lương Gross: </div>
-                    <div class="child">{{ convertVND(selectedItem?.defaultSalary) }}</div>
+                    <div class="w-[40%]">{{ convertVND(selectedItem?.defaultSalary) }}</div>
                 </div>
                 <div class="text-item">
                     <div>Bảo hiểm xã hội({{ selectedItem?.bhxH_Comp_Percent }}%): </div>
-                    <div class="child">-{{ convertVND(selectedItem?.bhxH_Emp_Amount) }}</div>
+                    <div class="w-[40%]">-{{ convertVND(selectedItem?.bhxH_Comp_Amount) }}</div>
                 </div>
                 <div class="text-item">
                     <div>Bảo hiểm thất nghiệp({{ selectedItem?.bhtN_Comp_Percent }}%): </div>
-                    <div class="child">-{{ convertVND(selectedItem?.bhtN_Emp_Amount) }}</div>
+                    <div class="w-[40%]">-{{ convertVND(selectedItem?.bhtN_Comp_Amount) }}</div>
                 </div>
                 <div class="text-item">
                     <div>Bảo hiểm y tế({{ selectedItem?.bhyT_Comp_Percent }}%): </div>
-                    <div class="child">-{{ convertVND(selectedItem?.bhyT_Emp_Amount) }}</div>
+                    <div class="w-[40%]">-{{ convertVND(selectedItem?.bhyT_Comp_Amount) }}</div>
                 </div>
                 <div class="text-item font-bold">
                     <div>Tổng cộng: </div>
-                    <div class="child">{{ convertVND(selectedItem?.totalInsuranceComp) }}</div>
+                    <div class="w-[40%]">{{ convertVND(selectedItem?.totalInsuranceComp) }}</div>
                 </div>
             </div>
             <!-- V -->
@@ -258,16 +258,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="data in items" :key="data.r1">
+                        <tr v-for="data in selectedItem?.detailTaxes" :key="data.id">
                             <td>
-                                <div>Từ {{ convertVND(data.muc_chiu_thue_From) }} đến {{ convertVND(muc_chiu_thue_To) }}
+                                <div>Từ {{ convertVND(data.muc_chiu_thue_From) }} 
+                                    {{ data.muc_chiu_thue_To != null ? 'đến ' + convertVND(data.muc_chiu_thue_To) : '' }}
                                 </div>
                             </td>
                             <td>
                                 <div>{{ data.thue_suat }} %</div>
                             </td>
                             <td>
-                                <div>{{ convertVND(data.he_so_tru) }}</div>
+                                <div>{{ convertVND(data.taxAmount) }}</div>
                             </td>
                         </tr>
                     </tbody>

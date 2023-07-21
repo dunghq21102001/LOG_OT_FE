@@ -55,7 +55,7 @@
         <div class="w-full" v-if="isCreate">
           <p class="text-[30px] my-2">Thông tin nhân viên</p>
         </div>
-        <div class="flex flex-wrap justify-center w-full">
+        <div class="flex flex-wrap w-full">
           <div class="box-input w-[86%] lg:w-[40%]">
             <label for="username">Tên đăng nhập</label>
             <input :disabled="isUpdate" type="text" id="username" v-model="currentEmp.userName"
@@ -77,7 +77,6 @@
               <label for="other">Khác</label>
             </div>
           </div>
-
           <div class="box-input w-[86%] lg:w-[40%]">
             <label for="email">Email</label>
             <input :class="[{ 'empty-input': isInputEmpty(currentEmp.email) }]" type="text" id="email"
@@ -113,6 +112,31 @@
               class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div class="box-input w-[86%] lg:w-[40%]">
+            <label for="position">Vị trí</label>
+            <select type="text" id="position" v-model="selectedPosition"
+              class="select-cus dark:bg-gray-900 dark:text-white  ">
+              <option v-for="p in positionList" :value="p?.id" :key="p?.id">
+                {{ p?.name }} - {{ p?.level?.name }} - {{ p?.department?.name }}
+              </option>
+            </select>
+          </div>
+          <div class="box-input w-[86%] lg:w-[40%] items-center">
+            <img v-if="imgTmp" :src="imgTmp" class="w-[200px] h-[200px] block mx-auto rounded-full object-cover"
+              alt="Selected Image">
+            <img v-if="imgTmp == null || imgTmp == undefined || imgTmp == ''" :src="currentEmp.image" alt="logo"
+              class="w-[200px] h-[200px] block mx-auto rounded-full object-cover">
+            <input @change="handleFileChange" ref="imageFile" type="file" id="image" class="hidden">
+            <label class="edit-btn w-[50px] text-center cursor-pointer" for="image"><font-awesome-icon
+                :icon="['fas', 'image']" /></label>
+            <button @click="uploadImage" class="btn-primary">Lưu</button>
+          </div>
+        </div>
+        <hr>
+        <div class="w-full">
+          <p class="text-[30px] my-2">Thông tin ngân hàng</p>
+        </div>
+        <div class="flex flex-wrap items-center w-full">
+          <div class="box-input w-[86%] lg:w-[40%]">
             <label for="bankName">Tên ngân hàng</label>
             <input type="text" id="bankName" v-model="currentEmp.bankName"
               class="input-cus dark:bg-gray-900 dark:text-white  ">
@@ -126,52 +150,6 @@
             <label for="bankNumber">Số tài khoản ngân hàng</label>
             <input type="text" id="bankNumber" v-model="currentEmp.bankAccountNumber"
               class="input-cus dark:bg-gray-900 dark:text-white  ">
-          </div>
-          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="salary">Lương cơ bản</label>
-            <input type="text" id="salary" v-model="currentEmp.basicSalary"
-              class="input-cus dark:bg-gray-900 dark:text-white  ">
-          </div>
-          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="startDate">Ngày bắt đầu</label>
-            <input type="date" id="startDate" v-model="currentEmp.startDate"
-              class="input-cus dark:bg-gray-900 dark:text-white  ">
-          </div>
-          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="endDate">Ngày kết thúc</label>
-            <input type="date" id="endDate" v-model="currentEmp.endDate"
-              class="input-cus dark:bg-gray-900 dark:text-white  ">
-          </div>
-          <div class="box-input w-[86%] lg:w-[40%]">
-            <label for="position">Vị trí</label>
-            <select type="text" id="position" v-model="selectedPosition"
-              class="select-cus dark:bg-gray-900 dark:text-white  ">
-              <option v-for="p in positionList" :value="p?.id" :key="p?.id">
-                {{ p?.name }}
-              </option>
-            </select>
-          </div>
-          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="allowance">Phụ cấp</label>
-            <MutiSelect :options="allowanceList" v-model="selectedAllowance" />
-
-          </div>
-          <!-- <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="">Vai trò</label>
-            <select class="select-cus" v-model="currentEmp.role" name="" id="">
-              <option value="Employee">Employee</option>
-              <option value="Manager">Manager</option>
-            </select>
-          </div> -->
-          <div class="box-input w-[86%] lg:w-[40%] items-center">
-            <img v-if="imgTmp" :src="imgTmp" class="w-[200px] h-[200px] block mx-auto rounded-full object-cover"
-              alt="Selected Image">
-            <img v-if="imgTmp == null || imgTmp == undefined || imgTmp == ''" :src="currentEmp.image" alt="logo"
-              class="w-[200px] h-[200px] block mx-auto rounded-full object-cover">
-            <input @change="handleFileChange" ref="imageFile" type="file" id="image" class="hidden">
-            <label class="edit-btn w-[50px] text-center cursor-pointer" for="image"><font-awesome-icon
-                :icon="['fas', 'image']" /></label>
-            <button @click="uploadImage" class="btn-primary">Lưu</button>
           </div>
         </div>
         <hr v-if="isCreate">
@@ -196,11 +174,6 @@
             <label for="job">Công việc</label>
             <input type="text" id="job" v-model="contract.job" class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
-          <!-- <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
-            <label for="perD">Khấu trừ %</label>
-            <input type="number" id="perD" v-model="contract.percentDeduction"
-              class="input-cus dark:bg-gray-900 dark:text-white  ">
-          </div> -->
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="salaryType">Loại lương</label>
             <select class="select-cus" v-model="contract.salaryType" name="" id="">
@@ -212,6 +185,25 @@
             <select class="select-cus" v-model="contract.contractType" name="" id="">
               <option v-for="contractT in contractTypeList" :value="contractT.value">{{ contractT.display }}</option>
             </select>
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="salary">Lương cơ bản</label>
+            <input type="text" id="salary" v-model="currentEmp.basicSalary"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="allowance">Phụ cấp</label>
+            <MutiSelect :options="allowanceList" v-model="selectedAllowance" />
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="startDate">Ngày bắt đầu</label>
+            <input type="date" id="startDate" v-model="currentEmp.startDate"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
+          </div>
+          <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
+            <label for="endDate">Ngày kết thúc</label>
+            <input type="date" id="endDate" v-model="currentEmp.endDate"
+              class="input-cus dark:bg-gray-900 dark:text-white  ">
           </div>
           <div v-if="isCreate" class="box-input w-[86%] lg:w-[40%]">
             <label for="tax">Giảm trừ gia cảnh bản thân</label>
@@ -559,70 +551,106 @@ export default {
 
     },
     actionCreate() {
-      if (!/^\d{12}$/.test(this.currentEmp.identityNumber)) {
-        return swal.error("CCCD phải nhập đúng 12 số!");
-      }
-      if (!/^\d{10}$/.test(this.currentEmp.phoneNumber)) {
-        return swal.error("phoneNumber phải nhập đúng 10 số và đúng định dạng!");
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.currentEmp.email)) {
-        return swal.error("email không hợp lệ!");
-      }
-      this.isLoading = true
-      const data = {
-        positionId: this.selectedPosition,
-        fullName: this.currentEmp.fullName,
-        address: this.currentEmp.address,
-        genderType: Number.parseInt(this.currentEmp.genderType),
-        identityNumber: this.currentEmp.identityNumber,
-        birthDay: this.currentEmp.birthDay,
-        bankAccountNumber: this.currentEmp.bankAccountNumber,
-        bankAccountName: this.currentEmp.bankAccountName,
-        bankName: this.currentEmp.bankName,
-        username: this.currentEmp.userName,
-        email: this.currentEmp.email,
-        isMaternity: this.currentEmp.isMaternity ? true : false,
-        image: this.currentEmp.image,
-        phoneNumber: this.currentEmp.phoneNumber,
-        role: this.currentEmp.role,
-        contractCode: this.contract.contractCode,
-        file: this.contract.file,
-        startDate: this.currentEmp.startDate,
-        endDate: this.currentEmp.endDate,
-        job: this.contract.job,
-        basicSalary: this.currentEmp.basicSalary,
-        // percentDeduction: this.contract.percentDeduction,
-        salaryType: this.contract.salaryType,
-        contractType: this.contract.contractType,
-        isPersonalTaxDeduction: this.contract.isPersonalTaxDeduction ? true : false,
-        insuranceType: this.contract.insuranceType,
-        insuranceAmount: this.contract.insuranceAmount,
-        allowanceId: this.selectedAllowance
+
+      const isValid = this.validateInputs();
+
+      if (isValid) {
+        if (!/^\d{12}$/.test(this.currentEmp.identityNumber)) {
+          return swal.error("CCCD phải nhập đúng 12 số!");
+        }
+        if (!/^\d{10}$/.test(this.currentEmp.phoneNumber)) {
+          return swal.error("phoneNumber phải nhập đúng 10 số và đúng định dạng!");
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.currentEmp.email)) {
+          return swal.error("email không hợp lệ!");
+        }
+        this.isLoading = true
+        const data = {
+          positionId: this.selectedPosition,
+          fullName: this.currentEmp.fullName,
+          address: this.currentEmp.address,
+          genderType: Number.parseInt(this.currentEmp.genderType),
+          identityNumber: this.currentEmp.identityNumber,
+          birthDay: this.currentEmp.birthDay,
+          bankAccountNumber: this.currentEmp.bankAccountNumber,
+          bankAccountName: this.currentEmp.bankAccountName,
+          bankName: this.currentEmp.bankName,
+          username: this.currentEmp.userName,
+          email: this.currentEmp.email,
+          isMaternity: this.currentEmp.isMaternity ? true : false,
+          image: this.currentEmp.image,
+          phoneNumber: this.currentEmp.phoneNumber,
+          role: this.currentEmp.role,
+          contractCode: this.contract.contractCode,
+          file: this.contract.file,
+          startDate: this.currentEmp.startDate,
+          endDate: this.currentEmp.endDate,
+          job: this.contract.job,
+          basicSalary: this.currentEmp.basicSalary,
+          salaryType: this.contract.salaryType,
+          contractType: this.contract.contractType,
+          isPersonalTaxDeduction: this.contract.isPersonalTaxDeduction ? true : false,
+          insuranceType: this.contract.insuranceType,
+          insuranceAmount: this.contract.insuranceAmount,
+          allowanceId: this.selectedAllowance
+        }
+
+        this.contract.username = this.currentEmp.userName
+        this.contract.allowanceId = this.selectedAllowance
+
+        API.createEmployee(data)
+          .then(res => {
+            this.getList()
+            swal.success('Tạo người dùng mới thành công')
+            this.cancelAll()
+            this.isLoading = false
+
+          })
+          .catch(err => {
+            this.isLoading = false
+            if (err.response.data.errors?.newEmp) {
+              return swal.error(err.response.data.errors.newEmp[0])
+            }
+            if (Array.isArray(err.response.data)) {
+              const listErr = err.response.data.join('\n')
+              return swal.error(listErr, 3000)
+            } else {
+              return swal.error(err.response.data)
+            }
+          })
+      } else {
+        swal.success('Bạn phải nhập đầy đủ tất cả các giá trị để có thể tạo mới 1 nhân viên');
       }
 
-      this.contract.username = this.currentEmp.userName
-      this.contract.allowanceId = this.selectedAllowance
+    },
+    validateInputs() {
+      let isValid = true;
+      const validationRulesCurrentEmp = {
+        userName: (value) => value.trim() !== '',
+        fullName: (value) => value.trim() !== '',
+        email: (value) => value ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) : false,
+        address: (value) => value ? value.trim() !== '' : false,
+        phoneNumber: (value) => value ? /^[0-9]{10}$/.test(value) : false,
+      };
+      for (const prop in validationRulesCurrentEmp) {
+        if (!validationRulesCurrentEmp[prop](this.currentEmp[prop])) {
+          isValid = false;
+          swal.error(`Bạn phải nhập các input này: ${prop}`);
+          break;
+        }
+      }
+      const validationRulesContract = {
+        contractCode: (value) => value.trim() !== '',
+        job: (value) => value.trim() !== '',
+      };
 
-      API.createEmployee(data)
-        .then(res => {
-          this.getList()
-          swal.success('Tạo người dùng mới thành công')
-          this.cancelAll()
-          this.isLoading = false
-
-        })
-        .catch(err => {
-          this.isLoading = false
-          if (err.response.data.errors?.newEmp) {
-            return swal.error(err.response.data.errors.newEmp[0])
-          }
-          if (Array.isArray(err.response.data)) {
-            const listErr = err.response.data.join('\n')
-            return swal.error(listErr, 3000)
-          } else {
-            return swal.error(err.response.data)
-          }
-        })
+      for (const prop in validationRulesContract) {
+        if (!validationRulesContract[prop](this.contract[prop])) {
+          isValid = false;
+          swal.error(`Bạn phải nhập các input này: ${prop}`);
+        }
+      }
+      return isValid;
     },
     convertDate(date) {
       return functionCustom.convertDate(date)

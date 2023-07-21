@@ -32,8 +32,8 @@
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trình độ:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập mô tả trình độ">
+                        <textarea rows="4" class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
+                            type="text" v-model="description" placeholder="Nhập mô tả trình độ"></textarea>
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
                         <button type="submit" @click="createLevel"
@@ -64,8 +64,8 @@
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empname" class="w-[100px] sm:w-[130px]"><span>Mô tả trình độ:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
-                            type="text" v-model="description" placeholder="Nhập mô tả trình độ">
+                        <textarea rows="4" class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="description"
+                            type="text" v-model="description" placeholder="Nhập mô tả trình độ"></textarea>
                     </div>
                     <div class="flex justify-center p-1 sm:p-2 mt-3 sm:mt-5">
                         <button type="submit" @click="updateLevelButton"

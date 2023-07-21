@@ -72,6 +72,7 @@ export default {
             currentTheme: "",
             empList: [],
             acceptanceTypeList: [],
+            curIP: '',
             isShowSelected: false,
             id: '',
             headers: [
@@ -90,6 +91,7 @@ export default {
         this.getQuyDinh()
         // this.getNoti()
         this.setTheme()
+        this.getCurrentWifi()
     },
     watch: {
         'themeStore.getTheme': function (val) {
@@ -103,6 +105,19 @@ export default {
                     this.regu = res.data
                 })
                 .catch(err => {
+                    swal.error(err)
+                })
+        },
+        getCurrentWifi() {
+            this.isLoading = true
+            API.getOnlyIP()
+                .then(res => {
+                    // this.curName = res.data.result.nameWifi
+                    this.curIP = res.data.ipString
+                    this.isLoading = false
+                })
+                .catch(err => {
+                    this.isLoading = false
                     swal.error(err)
                 })
         },
@@ -140,7 +155,7 @@ export default {
         },
         chamCong() {
             this.isLoading = true
-            API.chamCong()
+            API.chamCongV2(this.curIP)
                 .then(res => {
                     swal.success('Chấm công thành công')
                     this.getList()

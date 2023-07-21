@@ -6,6 +6,7 @@ import HrEmpManagementView from '../views/HrEmpManagementView.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import checkAuth from '../middleware/checkAuth'
 import RequestOT from '../views/RequestOTView.vue'
+import Exchange from '../views/Exchange.vue'
 import requestOff from '../views/RequestOffView.vue'
 import department from '../views/DepartmentView.vue'
 import MaternityEmployee from '../views/MaternityEmployeeView.vue'
@@ -18,6 +19,7 @@ import EmpInformation from '../views/Employee/Information.vue'
 import EmpDegree from '../views/Employee/Degree.vue'
 import EmpContract from '../views/Employee/Contract.vue'
 import EmpAllowance from '../views/Employee/Allowance.vue'
+import LeaveLogPage from '../views/LeaveLogPage.vue'
 import EmployeeList from '../views/EmployeeList.vue'
 import EmpDepartment from '../views/Employee/Department.vue'
 import PaySlipForEmp from '../views/PayslipForEmp.vue'
@@ -28,6 +30,7 @@ import EmpExperience from '../views/Employee/Experience.vue'
 import subsidize from '../views/SubsidizeView.vue'
 import position from '../views/PositionView.vue'
 import level from '../views/LevelView.vue'
+import AttendanceEmployeeList from '../views/AttendanceEmployeeList.vue'
 import allowance from '../views/AllowanceView.vue'
 import employeeContract from '../views/EmployeeContractView.vue'
 import configWorkDay from '../views/ConfigDayView.vue'
@@ -271,6 +274,28 @@ const router = createRouter({
       beforeEnter: checkValidRole
     },
     {
+      path: '/exchange',
+      name: 'exchange',
+      component: Exchange,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/leavelog-list',
+      name: 'leavelog-list',
+      component: LeaveLogPage,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Manager'
+
+      },
+      beforeEnter: checkValidRole
+    },
+    {
       path: '/employeeContract',
       name: 'employeeContract',
       component: employeeContract,
@@ -326,6 +351,16 @@ const router = createRouter({
       path: '/request',
       name: 'accept-request',
       component: AcceptRequest,
+      meta: {
+        middleware: checkAuth,
+        requiredRole: 'Employee'
+      },
+      beforeEnter: checkValidRole
+    },
+    {
+      path: '/attendance-list',
+      name: 'attendance-employee-list',
+      component: AttendanceEmployeeList,
       meta: {
         middleware: checkAuth,
         requiredRole: 'Employee'

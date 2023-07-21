@@ -3,12 +3,19 @@
         <div class="bg-white w-full p-3">
             <button @click="createDepartmentAllowanceForm" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base">Tạo phụ ngày
                 làm</button>
+            <button @click="showImport" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base ml-5">Nhập dữ liệu từ file
+                Excel</button>
+            <button @click="downTemplate" class="custom-btn mb-2 sm:mb-5 text-xs sm:text-base ml-5">Tải về file
+                mẫu</button>
             <div class="w-[90%] mx-auto">
                 <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme"
                     header-text-direction="center" body-text-direction="center">
+                    <template #item-day="item">
+                        {{ convertDate(item.day) }}
+                    </template>
                     <template #item-operation="item">
                         <div class="operation-wrapper">
-                            <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button>
+                            <!-- <button class="view-btn"><font-awesome-icon icon="fa-solid fa-eye" /></button> -->
                             <button @click="updateDepartmentAllowanceForm(item)" class="edit-btn"><font-awesome-icon
                                     icon="fa-solid fa-pen-to-square" /></button>
                             <button @click="deleteAnnual(item.id)" class="delete-btn"><font-awesome-icon
@@ -93,12 +100,19 @@
                 </div>
             </div>
         </div>
+        <div v-show="isShowImport" @click.self="isShowImport = false" class="fog-l">
+            <div class="bg-white rounded-sm p-5 flex items-center">
+                <input type="file" ref="fileInput" />
+                <button @click="uploadFile" class="btn-primary">Upload</button>
+            </div>
+        </div>
         <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
 import API from '../API';
 import Loading from '../components/Loading.vue'
+import functionCustom from '../utilities/functionCustom';
 export default {
     components: {
         Loading
@@ -106,6 +120,7 @@ export default {
     data() {
         return {
             isLoading: false,
+            isShowImport: false,
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
                 { text: "Ngày", value: "day", width: 140, },
@@ -168,6 +183,24 @@ export default {
                     swal.error(error)
                 });
         },
+        showImport() {
+            this.isShowImport = true
+        },
+        uploadFile() {
+            const file = this.$refs.fileInput.files[0]
+            const formData = new FormData()
+            formData.append('file', file)
+            this.sendFormData(formData)
+        },
+        sendFormData(formData) {
+            API.importExcelAnnual(formData)
+                .then(res => {
+                    swal.success('Upload file excel thành công')
+                })
+                .catch(err => {
+                    swal.error(err.response.data)
+                })
+        },
         deleteAnnual(id) {
             swal.confirm('Bạn có chắc chắn ngày làm này không?').then((result) => {
                 if (result.value) {
@@ -182,8 +215,36 @@ export default {
                 }
             })
         },
+        downTemplate() {
+            this.isLoading = true
+            const fileURL = "https://firebasestorage.googleapis.com/v0/b/logotv2-a1ca2.appspot.com/o/templates%2Fthang4-82023.xlsx?alt=media&token=239cc8ea-94e0-46fd-9995-57d01a4bf15e";
+            const downloadLink = document.createElement("a");
+
+            axios
+                .get(fileURL, { responseType: "blob" })
+                .then(response => {
+                    this.isLoading = false
+                    const blob = new Blob([response.data], { type: "application/octet-stream" });
+                    const url = window.URL.createObjectURL(blob);
+
+                    downloadLink.href = url;
+                    downloadLink.download = "Thang4-82023.xlsx";
+                    downloadLink.click();
+
+                    window.URL.revokeObjectURL(url);
+
+                    downloadLink.remove();
+                })
+                .catch(error => {
+                    this.isLoading = false
+                    swal.error("Lỗi tải xuống file");
+                });
+        },
         exit() {
             this.isShow = false
+        },
+        convertDate(date) {
+            return functionCustom.convertDate(date)
         },
         exit2() {
             this.isShow2 = false

@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white">
-        <button class="btn-primary my-3" @click="showCreate">Tạo mới</button>
+        <!-- <button class="btn-primary my-3" @click="showCreate">Tạo mới</button> -->
         <div class="w-[90%] mx-auto mt-10">
             <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"
                 body-text-direction="center">
@@ -14,8 +14,8 @@
                 </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button class="delete-btn" @click="deleteLeaveLog(item.id)"><font-awesome-icon
-                                :icon="['fas', 'trash']" /></button>
+                        <button class="edit-btn" @click="showEdit(item)"><font-awesome-icon
+                                icon="fa-solid fa-pen-to-square" /></button>
                     </div>
                 </template>
             </EasyDataTable>
@@ -27,8 +27,13 @@
                         {{ op.display }}
                     </option>
                 </select>
-                <input type="date" v-model="leaveDate" class="input-cus w-full">
-                <textarea rows="4" type="text" v-model="reason" class="input-cus w-full"
+                <input disabled type="datetime-local" v-model="leaveDate" class="input-cus w-full">
+                <select v-model="selectedStatus" name="" class="select-cus w-full" id="">
+                    <option value="1">Request</option>
+                    <option value="2">Approved</option>
+                    <option value="3">Cancel</option>
+                </select>
+                <textarea v-if="selectedStatus == 3" rows="4" type="text" v-model="reason" class="input-cus w-full"
                     placeholder="Lý do . . ."></textarea>
                 <button @click="updateStatus" class="btn-primary">Lưu</button>
             </div>
@@ -53,12 +58,14 @@ export default {
             isLoading: false,
             accTypeList: [],
             selectedType: 1,
+            selectedStatus: 1,
             isShowInput: false,
             isShow: false,
             id: '',
             page: 1,
             leaveDate: '',
             leaveShift: 1,
+            userId: '',
             reason: '',
             headers: [
                 { text: "Ngày nghỉ", value: "leaveDate", width: 200 },
@@ -78,7 +85,7 @@ export default {
     methods: {
         getList() {
             this.isLoading = true
-            API.getLeaveLogList(this.page)
+            API.getListLeaveLog(this.page)
                 .then(res => {
                     this.isLoading = false
                     this.list = res.data.items
@@ -91,11 +98,12 @@ export default {
         updateStatus() {
             this.isLoading = true
             const data = {
-                leaveDate: this.leaveDate,
-                leaveShift: Number.parseInt(this.selectedType),
-                reason: this.reason
+                id: this.id,
+                userId: this.userId,
+                status: Number.parseInt(this.selectedStatus),
+                cancelReason: this.reason
             }
-            API.createLeaveLog(data)
+            API.updateStatusLeaveLog(data.id, data.userId, data.status, data.cancelReason)
                 .then(res => {
                     this.isLoading = false
                     swal.success(res.data.message)
@@ -104,7 +112,7 @@ export default {
                 })
                 .catch(err => {
                     this.isLoading = false
-                    swal.error(err.response.data)
+                    swal.error(err.response.data.message)
                 })
         },
         convertDate(date) {
@@ -116,22 +124,13 @@ export default {
                     this.accTypeList = res.data
                 })
         },
-        deleteLeaveLog(id) {
-            swal.confirm('Bạn có chắc chắn muốn xoá?').then(re => {
-                if (re.value) {
-                    this.isLoading = true
-                    API.deleteLeaveLog(id)
-                        .then(res => {
-                            this.isLoading = false
-                            swal.success('Xoá thành công')
-                            this.getList()
-                        })
-                        .catch(err => {
-                            swal.error(err)
-                            this.isLoading = false
-                        })
-                }
-            })
+        showEdit(item) {
+            this.isShow = true
+            this.reason = item.cancelReason
+            this.selectedType = item.leaveShift
+            this.userId = item.applicationUserId
+            this.leaveDate = item.leaveDate
+            this.id = item.id
         },
         cancelAction() {
             this.selectedType = 1
@@ -139,6 +138,7 @@ export default {
             this.id = ''
             this.leaveDate = ''
             this.reason = ''
+            this.userId = ''
         },
         showCreate() {
             this.isShow = true

@@ -108,8 +108,19 @@ export default class API {
     static getAttendanceEmployeeList(page) {
         return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee?pg=${page}`)
     }
+    static getAttendanceEmployeeListFilter(page, FromDate, ToDate) {
+        return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/Filter?pg=${page}&FromDate=${FromDate}&ToDate=${ToDate}`)
+    }
     static createAttendance() {
         return axios.post(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/Create`)
+    }
+
+    //Exchange
+    static getListExchange() {
+        return axios.get(`${this.BASE_URL_V1}/Config/Exchange`)
+    }
+    static updateExchange(data) {
+        return axios.put(`${this.BASE_URL_V1}/Config/UpdateExchange`, data)
     }
 
     //contract
@@ -339,6 +350,15 @@ export default class API {
         return axios.put(`${this.BASE_URL_V1}/Config/RegionalMinimumWage/Update`, data)
     }
 
+    static exportExcelFileExchange() {
+        // return axios.get(`${this.BASE_URL_V1}/Config/ExportExcelFileExchange`)
+        return axios.get('https://drive.usercontent.google.com/uc?id=1AnnC-pzJP-Oxvew2X27FGcl-BK7GCYoT&authuser=1&export=download')
+    }
+
+    static exportExcelFileTaxIncome() {
+        return axios.get(`${this.BASE_URL_V1}/Config/ExportExcelFileTaxIncome`)
+    }
+
     //config default
 
     static getConfigDefault() {
@@ -448,6 +468,9 @@ export default class API {
     static deleteAnnual(id) {
         return axios.delete(`${this.BASE_URL_V1}/Annual/Delete?id=${id}`)
     }
+    static importExcelAnnual(data) {
+        return axios.post(`${this.BASE_URL_V1}/Annual/ImportExcel`, data)
+    }
 
     //attendace manager
     static getAttendanceManager(page) {
@@ -481,14 +504,17 @@ export default class API {
     static chamCong() {
         return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/Create`)
     }
+    static chamCongV2(ip) {
+        return axios.get(`${this.BASE_URL_V1}/Emp/AttendanceEmployee/CreateAttendanceForMobileOnly?ip=${ip}`)
+    }
     static getOTLogByEmp(page) {
         return axios.get(`${this.BASE_URL_V1}/Emp/GetOvertimeLog?page=${page}`)
     }
     static updateStatusOTLogByEmp(data) {
         return axios.put(`${this.BASE_URL_V1}/Emp/UpdateStatusOvertimeLogRequest`, data)
     }
-    static getLeaveLogList() {
-        return axios.get(`${this.BASE_URL_V1}/Emp/LeaveLog`)
+    static getLeaveLogList(page) {
+        return axios.get(`${this.BASE_URL_V1}/Emp/LeaveLog?pg=${page}`)
     }
     static createLeaveLog(data) {
         return axios.post(`${this.BASE_URL_V1}/Emp/CreateLeaveLog`, data)
@@ -504,6 +530,14 @@ export default class API {
     }
     static createDependentForEmp(data) {
         return axios.post(`${this.BASE_URL_V1}/Emp/DependentCreate`, data)
+    }
+
+    //leavelog
+    static getListLeaveLog(page) {
+        return axios.get(`${this.BASE_URL_V1}/LeaveLog/GetLeaveLog?page=${page}`)
+    }
+    static updateStatusLeaveLog(id, userId, sts, reason) {
+        return axios.put(`${this.BASE_URL_V1}/LeaveLog/UpdateStatusLeaveLogRequest/${id}?userId=${userId}&status=${sts}&cancelReason=${reason}`)
     }
 
     //noti

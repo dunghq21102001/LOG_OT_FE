@@ -12,6 +12,12 @@
                 <template #item-insuranceAmount="item">
                     {{ convertVnd(item.insuranceAmount) }}
                 </template>
+                <template #item-startDate="item">
+                    {{ convertDate(item.startDate) }}
+                </template>
+                <template #item-endDate="item">
+                    {{ convertDate(item.endDate) }}
+                </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
                         <button @click="showDetail(item)" class="view-btn"><font-awesome-icon
@@ -299,21 +305,14 @@ export default {
             lastPage: 1,
             isLoading: false,
             headers: [
-                //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
-                //{ text: "Username", value: "applicationUser", width: 140, },
                 { text: "Mã hợp đồng", value: "contractCode", width: 140, },
-                // { text: "File", value: "file", width: 140, },
                 { text: "Ngày bắt đầu", value: "startDate", width: 140, },
                 { text: "Ngày kết thúc", value: "endDate", width: 140, },
                 { text: "Công việc", value: "job", width: 140, },
                 { text: "Lương cơ bản", value: "basicSalary", width: 140, },
                 { text: "Trạng thái", value: "status", width: 140, },
-                // { text: "PercentDeduction", value: "percentDeduction", width: 140, },
                 { text: "Loại lương", value: "salaryType", width: 140, },
                 { text: "Loại hợp đồng", value: "contractType", width: 140, },
-                // { text: "IsPersonalTaxDeduction", value: "isPersonalTaxDeduction", width: 140, },
-                // { text: "InsuranceType", value: "insuranceType", width: 140, },
-                // { text: "InsuranceAmount", value: "insuranceAmount", width: 140, },
                 { text: "Hành động", value: "operation", width: 300 },
             ],
             items: [],
@@ -499,6 +498,9 @@ export default {
         convertVnd(price) {
             if (price == null || price == '' || price == NaN) return 0
             return functionCustom.convertVND(price)
+        },
+        convertDate(date) {
+            return functionCustom.convertDate(date)
         },
         createEmployeeContract() {
             const data = {

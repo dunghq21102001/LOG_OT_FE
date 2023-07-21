@@ -45,7 +45,7 @@
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Số tiền phụ cấp:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
+                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
                             v-model="amount" placeholder="Nhập số tiền phụ cấp">
                     </div>
                     <div class="flex p-1 sm:p-2">
@@ -94,7 +94,7 @@
                     </div>
                     <div class="flex p-1 sm:p-2">
                         <label for="empid" class="w-[100px] sm:w-[130px]"><span>Số tiền phụ cấp:</span></label>
-                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="text"
+                        <input class="bg-slate-200 w-[155px] sm:w-[235px] xl:w-[300px] px-2 sm:px-3" id="name" type="number"
                             v-model="amount" placeholder="Nhập số tiền phụ cấp">
                     </div>
                     <div class="flex p-1 sm:p-2">
@@ -120,15 +120,22 @@
                 </div>
             </div>
         </div>
+        <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
+import Loading from '../components/Loading.vue'
 import API from '../API';
 import functionCustom from '../utilities/functionCustom';
+import swal from '../utilities/swal2';
 
 export default {
+    components: {
+        Loading
+    },
     data() {
         return {
+            isLoading: false,
             headers: [
                 //{ text: "Mã phòng ban", value: "id", width: 100, fixed: "left", },
                 { text: "Tên phụ cấp", value: "name", width: 140, },
@@ -175,6 +182,7 @@ export default {
                 this.requirements = currentAllowance.requirements
         },
         updateAllowanceButton() {
+            this.isLoading = true
             const data = {
                 id: this.id,
                 name: this.name,
@@ -185,12 +193,17 @@ export default {
             }
             API.updateAllowance(data)
                 .then(response => {
+                    this.isLoading = false
                     swal.success(response.data.message)
                     this.exit2()
                     this.getListAllowance()
                 })
                 .catch(error => {
-                    swal.error(error.data.message)
+                    this.isLoading = false
+                    if (Array.isArray(error.response.data)) {
+                        const listErr = error.response.data.join('\n')
+                        swal.error(listErr)
+                    } else swal.error('Đã xảy ra lỗi, vui lòng thử lại', 3500)
                 });
         },
         convertVND(price) {
@@ -217,8 +230,10 @@ export default {
             this.isShow2 = false
         },
         getListAllowance() {
+            this.isLoading = true
             API.getListAllowance(1)
                 .then(response => {
+                    this.isLoading = false
                     this.items = response.data.result.items.map(item => {
                         return {
                             id: item.id,
@@ -231,10 +246,12 @@ export default {
                     })
                 })
                 .catch(error => {
+                    this.isLoading = false
                     swal.error(error)
                 });
         },
         createAllowance() {
+            this.isLoading = true
             const data = {
                 name: this.name,
                 allowanceType: this.allowanceTypeSelected,
@@ -244,13 +261,18 @@ export default {
             }
             API.createAllowance(data)
                 .then(response => {
+                    this.isLoading = false
                     swal.success(response.data.message)
                     this.exit()
                     this.resetFormCreate()
                     this.getListAllowance()
                 })
                 .catch(error => {
-                    swal.error(error.data.message)
+                    this.isLoading = false
+                    if (Array.isArray(error.response.data)) {
+                        const listErr = error.response.data.join('\n')
+                        swal.error(listErr)
+                    } else swal.error('Đã xảy ra lỗi, vui lòng thử lại', 3500)
                 });
         },
         getListAllowanceType() {

@@ -11,6 +11,7 @@ import axios from 'axios';
 import App from './App.vue'
 import API from './API'
 import router from './router'
+import Loading from './components/Loading.vue'
 import ExportExcel from '../node_modules/vue-3-export-excel/index'
 import i18n from './utilities/i18n'
 import vueClickOutsideElement from 'vue-click-outside-element'
@@ -43,6 +44,7 @@ window.axios.defaults.headers.common = { 'Authorization': `Bearer ${sessionStora
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('country-flag', CountryFlag)
 app.component('EasyDataTable', Vue3EasyDataTable)
+app.component('Loading', Loading)
 
 app.use(VueSweetalert2)
 app.use(createPinia())

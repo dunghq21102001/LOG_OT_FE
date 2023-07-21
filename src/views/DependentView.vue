@@ -71,6 +71,7 @@
                 </div>
             </div>
         </div>
+        <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
@@ -82,6 +83,7 @@ export default {
         return {
             list: [],
             empList: [],
+            isLoading: false,
             empPage: 1,
             page: 1,
             isShow: false,
@@ -113,11 +115,16 @@ export default {
     },
     methods: {
         getList() {
+            this.isLoading = true
             API.getDependentList(this.page)
                 .then(res => {
+                    this.isLoading = false
                     this.list = res.data.result.items
                 })
-                .catch(err => swal.error(err))
+                .catch(err => {
+                    swal.error(err)
+                    this.isLoading = false
+                })
         },
         getEmpList() {
             API.getListEmployee(this.empPage)
@@ -131,6 +138,7 @@ export default {
             this.isCreate = true
         },
         actionCreate() {
+            this.isLoading = true
             const data = {
                 applicationUserId: this.selectedEmpId,
                 name: this.name,
@@ -140,11 +148,15 @@ export default {
             }
             API.createDependent(data)
                 .then(res => {
+                    this.isLoading = false
                     swal.success('Tạo mới thành công')
                     this.cancelAll()
                     this.getList()
                 })
-                .catch(err => swal.error(err))
+                .catch(err => {
+                    swal.error(err)
+                    this.isLoading = false
+                })
         },
         convertDate(date) {
             return functionCustom.convertDate(date)
@@ -177,6 +189,7 @@ export default {
             })
         },
         actionUpdate() {
+            this.isLoading = true
             const data = {
                 id: this.id,
                 name: this.name,
@@ -188,11 +201,15 @@ export default {
 
             API.updateDependent(data)
                 .then(res => {
+                    this.isLoading = false
                     swal.success('Cập nhật thông tin thành công')
                     this.getList()
                     this.cancelAll()
                 })
-                .catch(er => swal.error(er))
+                .catch(er => {
+                    swal.error(er)
+                    this.isLoading = false
+                })
         },
         closeSelect() {
             this.isShowSelected = false

@@ -4,6 +4,9 @@
         <div class="w-[90%] mx-auto mt-10">
             <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"
                 body-text-direction="center">
+                <template #item-applicationUserId="item">
+                    {{ item.applicationUser.fullname }}
+                </template>
                 <template #item-birthDay="item">
                     <div>
                         {{ convertDate(item.birthDay) }}
@@ -11,8 +14,8 @@
                 </template>
                 <template #item-operation="item">
                     <div class="operation-wrapper">
-                        <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
-                                icon="fa-solid fa-pen-to-square" /></button>
+                        <!-- <button class="edit-btn" @click="showUpdate(item)"><font-awesome-icon
+                                icon="fa-solid fa-pen-to-square" /></button> -->
                         <button @click="deleteM(item.id)" class="delete-btn"><font-awesome-icon
                                 :icon="['fas', 'trash']" /></button>
                     </div>
@@ -20,24 +23,11 @@
             </EasyDataTable>
         </div>
         <div @click.self="cancelAll" v-show="isShow" class="fog-l">
-            <div class="w-[90%] lg:w-[60%]  dark:bg-[#292e32] flex flex-col items-center bg-white max-h-[90vh]">
-                <div class="w-full flex items-center justify-center flex-wrap">
-                    <div class="box-input w-[86%] lg:w-[40%]">
-                        <label for="birthday">Sinh nhật</label>
-                        <input type="datetime-local" id="birthday" v-model="birthDay"
-                            class="input-cus dark:bg-gray-900 dark:text-white  ">
-                    </div>
-                    <div class="box-input w-[88%] lg:w-[40%]">
-                        <label for="denyReason">Lý do từ chối</label>
-                        <input type="text" id="denyReason" v-model="denyReason" :disabled="isAllowInput"
-                            class="input-cus dark:bg-gray-900 dark:text-white" :class="isAllowInput ? 'cursor-not-allowed' : ''">
-                    </div>
-                </div>
+            <div class="w-[90%] md:w-[50%] lg:w-[30%]  dark:bg-[#292e32] flex flex-col items-center bg-white max-h-[90vh]">
                 <div class="box-input w-[88%]">
-                    <label for="acceptanceType">Acceptance Type</label>
-                    <select class="select-cus" v-model="acceptanceType" @change="checkType" name="" id="">
-                        <option v-for="acc in acceptanceTypeList" :value="acc.value">{{ acc.display }}</option>
-                    </select>
+                    <label for="birthday">Sinh nhật</label>
+                    <input type="datetime-local" id="birthday" v-model="birthDay"
+                        class="input-cus dark:bg-gray-900 dark:text-white  ">
                 </div>
                 <div v-show="isUpdate" class="box-input w-[88%] my-2 mx-auto">
                     <label for="emp" class="dark:text-white">Nhân viên</label>
@@ -66,6 +56,7 @@
                 </div>
             </div>
         </div>
+        <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
@@ -78,6 +69,7 @@ export default {
             list: [],
             page: 1,
             empList: [],
+            isLoading: false,
             acceptanceTypeList: [],
             isAllowInput: true,
             isShowSelected: false,
@@ -94,10 +86,10 @@ export default {
             denyReason: '',
             headers: [
                 { text: "Tên nhân viên", value: "applicationUserId", width: 200 },
-                { text: "Sinh nhật", value: "birthDay", width: 200 },
-                { text: "Lý do từ chối", value: "denyReason", width: 200 },
-                { text: "Acceptance Type", value: "acceptanceType", width: 200 },
-                { text: "Hành động", value: "operation", width: 400 },
+                { text: "Ngày dự sinh", value: "birthDay", width: 200 },
+                // { text: "Lý do từ chối", value: "denyReason", width: 200 },
+                // { text: "Acceptance Type", value: "acceptanceType", width: 200 },
+                { text: "Hành động", value: "operation", width: 200 },
             ]
         }
     },
@@ -108,11 +100,16 @@ export default {
     },
     methods: {
         getList() {
+            this.isLoading = true
             API.getMaternityEmployeeList(this.page)
                 .then(res => {
+                    this.isLoading = false
                     this.list = res.data.result.items
                 })
-                .catch(err => swal.error(err))
+                .catch(err => {
+                    swal.error(err)
+                    this.isLoading = false
+                })
         },
         getEnums() {
             API.getListAcceptanceType()
@@ -155,7 +152,7 @@ export default {
             this.selectedEmp = currEmp.userName
         },
         checkType() {
-            if(this.acceptanceType == '2') this.isAllowInput = false
+            if (this.acceptanceType == '2') this.isAllowInput = false
             else this.isAllowInput = true
         },
         deleteM(id) {
@@ -171,6 +168,7 @@ export default {
             })
         },
         actionCreate() {
+            this.isLoading = false
             const data = {
                 applicationUserId: this.selectedEmpId,
                 image: this.imageUrl,
@@ -180,11 +178,13 @@ export default {
             }
             API.createMaternityEmployee(data)
                 .then(res => {
+                    this.isLoading = false
                     swal.success('Tạo mới thành công')
                     this.getList()
                     this.cancelAll()
                 })
                 .catch(err => {
+                    this.isLoading = false
                     if (err.response.data.errors) {
                         const listErr = err.response.data?.errors?.createMaternityEmployeeView.join('\n')
                         swal.error(listErr, 3000)
@@ -211,6 +211,7 @@ export default {
             this.selectedEmpId = id
         },
         actionUpdate() {
+            this.isLoading = true
             const data = {
                 id: this.id,
                 image: this.imageUrl,
@@ -221,11 +222,15 @@ export default {
 
             API.updateMaternityEmployee(data)
                 .then(res => {
+                    this.isLoading = false
                     swal.success('Cập nhật thông tin thành công')
                     this.getList()
                     this.cancelAll()
                 })
-                .catch(er => swal.error(er))
+                .catch(er => {
+                    this.isLoading = false
+                    swal.error(er)
+                })
         }
     }
 }

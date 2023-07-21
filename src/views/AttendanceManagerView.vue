@@ -60,6 +60,7 @@
 import Loading from '../components/Loading.vue'
 import API from '../API';
 import functionCustom from '../utilities/functionCustom';
+import swal from '../utilities/swal2';
 
 export default {
     components: {
@@ -107,21 +108,31 @@ export default {
                 });
         },
         getByUserName() {
+            this.isLoading = true
             API.getAttendanceByUsername(this.userName)
                 .then(response => {
+                    this.isLoading = false
+                    this.page = 1
                     this.items = response.data.items
                 })
                 .catch(error => {
-                    swal.error(error)
+                    this.isLoading = false
+                    swal.error(error.response.data)
                 });
         },
         searByDate() {
+            if (this.fromDate == '' || this.toDate == '') return swal.error('Bạn phải nhập đủ ngày bắt đầu và ngày kết thúc để tìm kiếm')
+            if (this.fromDate > this.toDate) return swal.error('Ngày bắt đầu không thể lớn hơn ngày kết thúc')
+            this.isLoading = true
             API.getAttendanceByFilter(this.fromDate, this.toDate)
                 .then(response => {
+                    this.isLoading = false
+                    this.page = 1
                     this.items = response.data.list.items
                 })
                 .catch(error => {
-                    swal.error(error)
+                    this.isLoading = false
+                    swal.error(error.response.data)
                 });
         },
         reset() {

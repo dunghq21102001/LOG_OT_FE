@@ -17,16 +17,19 @@
             </EasyDataTable>
         </div>
         <div v-show="isShow" @click.self="cancelAction" class="fog-l">
-            <div class="p-5 w-[277px] bg-white rounded-md flex items-center justify-center flex-col">
-                <select v-model="selectedType" @change="checkType" name="" class="select-cus w-full" id="">
+            <div class="p-5 w-[30vw] bg-white rounded-md flex items-center justify-center flex-col">
+                <select v-model="selectedType" name="" class="select-cus w-full" id="">
                     <option v-for="op in accTypeList" :value="op.value">
                         {{ op.display }}
                     </option>
                 </select>
-                <input v-show="isShowInput" type="text" v-model="cancelReason" class="input-cus" placeholder="Lý do huỷ . . .">
+                <input type="date" v-model="leaveDate" class="input-cus w-full">
+                <textarea rows="4" type="text" v-model="reason" class="input-cus w-full"
+                    placeholder="Lý do . . ."></textarea>
                 <button @click="updateStatus" class="btn-primary">Lưu</button>
             </div>
         </div>
+        <Loading v-show="isLoading" />
     </div>
 </template>
 <script>
@@ -39,6 +42,7 @@ export default {
         return {
             list: [],
             accTypeList: [],
+            isLoading: false,
             selectedType: 3,
             isShowInput: false,
             isShow: false,
@@ -60,13 +64,19 @@ export default {
     },
     methods: {
         getList() {
+            this.isLoading = true
             API.getOTLogByEmp(this.page)
                 .then(res => {
+                    this.isLoading = false
                     this.list = res.data.items
                 })
-                .catch(err => swal.error(err))
+                .catch(err => {
+                    swal.error(err)
+                    this.isLoading = false
+                })
         },
         updateStatus() {
+            this.isLoading = true
             const data = {
                 id: this.id,
                 status: Number.parseInt(this.selectedType),
@@ -74,11 +84,13 @@ export default {
             }
             API.updateStatusOTLogByEmp(data)
                 .then(res => {
+                    this.isLoading = false
                     swal.success(res.data)
                     this.getList()
                     this.cancelAction()
                 })
                 .catch(err => {
+                    this.isLoading = false
                     swal.error(err.response.data)
                 })
         },
@@ -95,7 +107,7 @@ export default {
             this.selectedType = item.status == 'Request' ? 1 : item.status == 'Cancel' ? 3 : 2
             this.id = item.id
             this.isShow = true
-            if(item.cancelReason != '' && item.cancelReason != null) this.isShowInput = true
+            if (item.cancelReason != '' && item.cancelReason != null) this.isShowInput = true
         },
         checkType() {
             if (this.selectedType == 3) this.isShowInput = true

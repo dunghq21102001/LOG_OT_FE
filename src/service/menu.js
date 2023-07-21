@@ -8,69 +8,24 @@ export default class menu {
                     {
                         iconName: 'dashboardIcon',
                         itemName: 'Quản lý',
-                        isShow: true,
+                        isShow: false,
                         isShowExpand: false,
                         children: [
-                            {
-                                childName: 'Dashboard',
-                                routeName: 'home'
-                            },
-                            {
-                                childName: 'Tài khoản',
-                                routeName: 'account'
-                            },
-                            {
-                                childName: 'Nhân Viên',
-                                routeName: 'employee-list'
-                            },
-                            {
-                                childName: 'Thai Sản',
-                                routeName: 'maternity-employee'
-                            },
-                            {
-                                childName: 'Tăng ca',
-                                routeName: 'overtime-log'
-                            },
-                            {
-                                childName: 'Phụ thuộc',
-                                routeName: 'dependent-list'
-                            },
-                            {
-                                childName: 'Phòng ban',
-                                routeName: 'department',
-                            },
-                            {
-                                childName: 'Vị trí',
-                                routeName: 'position',
-                            },
-                            {
-                                childName: 'Trình độ',
-                                routeName: 'level',
-                            },
-                            {
-                                childName: 'Phụ cấp',
-                                routeName: 'allowance',
-                            },
-                            {
-                                childName: 'Hợp đồng',
-                                routeName: 'employeeContract',
-                            },
-                            {
-                                childName: 'Phụ cấp theo phòng ban',
-                                routeName: 'departmentAllowance',
-                            },
-                            {
-                                childName: 'Quản lý lương',
-                                routeName: 'payslip',
-                            },
-                            {
-                                childName: 'Quản lí chấm công',
-                                routeName: 'attendanceManager',
-                            },
-                            {
-                                childName: 'Trợ cấp',
-                                routeName: 'subsidize',
-                            }
+                            { childName: 'Hợp đồng', routeName: 'employeeContract' },
+                            { childName: 'Nhân Viên', routeName: 'employee-list' },
+                            { childName: 'Nghỉ phép', routeName: 'leavelog-list' },
+                            { childName: 'Phòng ban', routeName: 'department' },
+                            { childName: 'Phụ cấp', routeName: 'allowance' },
+                            { childName: 'Phụ cấp theo phòng ban', routeName: 'departmentAllowance' },
+                            { childName: 'Phụ thuộc', routeName: 'dependent-list' },
+                            { childName: 'Quản lý chấm công', routeName: 'attendanceManager' },
+                            { childName: 'Quản lý Lương', routeName: 'payslip' },
+                            { childName: 'Thai Sản', routeName: 'maternity-employee' },
+                            { childName: 'Tài khoản quản lý', routeName: 'account' },
+                            { childName: 'Tăng ca', routeName: 'overtime-log' },
+                            { childName: 'Trình độ', routeName: 'level' },
+                            { childName: 'Trợ cấp theo phòng ban', routeName: 'subsidize' },
+                            { childName: 'Vị trí', routeName: 'position' }
                         ]
                     },
                     {
@@ -79,38 +34,18 @@ export default class menu {
                         isShow: false,
                         isShowExpand: false,
                         children: [
-                            {
-                                childName: 'Mặc định',
-                                routeName: 'configDefault',
-                            },
-                            {
-                                childName: 'Wifi',
-                                routeName: 'config-wifi',
-                            },
-                            {
-                                childName: 'Ca làm',
-                                routeName: 'configWorkDay',
-                            },
-                            {
-                                childName: 'Ngày làm việc',
-                                routeName: 'annualWorkingDay',
-                            },
-                            {
-                                childName: 'Hệ số lương',
-                                routeName: 'coefficient',
-                            },
-                            {
-                                childName: 'Mức lương tối thiểu theo vùng',
-                                routeName: 'regionalMinimumWage',
-                            },
-                            {
-                                childName: 'Thuế thu nhập',
-                                routeName: 'configTaxIncome',
-                            },
+                            { childName: 'Ca làm', routeName: 'configWorkDay' },
+                            { childName: 'Hệ số lương', routeName: 'coefficient' },
+                            { childName: 'Mặc định', routeName: 'configDefault' },
+                            { childName: 'Mức lương tối thiểu theo vùng', routeName: 'regionalMinimumWage' },
+                            { childName: 'Ngày làm việc', routeName: 'annualWorkingDay' },
+                            { childName: 'Thuế thu nhập', routeName: 'configTaxIncome' },
+                            { childName: 'Trao đổi', routeName: 'exchange' },
+                            { childName: 'Wifi', routeName: 'config-wifi' },
                         ]
                     },
                     {
-                        iconName: 'reportItem',
+                        iconName: 'dashboardIcon',
                         itemName: 'Báo cáo',
                         isShow: false,
                         isShowExpand: false,
@@ -118,7 +53,7 @@ export default class menu {
                             {
                                 childName: 'Công việc',
                                 routeName: 'job-report',
-                            },   
+                            },
                         ]
                     },
                 ]
@@ -134,26 +69,30 @@ export default class menu {
                 items: [
                     {
                         iconName: 'dashboardIcon',
-                        itemName: 'Dashboards',
+                        itemName: 'Quản lý',
                         isShow: true,
                         isShowExpand: false,
                         children: [
-                            {
-                                childName: 'Chấm công',
-                                routeName: 'attendance-employee'
-                            },
                             {
                                 childName: 'Bảng lương',
                                 routeName: 'payslip-employee'
                             },
                             {
-                                childName: 'Nhận yêu cầu',
-                                routeName: 'accept-request'
+                                childName: 'Chấm công',
+                                routeName: 'attendance-employee'
+                            },
+                            {
+                                childName: 'Danh sách chấm công',
+                                routeName: 'attendance-employee-list'
                             },
                             {
                                 childName: 'Xin nghỉ',
                                 routeName: 'leave-log-emp'
-                            }
+                            },
+                            {
+                                childName: 'Yêu cầu tăng ca',
+                                routeName: 'accept-request'
+                            },
                         ]
                     }
                 ]

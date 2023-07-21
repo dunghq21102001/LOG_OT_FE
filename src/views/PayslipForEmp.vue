@@ -110,7 +110,7 @@
                 </div>
                 <div class="text-item">
                     <div>Vùng({{ selectedItem?.regionType }}): </div>
-                    <div class="child">{{ convertVND(selectedItem?.regionMinimumWage) }} giờ</div>
+                    <div class="child">{{ convertVND(selectedItem?.regionMinimumWage) }}</div>
                 </div>
                 <p class="text-[15px] font-bold">2. Giảm trừ gia cảnh</p>
                 <div class="text-item">
@@ -119,7 +119,7 @@
                 </div>
                 <div class="text-item">
                     <div>Phụ thuộc: </div>
-                    <div class="child">{{ selectedItem?.numberOfDependent }} giờ</div>
+                    <div class="child">{{ selectedItem?.numberOfDependent }}</div>
                 </div>
                 <div class="text-item">
                     <div>Số người phụ thuộc: </div>
@@ -215,7 +215,7 @@
                 </div>
             </div>
             <!-- V -->
-            <!-- <div class="col-span-12 lg:col-span-6 w-full mx-auto rounded-md bg-white shadow-lg p-4">
+            <div class="col-span-12 lg:col-span-6 w-full mx-auto rounded-md bg-white shadow-lg p-4">
                 <div class="text-[#7b9fd8] text-[20px]">V. Chi tiết thuế thu thập cá nhân (VND)</div>
                 <table class="w-full">
                     <thead>
@@ -232,21 +232,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="data in items" :key="data.r1">
+                        <tr v-for="data in selectedItem?.detailTaxes" :key="data.id">
                             <td>
-                                <div>Từ {{ convertVND(data.muc_chiu_thue_From) }} đến {{ convertVND(muc_chiu_thue_To) }}
+                                <div>Từ {{ convertVND(data.muc_chiu_thue_From) }} 
+                                   {{ data.muc_chiu_thue_To != null ? 'đến ' + convertVND(data.muc_chiu_thue_To) : '' }}
                                 </div>
                             </td>
                             <td>
                                 <div>{{ data.thue_suat }} %</div>
                             </td>
                             <td>
-                                <div>{{ convertVND(data.he_so_tru) }}</div>
+                                <div>{{ convertVND(data.taxAmount) }}</div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </div> -->
+            </div>
         </div>
         <Loading v-show="isLoading" />
     </div>

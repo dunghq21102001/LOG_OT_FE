@@ -20,6 +20,7 @@
                     <button @click="isShowNoti = false" class="absolute right-[8px] top-[11px]">
                         <font-awesome-icon icon="fa-solid fa-circle-xmark" class="text-black dark:text-white text-[20px]" />
                     </button>
+                    <h1 v-if="notiList.length == 0" class="text-gray-500 text-[20px] text-center">Không có thông báo</h1>
                     <div @click="readingNoti(noti.id)" v-for="noti in notiList"
                         class="my-2 p-2 cursor-pointer text-black dark:text-white"
                         :class="noti.isRead == false ? 'bg-[#dcdcdc] dark:bg-[#515151] ' : ''">

@@ -7,14 +7,14 @@
         <div class="bg-white w-full p-3">
             <EasyDataTable :headers="headers" :items="items" :table-class-name="currentTheme" header-text-direction="center"
                 body-text-direction="center">
-                <template #item-muc_chiu_thue_From="item">
+                <template #item-muc_Quy_Doi_From="item">
                     <div>
-                        {{ convertVND(item.muc_chiu_thue_From) }}
+                        {{ convertVND(item.muc_Quy_Doi_From) }}
                     </div>
                 </template>
-                <template #item-muc_chiu_thue_To="item">
+                <template #item-muc_Quy_Doi_To="item">
                     <div>
-                        {{ convertVND(item.muc_chiu_thue_To) }}
+                        {{ convertVND(item.muc_Quy_Doi_To) }}
                     </div>
                 </template>
                 <template #item-he_so_tru="item">
@@ -22,9 +22,9 @@
                         {{ convertVND(item.he_so_tru) }}
                     </div>
                 </template>
-                <template #item-thue_suat="item">
+                <template #item-thue_Suat="item">
                     <div>
-                        {{ item.thue_suat }} %
+                        {{ item.thue_Suat }} %
                     </div>
                 </template>
                 <template #item-operation="item">
@@ -87,11 +87,9 @@ export default {
         return {
             isLoading: false,
             headers: [
-                { text: "Mức chịu thuế từ", value: "muc_chiu_thue_From", width: 140, },
-                { text: "Mức chịu thuế đến", value: "muc_chiu_thue_To", width: 140, },
-                // { text: "Hệ số trừ", value: "he_so_tru", width: 140, },
-                { text: "Thuế suất", value: "thue_suat", width: 140, },
-                // { text: "Action", value: "operation", width: 300 },
+                { text: "Mức quy đổi từ", value: "muc_Quy_Doi_From", width: 140, },
+                { text: "Mức quy đổi đến", value: "muc_Quy_Doi_To", width: 140, },
+                { text: "Thuế suất", value: "thue_Suat", width: 140, },
             ],
             items: [],
             options: [],
@@ -117,7 +115,7 @@ export default {
             this.sendFormData(formData)
         },
         sendFormData(formData) {
-            API.updateTaxIncome(formData)
+            API.updateExchange(formData)
                 .then(res => {
                     this.getConfigTaxIncome()
                     swal.success('Upload file excel thành công')
@@ -133,7 +131,7 @@ export default {
             this.isShow2 = false
         },
         getConfigTaxIncome() {
-            API.getConfigTaxIncome()
+            API.getListExchange()
                 .then(response => {
                     this.items = response.data
                 })
@@ -143,7 +141,7 @@ export default {
         },
         downTemplate() {
             this.isLoading = true
-            const fileURL = "https://firebasestorage.googleapis.com/v0/b/logotv2-a1ca2.appspot.com/o/templates%2FTemplateTaxIncome.xlsx?alt=media&token=e1d9b677-5a56-4cee-a44c-ff0354283a24";
+            const fileURL = "https://firebasestorage.googleapis.com/v0/b/logotv2-a1ca2.appspot.com/o/templates%2FTemplateExchange.xlsx?alt=media&token=f608b8fb-4962-4456-9fbb-b7130c95b479";
             const downloadLink = document.createElement("a");
 
             axios
@@ -154,11 +152,12 @@ export default {
                     const url = window.URL.createObjectURL(blob);
 
                     downloadLink.href = url;
-                    downloadLink.download = "TemplateTaxIncome.xlsx";
+                    downloadLink.download = "TemplateExchange.xlsx";
                     downloadLink.click();
 
                     window.URL.revokeObjectURL(url);
 
+                    // Xóa phần tử "a" sau khi tải xuống hoàn tất
                     downloadLink.remove();
                 })
                 .catch(error => {
