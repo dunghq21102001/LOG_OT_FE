@@ -140,6 +140,7 @@ export default {
             this.userName = ""
         },
         convertDate(date) {
+            if(date == null) return ''
             return functionCustom.convertDate(date)
         },
     },

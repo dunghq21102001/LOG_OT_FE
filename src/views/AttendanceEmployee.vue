@@ -147,6 +147,7 @@ export default {
                 })
         },
         convertDate(date) {
+            if(date == null) return ''
             return functionCustom.convertDate(date)
         },
         convertTime(time) {

@@ -4,6 +4,9 @@
         <div class="w-[90%] mx-auto mt-10">
             <EasyDataTable :headers="headers" :items="list" header-text-direction="center" :table-class-name="currentTheme"
                 body-text-direction="center">
+                <template #item-fullname="item">
+                   {{ item.applicationUser.fullname }}
+                </template>
                 <template #item-leaveShift="item">
                     {{ item.leaveShift == 1 ? 'Morning' : item.leaveShift == 2 ? 'Afternoon' : 'Full' }}
                 </template>
@@ -68,6 +71,7 @@ export default {
             userId: '',
             reason: '',
             headers: [
+                { text: "Tên nhân viên", value: "fullname", width: 200 },
                 { text: "Ngày nghỉ", value: "leaveDate", width: 200 },
                 { text: "Ca nghỉ", value: "leaveShift", width: 200 },
                 { text: "Lý do", value: "reason", width: 200 },
